@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Name / Management - Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Removed the inline <style> block to consolidate styles in styles.css -->
+</head>
+<body>
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main Navigation">
+    <h2>Building Name</h2>
+    <ul role="menu">
+      <li data-tab="home" class="active" role="menuitem" tabindex="0" aria-current="page"><i class="uil uil-estate icon"></i> Dashboard</li>
+      <li data-tab="amenities" role="menuitem" tabindex="0" aria-haspopup="true" aria-expanded="false"><i class="uil uil-building icon"></i> Amenities
+          <ul role="menu">
+              <li data-sub-tab="amenity-list" role="menuitem" tabindex="0">Amenity List</li>
+              <li data-sub-tab="amenity-rules" role="menuitem" tabindex="0">Amenities Rules</li>
+              <li data-sub-tab="amenity-settings" role="menuitem" tabindex="0">Auto Approval Settings</li>
+          </ul>
+      </li>
+      <li data-tab="reservations" role="menuitem" tabindex="0" aria-haspopup="true" aria-expanded="false"><i class="uil uil-calendar-alt icon"></i> Reservations
+            <ul role="menu">
+                <li data-sub-tab="pending-reservations" role="menuitem" tabindex="0">Pending</li>
+                <li data-sub-tab="all-reservations" role="menuitem" tabindex="0">All Reservations</li>
+            </ul>
+      </li>
+      <li data-tab="service-requests" role="menuitem" tabindex="0" aria-haspopup="true" aria-expanded="false"><i class="uil uil-wrench icon"></i> Service Requests
+          <ul role="menu">
+              <li data-sub-tab="active-requests" role="menuitem" tabindex="0">Active</li>
+              <li data-sub-tab="completed-requests" role="menuitem" tabindex="0">Completed/Inactive</li>
+          </ul>
+      </li>
+      <li data-tab="resident-management" role="menuitem" tabindex="0"><i class="uil uil-users-alt icon"></i> Resident Management</li>
+      <li data-tab="announcements" role="menuitem" tabindex="0"><i class="uil uil-megaphone icon"></i> Announcements</li>
+      <li data-tab="finance" role="menuitem" tabindex="0"><i class="uil uil-bill icon"></i> Finance</li>
+      <li data-tab="settings" role="menuitem" tabindex="0"><i class="uil uil-setting icon"></i> Settings</li>
+    </ul>
+    <div class="sidebar-footer">
+        <p>Download the App</p>
+        <div class="app-stores-sidebar">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+        </div>
+        <p style="margin-top: 15px;">&copy; 2023 Building Name. All rights reserved.</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="header">
+      <i class="uil uil-bars hamburger-menu" id="hamburger-menu" role="button" aria-label="Open navigation menu"></i>
+      <h1 id="current-header-title">Dashboard</h1>
+      <div style="display: flex; align-items: center;">
+        <div class="building-select-wrapper">
+            <label for="building-select" class="sr-only">Select Building</label>
+            <select class="building-select" id="building-select">
+                <option value="building1">Building 1</option>
+                <option value="building2">Building 2</option>
+                <option value="building3">Building 3</option>
+            </select>
+        </div>
+        <div class="language-select-wrapper">
+            <label for="language-select" class="sr-only">Select Language</label>
+            <select class="language-select" id="language-select">
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+            </select>
+        </div>
+        <div class="user-info" id="user-info-trigger" role="button" aria-haspopup="true" aria-expanded="false" aria-label="Manager Profile and Logout options">
+          <img src="https://via.placeholder.com/34" alt="Manager Profile Picture">
+          <span>Manager Name</span>
+          <div class="dropdown-content" id="user-dropdown-menu">
+            <a href="#" id="profile-link-dropdown" role="menuitem"><i class="uil uil-user"></i> Profile</a>
+            <a href="#" id="header-logout-link" role="menuitem"><i class="uil uil-sign-out-alt"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-area" id="home-tab-content">
+        <div class="home-content">
+            <div class="left-column">
+                <div class="card announcement-card">
+                    <div class="card-header">
+                        <span>Latest Announcements</span>
+                        <i class="uil uil-megaphone icon"></i>
+                    </div>
+                    <div class="announcement-item">
+                        <img src="https://placehold.co/80x80/E0E0E0/333333?text=Announce" alt="Image for water shut-off notice">
+                        <div class="announcement-content">
+                            <h4>Important: Water Shut-off Notice</h4>
+                            <p>Planned water shut-off for maintenance on July 15th, from 9 AM to 1 PM.</p>
+                            <small>July 10, 2025</small>
+                        </div>
+                    </div>
+                    <div class="announcement-item">
+                        <img src="https://placehold.co/80x80/E0E0E0/333333?text=BBQ" alt="Image for community BBQ event">
+                        <div class="announcement-content">
+                            <h4>Community BBQ Event!</h4>
+                            <p>Join us for a fun community BBQ on July 20th at the main courtyard.</p>
+                            <small>July 8, 2025</small>
+                        </div>
+                    </div>
+                    <a href="#" id="view-all-announcements-link">View All Announcements</a>
+                </div>
+
+                <div class="card upcoming-events-card">
+                    <div class="card-header">
+                        <span>Upcoming Events</span>
+                        <i class="uil uil-calendar-alt icon"></i>
+                    </div>
+                    <ul class="upcoming-events">
+                        <li>Yoga Class - July 12, 2025 (10:00 AM)</li>
+                        <li>Board Meeting - July 18, 2025 (6:00 PM)</li>
+                        <li>Movie Night - July 25, 2025 (7:30 PM)</li>
+                    </ul>
+                    <a href="#" id="view-full-calendar-link">View Full Calendar</a>
+                </div>
+
+                <div class="card bulletin-board-card">
+                    <div class="card-header">
+                        <span>Bulletin Board</span>
+                        <i class="uil uil-clipboard-alt icon"></i>
+                    </div>
+                    <ul class="bulletin-board">
+                        <li><span>Lost Keys (Unit 405)</span><span>July 9, 2025</span></li>
+                        <li><span>Seeking Dog Walker</span><span>July 7, 2025</span></li>
+                        <li><span>For Sale: Dining Table</span><span>July 6, 2025</span></li>
+                    </ul>
+                    <a href="#" id="post-new-item-link">Post New Item</a>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="card slideshow-card">
+                    <img src="https://placehold.co/300x200/E0E0E0/333333?text=Building+Exterior" alt="Building Exterior">
+                    <p style="font-size: 0.95rem; color: #555;">Discover the vibrant community and modern amenities at Building Name.</p>
+                </div>
+
+                <div class="card app-download-section">
+                    <div style="display: flex; align-items: flex-start;">
+                        <img class="phone-mockup" src="https://placehold.co/150x200/E0E0E0/333333?text=Phone+App" alt="Phone Mockup with app screenshot">
+                        <div>
+                            <h3>Manage Your Building On-the-Go!</h3>
+                            <p class="app-description">Download our official app for seamless amenity booking, service requests, announcements, and more. Available on iOS and Android.</p>
+                        </div>
+                    </div>
+                    <div class="app-stores">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+                    </div>
+                </div>
+
+                <div class="card local-links-card">
+                    <div class="card-header">
+                        <span>Local Area Links</span>
+                        <i class="uil uil-map-marker icon"></i>
+                    </div>
+                    <ul class="local-links">
+                        <li>Local Restaurants Guide</li>
+                        <li>Public Transit Schedules</li>
+                        <li>Nearby Parks & Recreation</li>
+                    </ul>
+                    <a href="#" id="explore-local-resources-link">Explore More Local Resources</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="amenities-tab-content" class="content-area" style="display: none;">
+        <div class="sub-tabs-container">
+            <div class="sub-tabs" role="tablist">
+                <div class="sub-tab active" data-sub-tab="amenity-list" role="tab" aria-selected="true" tabindex="0">Amenity List</div>
+                <div class="sub-tab" data-sub-tab="amenity-rules" role="tab" aria-selected="false" tabindex="0">Amenities Rules</div>
+                <div class="sub-tab" data-sub-tab="amenity-settings" role="tab" aria-selected="false" tabindex="0">Auto Approval Settings</div>
+            </div>
+        </div>
+
+        <div id="amenity-list-sub-tab-content" class="amenities-page-content" role="tabpanel" aria-labelledby="amenity-list">
+            <div class="amenities-header">
+                <h2>Manage Amenities</h2>
+                <div class="amenities-actions">
+                    <button id="add-amenity-button"><i class="uil uil-plus icon" style="margin-right: 5px;"></i> Add New Amenity</button>
+                    <button id="ai-suggestion-button"><i class="uil uil-lightbulb-alt icon" style="margin-right: 5px;"></i> AI Suggestion</button>
+                </div>
+            </div>
+
+            <div class="ai-suggestion-bar" id="ai-suggestion-bar">
+                <p id="ai-suggestion-text">AI suggests adding a "Co-working Space" amenity with 20 person capacity and high-speed internet. This can attract remote workers and increase resident satisfaction.</p>
+                <button id="ai-suggestion-action-btn">Add Co-working Space</button>
+            </div>
+
+            <div class="management-list" id="amenity-management-list">
+                <!-- Amenity items will be populated here by JavaScript -->
+            </div>
+        </div>
+
+        <div id="amenity-rules-tab-content" class="amenities-page-content" style="display: none;" role="tabpanel" aria-labelledby="amenity-rules">
+            <h2>Bookable Amenities Rules</h2>
+            <p>Set specific rules for each bookable amenity, including guest allowances and timing restrictions.</p>
+            <div class="card" style="width: 100%; max-width: 600px; margin-top: 1.5rem; text-align: left;">
+                <div class="form-group">
+                    <label for="rule-amenity-select">Select Amenity:</label>
+                    <select id="rule-amenity-select">
+                        <option value="">-- Select an Amenity --</option>
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Allow Friends/Guests:
+                        <label class="switch" style="margin-left: 10px;">
+                            <input type="checkbox" id="allow-friends-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="timing-restrictions">Timing Restrictions (e.g., HH:MM-HH:MM):</label>
+                    <input type="text" id="timing-restrictions" placeholder="e.g., 09:00-17:00, 20:00-22:00">
+                    <small>Enter comma-separated time ranges.</small>
+                </div>
+                <div class="form-actions" style="justify-content: center;">
+                    <button class="primary" id="save-amenity-rules-btn">Save Rules</button>
+                </div>
+            </div>
+            <div class="card" style="width: 100%; max-width: 600px; margin-top: 1.5rem; text-align: left;">
+                <div class="card-header">
+                    <span>Current Bookable Amenity Rules</span>
+                </div>
+                <div id="current-amenity-rules-list">
+                    <p>No rules set yet.</p>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 3rem;">Amenities Not Requiring Booking</h2>
+            <p>These amenities are generally open for all residents without prior reservation.</p>
+            <div class="card" style="width: 100%; max-width: 600px; margin-top: 1.5rem; text-align: left;">
+                <div class="card-header">
+                    <span>List of Open Access Amenities</span>
+                </div>
+                <ul id="non-bookable-amenities-list" style="list-style: disc; padding-left: 20px;">
+                    <!-- Non-bookable amenities will be populated here by JS -->
+                </ul>
+            </div>
+        </div>
+
+        <div id="amenity-settings-tab-content" class="amenities-page-content" style="display: none;" role="tabpanel" aria-labelledby="amenity-settings">
+            <h2>Auto-Approval Settings for Amenity Reservations</h2>
+            <p>Configure whether reservations for specific amenities are automatically approved or require manual review.</p>
+
+            <div class="card" style="width: 100%; max-width: 600px; margin-top: 1.5rem; text-align: left;">
+                <div class="card-header">
+                    <span>Amenity Auto-Approval</span>
+                </div>
+                <div id="auto-approval-settings-list" class="management-list">
+                    <!-- Settings toggles for amenities will be populated here by JavaScript -->
+                </div>
+                <div class="form-actions" style="justify-content: center; margin-top: 2rem;">
+                    <button class="primary" id="save-auto-approval-settings">Save Settings</button>
+                    <button class="secondary" id="cancel-auto-approval-settings">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="reservations-tab-content" class="content-area" style="display: none;">
+        <div class="sub-tabs-container">
+            <div class="sub-tabs" role="tablist">
+                <div class="sub-tab active" data-sub-tab="pending-reservations" role="tab" aria-selected="true" tabindex="0">Pending</div>
+                <div class="sub-tab" data-sub-tab="all-reservations" role="tab" aria-selected="false" tabindex="0">All Reservations</div>
+            </div>
+        </div>
+        <div id="pending-reservations-sub-tab-content" style="width: 100%; display: flex; flex-direction: column; align-items: flex-start; text-align: left;" role="tabpanel" aria-labelledby="pending-reservations">
+            <h2>Pending Reservations</h2>
+            <p>Review and manage amenity reservation requests awaiting approval.</p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Amenity</th>
+                        <th>Resident</th>
+                        <th>Date</th>
+                        <th>Time Slot</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="pending-reservations-table-body">
+                    <!-- Pending reservations will be populated here by JavaScript -->
+                    <tr>
+                        <td colspan="6" style="text-align: center;">No pending reservations.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="all-reservations-sub-tab-content" style="width: 100%; display: flex; flex-direction: column; align-items: flex-start; text-align: left; display: none;" role="tabpanel" aria-labelledby="all-reservations">
+            <h2>All Reservations History</h2>
+            <p>View all past and present amenity reservations.</p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Amenity</th>
+                        <th>Resident</th>
+                        <th>Date</th>
+                        <th>Time Slot</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="all-reservations-table-body">
+                    <!-- All reservations will be populated here by JavaScript -->
+                    <tr>
+                        <td colspan="6" style="text-align: center;">No reservations history.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- New Service Request Tab Content -->
+    <div id="service-requests-tab-content" class="content-area" style="display: none;">
+        <div class="sub-tabs-container">
+            <div class="sub-tabs" role="tablist">
+                <div class="sub-tab active" data-sub-tab="active-requests" role="tab" aria-selected="true" tabindex="0">Active</div>
+                <div class="sub-tab" data-sub-tab="completed-requests" role="tab" aria-selected="false" tabindex="0">Completed/Inactive</div>
+            </div>
+        </div>
+        <div id="active-requests-sub-tab-content" style="width: 100%; display: flex; flex-direction: column; align-items: flex-start; text-align: left;" role="tabpanel" aria-labelledby="active-requests">
+            <h2>Active Service Requests</h2>
+            <p>Monitor and manage ongoing service requests from residents.</p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Resident</th>
+                        <th>Unit</th>
+                        <th>Issue</th>
+                        <th>Status</th>
+                        <th>Submitted Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="active-service-requests-table-body">
+                    <tr>
+                        <td colspan="7" style="text-align: center;">No active service requests.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="completed-requests-sub-tab-content" style="width: 100%; display: flex; flex-direction: column; align-items: flex-start; text-align: left; display: none;" role="tabpanel" aria-labelledby="completed-requests">
+            <h2>Completed/Inactive Service Requests</h2>
+            <p>Review historical and closed service requests.</p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Resident</th>
+                        <th>Unit</th>
+                        <th>Issue</th>
+                        <th>Status</th>
+                        <th>Submitted Date</th>
+                        <th>Completion Date</th>
+                    </tr>
+                </thead>
+                <tbody id="completed-service-requests-table-body">
+                    <tr>
+                        <td colspan="7" style="text-align: center;">No completed service requests.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- New Resident Management Tab Content -->
+    <div id="resident-management-tab-content" class="content-area" style="display: none;">
+        <div class="resident-management-content" style="width: 100%;">
+            <div class="header-actions">
+                <h2>Resident Management</h2>
+                <button class="primary" id="add-resident-button"><i class="uil uil-user-plus icon" style="margin-right: 5px;"></i> Add New Resident</button>
+            </div>
+            <p>View, add, and manage resident information.</p>
+            <div class="search-bar">
+                <i class="uil uil-search"></i>
+                <input type="text" id="resident-search" placeholder="Search residents by name, unit, or email...">
+            </div>
+            <table class="data-table resident-list">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Unit</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Move-in Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="resident-list-table-body">
+                    <!-- Resident data will be populated here by JavaScript -->
+                    <tr>
+                        <td colspan="6" style="text-align: center;">No residents found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="announcements-tab-content" class="content-area" style="display: none;">
+        <img src="https://placehold.co/100x100/E0E0E0/333333?text=Announce" alt="Announcements Icon" class="no-records-icon">
+        <h3>No Announcements Yet</h3>
+        <p>There are no announcements to display at the moment. Check back later or create a new announcement.</p>
+        <button>Create New Announcement</button>
+    </div>
+
+    <div id="finance-tab-content" class="content-area" style="display: none;">
+        <img src="https://placehold.co/100x100/E0E0E0/333333?text=Finance" alt="Finance Icon" class="no-records-icon">
+        <h3>Financial Overview</h3>
+        <p>Detailed financial data and reports will be available here soon.</p>
+        <button>View Reports</button>
+    </div>
+
+    <div id="settings-tab-content" class="content-area" style="display: none;">
+        <img src="https://placehold.co/100x100/E0E0E0/333333?text=Settings" alt="Settings Icon" class="no-records-icon">
+        <h3>Application Settings</h3>
+        <p>Manage general application settings, user roles, and system configurations.</p>
+        <button>Configure Settings</button>
+    </div>
+
+  </main>
+
+  <!-- Modals -->
+  <div id="addAmenityModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="addAmenityModalTitle">
+    <div class="modal-content">
+      <span class="close-button" id="close-add-amenity-modal-btn" role="button" aria-label="Close add amenity form">&times;</span>
+      <h2 id="addAmenityModalTitle">Add New Amenity</h2>
+      <div class="form-group">
+        <label for="amenity-name">Amenity Name:</label>
+        <input type="text" id="amenity-name" placeholder="e.g., Swimming Pool, Gym" required>
+      </div>
+      <div class="form-group">
+        <label for="amenity-description">Description:</label>
+        <textarea id="amenity-description" placeholder="Brief description of the amenity"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="amenity-capacity">Capacity:</label>
+        <input type="number" id="amenity-capacity" placeholder="e.g., 20" min="1">
+      </div>
+      <div class="form-group">
+        <label for="amenity-image-url">Image URL (Optional):</label>
+        <input type="text" id="amenity-image-url" placeholder="http://example.com/image.jpg">
+      </div>
+      <div class="form-group">
+        <label for="amenity-icon-class">Unicons Class (Optional):</label>
+        <input type="text" id="amenity-icon-class" placeholder="e.g., uil uil-swimmer">
+        <small><a href="https://iconscout.com/unicons/explore/line" target="_blank">Find icons here</a></small>
+      </div>
+      <div class="form-actions">
+        <button class="primary" id="add-amenity-submit-btn">Add Amenity</button>
+        <button class="secondary" id="cancel-add-amenity-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Amenity Modal (re-using for demonstration) -->
+  <div id="editAmenityModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="editAmenityModalTitle">
+    <div class="modal-content">
+      <span class="close-button" id="close-edit-amenity-modal-btn" role="button" aria-label="Close edit amenity form">&times;</span>
+      <h2 id="editAmenityModalTitle">Edit Amenity</h2>
+      <input type="hidden" id="edit-amenity-id">
+      <div class="form-group">
+        <label for="edit-amenity-name">Amenity Name:</label>
+        <input type="text" id="edit-amenity-name" required>
+      </div>
+      <div class="form-group">
+        <label for="edit-amenity-description">Description:</label>
+        <textarea id="edit-amenity-description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="edit-amenity-capacity">Capacity:</label>
+        <input type="number" id="edit-amenity-capacity" min="1">
+      </div>
+      <div class="form-group">
+        <label for="edit-amenity-image-url">Image URL (Optional):</label>
+        <input type="text" id="edit-amenity-image-url">
+      </div>
+      <div class="form-group">
+        <label for="edit-amenity-icon-class">Unicons Class (Optional):</label>
+        <input type="text" id="edit-amenity-icon-class">
+      </div>
+      <div class="form-actions">
+        <button class="primary" id="save-amenity-changes-btn">Save Changes</button>
+        <button class="secondary" id="cancel-edit-amenity-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Resident Modal -->
+  <div id="addResidentModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="addResidentModalTitle">
+    <div class="modal-content">
+      <span class="close-button" id="close-add-resident-modal-btn" role="button" aria-label="Close add resident form">&times;</span>
+      <h2 id="addResidentModalTitle">Add New Resident</h2>
+      <div class="form-group">
+        <label for="resident-name">Full Name:</label>
+        <input type="text" id="resident-name" required>
+      </div>
+      <div class="form-group">
+        <label for="resident-unit">Unit Number:</label>
+        <input type="text" id="resident-unit" required>
+      </div>
+      <div class="form-group">
+        <label for="resident-email">Email:</label>
+        <input type="email" id="resident-email" required>
+      </div>
+      <div class="form-group">
+        <label for="resident-phone">Phone (Optional):</label>
+        <input type="text" id="resident-phone">
+      </div>
+      <div class="form-group">
+        <label for="resident-movein-date">Move-in Date:</label>
+        <input type="date" id="resident-movein-date" required>
+      </div>
+      <div class="form-actions">
+        <button class="primary" id="add-resident-submit-btn">Add Resident</button>
+        <button class="secondary" id="cancel-add-resident-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>

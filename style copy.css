@@ -1,0 +1,538 @@
+/* Custom styles to override or enhance Bulma */
+html, body {
+    height: 100%;
+    font-family: 'Inter', sans-serif; /* Using Inter font from Google Fonts */
+    background-color: #F8F8F8; /* A very light neutral background to complement the palette */
+    color: #333; /* Default text color */
+}
+.navbar.is-primary {
+    background-color: #95A1AE; /* Medium Blue-Grey from palette */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow for depth */
+    border-bottom-left-radius: 0.5rem; /* Rounded corners for the bottom of the navbar */
+    border-bottom-right-radius: 0.5rem;
+}
+.navbar-brand .navbar-item img {
+    max-height: 2.5rem; /* Adjust logo size */
+    margin-right: 0.5rem;
+}
+.navbar-item.has-dropdown .navbar-link.is-arrowless.has-text-white {
+    color: #fff !important; /* Ensure language link is white */
+}
+.navbar-dropdown {
+    border-radius: 0.5rem; /* Rounded corners for dropdown */
+    box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+}
+.navbar-item .buttons .button.is-text.has-text-white {
+    color: #fff !important; /* Ensure text buttons are white */
+}
+
+.main-content {
+    padding: 2rem; /* Increased overall padding for better spacing */
+    background-color: #F8F8F8; /* Light neutral background */
+    min-height: calc(100vh - 52px); /* Adjust height since footer is removed, assuming navbar height is around 52px */
+    /* New styles to limit width for laptop/iPad view and center the content */
+    max-width: 1024px; /* Max width suitable for iPad landscape and smaller laptops */
+    margin: 0 auto; /* Center the content area */
+}
+
+.content-area {
+    flex-grow: 1;
+    background-color: #ffffff;
+    padding: 2rem; /* Increased padding */
+    box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.05), 0 0px 0 1px rgba(10, 10, 10, 0.01); /* Lighter shadow */
+    border-radius: 0.75rem; /* More rounded corners */
+}
+.box {
+    border-radius: 0.75rem; /* More rounded corners for boxes */
+    padding: 1.5rem; /* Consistent padding inside boxes */
+    margin-bottom: 1.5rem; /* Consistent margin between boxes */
+}
+.card {
+    border-radius: 0.75rem; /* More rounded corners for cards */
+}
+.title.is-4, .title.is-5 {
+    color: #333; /* Ensure titles are dark for readability */
+    margin-bottom: 1rem; /* Consistent margin below titles */
+}
+.media-content .content p {
+    margin-bottom: 0.75rem; /* Increased spacing for paragraphs */
+}
+.mobile-app-section {
+    background-color: #95A1AE; /* Medium Blue-Grey from palette */
+    color: #fff;
+    padding: 2.5rem; /* Increased padding */
+    border-radius: 0.75rem;
+    text-align: center;
+    box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1);
+}
+.mobile-app-section .columns {
+    align-items: center;
+    margin-top: 1.5rem; /* Spacing below title */
+}
+.mobile-app-section .app-badges img {
+    height: 45px; /* Slightly larger badge size */
+    margin: 0 0.75rem; /* Increased margin between badges */
+    transition: transform 0.2s ease; /* Smooth hover effect */
+}
+.mobile-app-section .app-badges img:hover {
+    transform: translateY(-3px);
+}
+.mobile-app-section .app-screenshots img {
+    max-height: 220px; /* Slightly larger screenshots */
+    margin: 0 0.75rem; /* Increased margin between screenshots */
+    border-radius: 0.75rem;
+    box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.2);
+}
+.table-container {
+    overflow-x: auto; /* Ensure tables are scrollable on small screens */
+    margin-top: 1rem; /* Spacing above tables */
+    border-radius: 0.5rem; /* Rounded corners for table container */
+    border: 1px solid #f0f0f0; /* Light border for table container */
+}
+.table {
+    border-radius: 0.5rem; /* Rounded corners for the table itself */
+}
+.table thead th {
+    background-color: #F8F8F8; /* Light background for table headers */
+    color: #555; /* Darker text for headers */
+    border-bottom: 2px solid #e0e0e0; /* Stronger border below header */
+}
+.table td {
+    vertical-align: middle; /* Center content vertically in table cells */
+}
+.is-pulled-right {
+    float: right;
+}
+
+/* Buttons with new color palette and shades */
+.button.is-primary {
+    background-color: #EFBC68; /* Mustard Yellow */
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(239, 188, 104, 0.3); /* Shadow based on button color */
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.button.is-primary:hover, .button.is-primary.is-hovered {
+    background-color: #E2A750; /* Darker shade for hover */
+    box-shadow: 0 4px 8px rgba(239, 188, 104, 0.4);
+}
+.button.is-primary:active, .button.is-primary.is-active {
+    background-color: #D69138; /* Even darker shade for active */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.button.is-info {
+    background-color: #95A1AE; /* Medium Blue-Grey */
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(149, 161, 174, 0.3);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.button.is-info:hover, .button.is-info.is-hovered {
+    background-color: #7A8590; /* Darker shade for hover */
+    box-shadow: 0 4px 8px rgba(149, 161, 174, 0.4);
+}
+.button.is-info:active, .button.is-info.is-active {
+    background-color: #606A75; /* Even darker shade for active */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.button.is-success {
+    background-color: #919F89; /* Muted Green */
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(145, 159, 137, 0.3);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.button.is-success:hover, .button.is-success.is-hovered {
+    background-color: #7A8B71; /* Darker shade for hover */
+    box-shadow: 0 4px 8px rgba(145, 159, 137, 0.4);
+}
+.button.is-success:active, .button.is-success.is-active {
+    background-color: #64755C; /* Even darker shade for active */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.button.is-danger {
+    background-color: #FFB7A1; /* Light Coral/Peach */
+    border-color: transparent;
+    color: #fff; /* White text for contrast */
+    box-shadow: 0 2px 4px rgba(255, 183, 161, 0.3);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.button.is-danger:hover, .button.is-danger.is-hovered {
+    background-color: #F2A08A; /* Darker shade for hover */
+    box-shadow: 0 4px 8px rgba(255, 183, 161, 0.4);
+}
+.button.is-danger:active, .button.is-danger.is-active {
+    background-color: #E68973; /* Even darker shade for active */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Light variants for buttons */
+.button.is-light {
+    background-color: #C8CFD6; /* Light Blue-Grey */
+    color: #333;
+    border-color: #C8CFD6;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.button.is-light:hover {
+    background-color: #B2BCC6; /* Slightly darker for hover */
+    border-color: #B2BCC6;
+}
+
+/* Specific adjustments for elements in sections */
+#amenity-reservations-section .table th, #amenity-reservations-section .table td {
+    padding: 0.75rem 0.5rem; /* Adjust calendar cell padding */
+    font-size: 0.9rem;
+}
+#amenity-reservations-section .tags {
+    margin-bottom: 1.5rem; /* Spacing below legend */
+}
+#amenity-reservations-section .field.is-grouped.is-grouped-multiline {
+    margin-bottom: 1rem; /* Spacing between control groups */
+}
+#amenity-reservations-section .tag.is-info.is-light {
+     background-color: #C8CFD6; /* Light Blue-Grey for tag */
+     color: #333;
+}
+
+/* Profile View Tabs */
+.profile-tabs .tabs ul {
+    border-bottom-color: #e0e0e0; /* Light border for tabs */
+}
+.profile-tabs .tabs a {
+    border-bottom-width: 2px;
+    padding-bottom: 0.75em;
+    padding-left: 1em;
+    padding-right: 1em;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+.profile-tabs .tabs a:hover {
+    border-bottom-color: #919F89; /* Muted Green on hover */
+    color: #919F89;
+}
+.profile-tabs .tabs li.is-active a {
+    border-bottom-color: #919F89; /* Muted Green for active tab */
+    color: #919F89;
+    font-weight: bold;
+}
+.profile-content-box {
+    border: 1px solid #e0e0e0;
+    border-top: none; /* No top border as it connects to tabs */
+    border-radius: 0 0 0.75rem 0.75rem; /* Rounded only at bottom */
+    padding: 1.5rem;
+    background-color: #fff;
+    box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.05), 0 0px 0 1px rgba(10, 10, 10, 0.01);
+}
+.profile-content-box .field:not(:last-child) {
+    margin-bottom: 1rem; /* Spacing between form fields */
+}
+.profile-content-box .control .input {
+    border-radius: 0.25rem;
+}
+
+/* Amenity Selection Modal */
+.amenity-modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+}
+.amenity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+.amenity-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #fcfcfc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.amenity-item:hover {
+    border-color: #919F89; /* Muted Green border on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+}
+.amenity-item .icon-box {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #C8CFD6; /* Light Blue-Grey */
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+.amenity-item .icon-box i {
+    font-size: 3rem;
+    color: #333;
+}
+.amenity-item .icon-box img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0.25rem;
+}
+.amenity-item p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.2;
+}
+.amenity-item small {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+/* Modal close button styling */
+.modal-close.is-large {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+.modal-close.is-large:hover {
+    opacity: 1;
+}
+
+/* Amenity Booking Modal */
+.booking-modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    width: 90%;
+    max-width: 900px; /* Wider for calendar */
+    box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+}
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+.calendar-table th, .calendar-table td {
+    border: 1px solid #e0e0e0;
+    padding: 0.75rem;
+    text-align: center;
+    vertical-align: top;
+    height: 80px; /* Fixed height for calendar cells */
+}
+.calendar-table th {
+    background-color: #F8F8F8;
+    color: #555;
+}
+.calendar-table td {
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.calendar-table td.has-event {
+    background-color: #e6f7ff; /* Light blue for days with events */
+}
+.calendar-table td:hover {
+    background-color: #f0f0f0;
+}
+.calendar-table td.is-selected {
+    background-color: #919F89; /* Muted Green for selected day */
+    color: #fff;
+    font-weight: bold;
+}
+.calendar-table td.is-today {
+    border: 2px solid #EFBC68; /* Mustard Yellow border for today */
+}
+.calendar-table td.is-disabled {
+    background-color: #f5f5f5;
+    color: #ccc;
+    cursor: not-allowed;
+}
+.time-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    max-height: 150px; /* Limit height for scrollability */
+    overflow-y: auto;
+    padding-right: 0.5rem; /* For scrollbar space */
+}
+.time-slot-item {
+    padding: 0.5rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    font-size: 0.9rem;
+}
+.time-slot-item:hover {
+    background-color: #f0f0f0;
+}
+.time-slot-item.is-selected {
+    background-color: #EFBC68; /* Mustard Yellow for selected slot */
+    color: #fff;
+    border-color: #EFBC68;
+    font-weight: bold;
+}
+.time-slot-item.is-booked {
+    background-color: #FFB7A1; /* Light Coral/Peach for booked slot */
+    color: #fff;
+    border-color: #FFB7A1;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.time-slot-item.is-booked:hover {
+    background-color: #FFB7A1; /* No change on hover for booked */
+}
+
+/* Main Navigation Tabs */
+.main-tabs {
+    margin-bottom: 2rem;
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.05), 0 0px 0 1px rgba(10, 10, 10, 0.01);
+}
+.main-tabs .tabs ul {
+    border-bottom: none; /* Remove default Bulma bottom border */
+    justify-content: space-around; /* Distribute tabs evenly */
+}
+.main-tabs .tabs li {
+    margin: 0 0.5rem; /* Space between tabs */
+}
+.main-tabs .tabs a {
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    transition: all 0.2s ease;
+    color: #555;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+.main-tabs .tabs a .icon {
+    margin-right: 0.5rem;
+}
+.main-tabs .tabs a:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+.main-tabs .tabs li.is-active a {
+    background-color: #919F89; /* Muted Green */
+    border-color: #919F89;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(145, 159, 137, 0.3);
+}
+.main-tabs .tabs li.is-active a:hover {
+    background-color: #7A8B71; /* Darker shade for hover */
+    border-color: #7A8B71;
+}
+.sub-menu {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+}
+.sub-menu a {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background-color: #e0e0e0;
+    color: #333;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.sub-menu a:hover {
+    background-color: #d0d0d0;
+}
+.sub-menu a.is-active {
+    background-color: #C8CFD6; /* Light Blue-Grey */
+    color: #333;
+    font-weight: bold;
+}
+
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .main-content {
+        padding: 1rem;
+        max-width: 100%; /* Allow full width on small screens */
+    }
+    .content-area {
+        padding: 1.5rem; /* Slightly reduced padding for mobile */
+    }
+    .mobile-app-section .columns {
+        flex-direction: column;
+    }
+    .mobile-app-section .column {
+        margin-bottom: 1rem;
+    }
+    .mobile-app-section .app-screenshots img {
+        max-height: 150px; /* Smaller screenshots on mobile */
+    }
+    .navbar-menu {
+        padding: 1rem;
+        background-color: #95A1AE; /* Ensure mobile menu background matches navbar */
+    }
+    .navbar-item.has-dropdown .navbar-link.is-arrowless.has-text-white {
+        color: #fff !important;
+    }
+    .navbar-item .buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .navbar-item .buttons .button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    .amenity-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Adjust grid for smaller screens */
+        gap: 1rem;
+    }
+    .amenity-item .icon-box {
+        width: 60px;
+        height: 60px;
+    }
+    .amenity-item .icon-box i {
+        font-size: 2rem;
+    }
+    .booking-modal-content {
+        padding: 1.5rem;
+    }
+    .calendar-table th, .calendar-table td {
+        padding: 0.5rem;
+        height: 60px; /* Smaller height for mobile calendar cells */
+    }
+    .calendar-nav .title.is-5 {
+        font-size: 1.25rem;
+    }
+    .main-tabs .tabs ul {
+        flex-direction: column; /* Stack tabs vertically on small screens */
+        align-items: center;
+    }
+    .main-tabs .tabs li {
+        margin-bottom: 0.5rem;
+    }
+    .sub-menu {
+        flex-direction: column;
+        align-items: center;
+    }
+}

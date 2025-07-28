@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <link rel="icon" href="img/logo.png">
+  <title>Page Not Found</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+  <style>
+    body {
+      background-color: #f5f5f5;
+    }
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    .four-o-four {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .four-o-four h1 {
+      font-family: "Roboto", sans-serif;
+      font-size: clamp(80px, 20vw, 200px);
+      font-weight: 600;
+      color: #4A4A4A;
+      margin: 0 15px;
+    }
+    .emoji {
+      position: relative;
+      width: clamp(100px, 15vw, 200px);
+      height: clamp(100px, 15vw, 200px);
+      background-color: #FFDC61;
+      border-radius: 50%;
+    }
+    .emoji:after, .emoji:before {
+      position: absolute;
+      display: block;
+      content: "";
+      height: 45px;
+      width: 30px;
+      background-color: #272232;
+      border-radius: 50%;
+      top: 50px;
+      animation: emoji-face-move 3s ease-in-out infinite alternate, emoji-eyes-blink 1s ease-in-out infinite alternate;
+    }
+    .emoji:after {
+      left: 45px;
+    }
+    .emoji:before {
+      left: 125px;
+    }
+    .emoji .mouth {
+      position: absolute;
+      height: 70px;
+      width: 50px;
+      background-color: #272232;
+      border-radius: 50%;
+      top: 115px;
+      left: 75px;
+      animation: emoji-face-move 3s ease-in-out infinite alternate;
+    }
+    .info-section {
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+    .info-section p {
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    /* --- Game Section --- */
+    .game-container {
+      margin-top: 2rem;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .game-container h5 {
+      margin-bottom: 1rem;
+      font-weight: 500;
+      color: #333;
+    }
+    #gameCanvas {
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    @keyframes emoji-eyes-blink {
+      0%, 97% { height: 45px; }
+      100% { height: 0; }
+    }
+    @keyframes emoji-face-move {
+      0%, 30% { transform: translateX(0); }
+      35%, 65% { transform: translateX(-20px); }
+      70%, 85% { transform: translateX(20px); }
+      90%, 100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-container">
+    <div class="four-o-four">
+      <h1>4</h1>
+      <div class="emoji">
+        <div class="mouth"></div>
+      </div>
+      <h1>4</h1>
+    </div>
+
+    <div class="info-section">
+      <p class="flow-text">It looks like the page you were looking for was moved or doesn't exist.</p>
+      <a class="waves-effect waves-light btn-large theme-color" href="index.html">Back to home</a>
+    </div>
+
+    <div class="game-container center-align">
+      <h5>A little game to pass the time!</h5>
+      <canvas id="gameCanvas" width="300" height="200"></canvas>
+      <p>Click the circle to score points!</p>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    // Simple clicker game
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    let score = 0;
+    let circle = {
+      x: 150,
+      y: 100,
+      radius: 20
+    };
+    
+    function drawCircle() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+      ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+      ctx.fillStyle = '#ff5722';
+      ctx.fill();
+      
+      // Draw score
+      ctx.fillStyle = '#333';
+      ctx.font = '20px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText(`Score: ${score}`, canvas.width / 2, 30);
+    }
+    
+    function newCirclePosition() {
+      circle.x = Math.random() * (canvas.width - circle.radius * 2) + circle.radius;
+      circle.y = Math.random() * (canvas.height - circle.radius * 2) + circle.radius;
+    }
+    
+    canvas.addEventListener('click', function(event) {
+      const rect = canvas.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const clickY = event.clientY - rect.top;
+      
+      const distance = Math.sqrt(Math.pow(clickX - circle.x, 2) + Math.pow(clickY - circle.y, 2));
+      
+      if (distance < circle.radius) {
+        score++;
+        newCirclePosition();
+        drawCircle();
+      }
+    });
+    
+    drawCircle();
+  </script>
+</body>
+</html>

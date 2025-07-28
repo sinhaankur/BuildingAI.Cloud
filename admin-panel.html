@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Console | Building Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* All custom styles from the provided style.css file */
+        html, body {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F8F8;
+            color: #333;
+        }
+        .navbar.is-primary {
+            background-color: #95A1AE;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+        }
+        .navbar-brand .navbar-item img {
+            max-height: 2.5rem;
+            margin-right: 0.5rem;
+        }
+        .navbar-item.has-dropdown .navbar-link.is-arrowless.has-text-white {
+            color: #fff !important;
+        }
+        .navbar-dropdown {
+            border-radius: 0.5rem;
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+        }
+        .navbar-item .buttons .button.is-text.has-text-white {
+            color: #fff !important;
+        }
+        .main-content {
+            padding: 2rem;
+            background-color: #F8F8F8;
+            min-height: calc(100vh - 52px);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+        .content-area {
+            flex-grow: 1;
+            background-color: #ffffff;
+            padding: 2rem;
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.05), 0 0px 0 1px rgba(10, 10, 10, 0.01);
+            border-radius: 0.75rem;
+        }
+        .box {
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .card {
+            border-radius: 0.75rem;
+        }
+        .title.is-4, .title.is-5 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .media-content .content p {
+            margin-bottom: 0.75rem;
+        }
+        .mobile-app-section {
+            background-color: #95A1AE;
+            color: #fff;
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1);
+        }
+        .mobile-app-section .columns {
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        .mobile-app-section .app-badges img {
+            height: 45px;
+            margin: 0 0.75rem;
+            transition: transform 0.2s ease;
+        }
+        .mobile-app-section .app-badges img:hover {
+            transform: translateY(-3px);
+        }
+        .mobile-app-section .app-screenshots img {
+            max-height: 220px;
+            margin: 0 0.75rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.2);
+        }
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #f0f0f0;
+        }
+        .table {
+            border-radius: 0.5rem;
+        }
+        .table thead th {
+            background-color: #F8F8F8;
+            color: #555;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .table td {
+            vertical-align: middle;
+        }
+        .is-pulled-right {
+            float: right;
+        }
+        .button.is-primary {
+            background-color: #EFBC68;
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(239, 188, 104, 0.3);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .button.is-primary:hover, .button.is-primary.is-hovered {
+            background-color: #E2A750;
+            box-shadow: 0 4px 8px rgba(239, 188, 104, 0.4);
+        }
+        .button.is-primary:active, .button.is-primary.is-active {
+            background-color: #D69138;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .button.is-info {
+            background-color: #95A1AE;
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(149, 161, 174, 0.3);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .button.is-info:hover, .button.is-info.is-hovered {
+            background-color: #7A8590;
+            box-shadow: 0 4px 8px rgba(149, 161, 174, 0.4);
+        }
+        .button.is-info:active, .button.is-info.is-active {
+            background-color: #606A75;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .button.is-success {
+            background-color: #919F89;
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(145, 159, 137, 0.3);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .button.is-success:hover, .button.is-success.is-hovered {
+            background-color: #7A8B71;
+            box-shadow: 0 4px 8px rgba(145, 159, 137, 0.4);
+        }
+        .button.is-success:active, .button.is-success.is-active {
+            background-color: #64755C;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .button.is-danger {
+            background-color: #FFB7A1;
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(255, 183, 161, 0.3);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .button.is-danger:hover, .button.is-danger.is-hovered {
+            background-color: #F2A08A;
+            box-shadow: 0 4px 8px rgba(255, 183, 161, 0.4);
+        }
+        .button.is-danger:active, .button.is-danger.is-active {
+            background-color: #E68973;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .button.is-light {
+            background-color: #C8CFD6;
+            color: #333;
+            border-color: #C8CFD6;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .button.is-light:hover {
+            background-color: #B2BCC6;
+            border-color: #B2BCC6;
+        }
+        #amenity-reservations-section .table th, #amenity-reservations-section .table td {
+            padding: 0.75rem 0.5rem;
+            font-size: 0.9rem;
+        }
+        #amenity-reservations-section .tags {
+            margin-bottom: 1.5rem;
+        }
+        #amenity-reservations-section .field.is-grouped.is-grouped-multiline {
+            margin-bottom: 1rem;
+        }
+        #amenity-reservations-section .tag.is-info.is-light {
+             background-color: #C8CFD6;
+             color: #333;
+        }
+        .profile-tabs .tabs ul {
+            border-bottom-color: #e0e0e0;
+        }
+        .profile-tabs .tabs a {
+            border-bottom-width: 2px;
+            padding-bottom: 0.75em;
+            padding-left: 1em;
+            padding-right: 1em;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+        .profile-tabs .tabs a:hover {
+            border-bottom-color: #919F89;
+            color: #919F89;
+        }
+        .profile-tabs .tabs li.is-active a {
+            border-bottom-color: #919F89;
+            color: #919F89;
+            font-weight: bold;
+        }
+        .profile-content-box {
+            border: 1px solid #e0e0e0;
+            border-top: none;
+            border-radius: 0 0 0.75rem 0.75rem;
+            padding: 1.5rem;
+            background-color: #fff;
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.05), 0 0px 0 1px rgba(10, 10, 10, 0.01);
+        }
+        .profile-content-box .field:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+        .profile-content-box .control .input {
+            border-radius: 0.25rem;
+        }
+        .amenity-modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+        }
+        .amenity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .amenity-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #fcfcfc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .amenity-item:hover {
+            border-color: #919F89;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        .amenity-item .icon-box {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #C8CFD6;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .amenity-item .icon-box i {
+            font-size: 3rem;
+            color: #333;
+        }
+        .amenity-item .icon-box img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 0.25rem;
+        }
+        .amenity-item p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.2;
+        }
+        .amenity-item small {
+            font-size: 0.75rem;
+            color: #888;
+        }
+        .modal-close.is-large {
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+        .modal-close.is-large:hover {
+            opacity: 1;
+        }
+        .booking-modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+        }
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+        .calendar-table th, .calendar-table td {
+            border: 1px solid #e0e0e0;
+            padding: 0.75rem;
+            text-align: center;
+            vertical-align: top;
+            height: 80px;
+        }
+        .calendar-table th {
+            background-color: #F8F8F8;
+            color: #555;
+        }
+        .calendar-table td {
+            background-color: #fff;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .calendar-table td.has-event {
+            background-color: #e6f7ff;
+        }
+        .calendar-table td:hover {
+            background-color: #f0f0f0;
+        }
+        .calendar-table td.is-selected {
+            background-color: #919F89;
+            color: #fff;
+            font-weight: bold;
+        }
+        .calendar-table td.is-today {
+            border: 2px solid #EFBC68;
+        }
+        .calendar-table td.is-disabled {
+            background-color: #f5f5f5;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            max-height: 150px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+        .time-slot-item {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            font-size: 0.9rem;
+        }
+        .time-slot-item:hover {
+            background-color: #f0f0f0;
+        }
+        .time-slot-item.is-selected {
+            background-color: #EFBC68;
+            color: #fff;
+            border-color: #EFBC68;
+            font-weight: bold;
+        }
+        .time-slot-item.is-booked {
+            background-color: #FFB7A1;
+            color: #fff;
+            border-color: #FFB7A1;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .time-slot-item.is-booked:hover {
+            background-color: #FFB7A1;
+        }
+        .main-tabs {
+            margin-bottom: 2rem;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.05), 0 0px 0 1px rgba(10, 10, 10, 0.01);
+        }
+        .main-tabs .tabs ul {
+            border-bottom: none;
+            justify-content: space-around;
+        }
+        .main-tabs .tabs li {
+            margin: 0 0.5rem;
+        }
+        .main-tabs .tabs a {
+            border: 1px solid transparent;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            transition: all 0.2s ease;
+            color: #555;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .main-tabs .tabs a .icon {
+            margin-right: 0.5rem;
+        }
+        .main-tabs .tabs a:hover {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .main-tabs .tabs li.is-active a {
+            background-color: #919F89;
+            border-color: #919F89;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(145, 159, 137, 0.3);
+        }
+        .main-tabs .tabs li.is-active a:hover {
+            background-color: #7A8B71;
+            border-color: #7A8B71;
+        }
+        .sub-menu {
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #f5f5f5;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+        .sub-menu a {
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            background-color: #e0e0e0;
+            color: #333;
+            font-size: 0.9rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .sub-menu a:hover {
+            background-color: #d0d0d0;
+        }
+        .sub-menu a.is-active {
+            background-color: #C8CFD6;
+            color: #333;
+            font-weight: bold;
+        }
+        @media screen and (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+                max-width: 100%;
+            }
+            .content-area {
+                padding: 1.5rem;
+            }
+            .mobile-app-section .columns {
+                flex-direction: column;
+            }
+            .mobile-app-section .column {
+                margin-bottom: 1rem;
+            }
+            .mobile-app-section .app-screenshots img {
+                max-height: 150px;
+            }
+            .navbar-menu {
+                padding: 1rem;
+                background-color: #95A1AE;
+            }
+            .navbar-item.has-dropdown .navbar-link.is-arrowless.has-text-white {
+                color: #fff !important;
+            }
+            .navbar-item .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .navbar-item .buttons .button {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            .amenity-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 1rem;
+            }
+            .amenity-item .icon-box {
+                width: 60px;
+                height: 60px;
+            }
+            .amenity-item .icon-box i {
+                font-size: 2rem;
+            }
+            .booking-modal-content {
+                padding: 1.5rem;
+            }
+            .calendar-table th, .calendar-table td {
+                padding: 0.5rem;
+                height: 60px;
+            }
+            .calendar-nav .title.is-5 {
+                font-size: 1.25rem;
+            }
+            .main-tabs .tabs ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            .main-tabs .tabs li {
+                margin-bottom: 0.5rem;
+            }
+            .sub-menu {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.is-active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="#">
+                    <span class="is-size-4 has-text-white has-text-weight-bold">Admin Console</span>
+                </a>
+            </div>
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-text has-text-white">
+                                Log out
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="main-tabs">
+            <div class="tabs is-centered">
+                <ul>
+                    <li class="is-active" data-tab-id="accounts">
+                        <a>
+                            <span class="icon"><i class="fas fa-user-shield"></i></span>
+                            <span>Management Accounts</span>
+                        </a>
+                    </li>
+                    <li data-tab-id="amenities">
+                        <a>
+                            <span class="icon"><i class="fas fa-swimming-pool"></i></span>
+                            <span>Amenities</span>
+                        </a>
+                    </li>
+                    <li data-tab-id="announcements">
+                        <a>
+                            <span class="icon"><i class="fas fa-bullhorn"></i></span>
+                            <span>Announcements</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content-area">
+            <div id="accounts" class="content-section is-active">
+                <h4 class="title is-4">Create Management Account</h4>
+                <div class="box">
+                    <form>
+                        <div class="field">
+                            <label class="label">Name</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="e.g., John Doe" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Email</label>
+                            <div class="control">
+                                <input class="input" type="email" placeholder="e.g., johndoe@example.com" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Password</label>
+                            <div class="control">
+                                <input class="input" type="password" required>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <button class="button is-primary is-fullwidth">Create Account</button>
+                        </div>
+                    </form>
+                </div>
+                <h4 class="title is-5">Existing Accounts</h4>
+                <div class="table-container">
+                    <table class="table is-bordered is-striped is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Access Level</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jane Smith</td>
+                                <td>jane.s@building.com</td>
+                                <td>Full Access</td>
+                                <td class="has-text-centered">
+                                    <button class="button is-info is-small">Edit</button>
+                                    <button class="button is-danger is-small">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Admin User</td>
+                                <td>admin@building.com</td>
+                                <td>Full Access</td>
+                                <td class="has-text-centered">
+                                    <button class="button is-info is-small">Edit</button>
+                                    <button class="button is-danger is-small">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="amenities" class="content-section">
+                <h4 class="title is-4">Manage Amenities</h4>
+                <div class="box">
+                    <form>
+                        <div class="field">
+                            <label class="label">Amenity Name</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="e.g., Swimming Pool" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Time Rules</label>
+                            <div class="control">
+                                <textarea class="textarea" placeholder="e.g., Mon-Fri: 9am-5pm; Sat-Sun: 10am-8pm"></textarea>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <button class="button is-success is-fullwidth">Add Amenity</button>
+                        </div>
+                    </form>
+                </div>
+                <h4 class="title is-5">Current Amenities</h4>
+                <div class="amenity-grid">
+                    <div class="amenity-item">
+                        <div class="icon-box">
+                            <i class="fas fa-swimming-pool"></i>
+                        </div>
+                        <p class="has-text-weight-bold">Swimming Pool</p>
+                        <small>9am - 8pm Daily</small>
+                    </div>
+                    <div class="amenity-item">
+                        <div class="icon-box">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <p class="has-text-weight-bold">Gym</p>
+                        <small>24/7 Access</small>
+                    </div>
+                    <div class="amenity-item">
+                        <div class="icon-box">
+                            <i class="fas fa-fire-extinguisher"></i>
+                        </div>
+                        <p class="has-text-weight-bold">BBQ Area</p>
+                        <small>10am - 10pm</small>
+                    </div>
+                </div>
+            </div>
+
+            <div id="announcements" class="content-section">
+                <h4 class="title is-4">Post a New Announcement</h4>
+                <div class="box">
+                    <form>
+                        <div class="field">
+                            <label class="label">Title</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="e.g., Water Shutoff Notice" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Details</label>
+                            <div class="control">
+                                <textarea class="textarea" placeholder="Enter the full announcement details here..." required></textarea>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <button class="button is-info is-fullwidth">Publish Announcement</button>
+                        </div>
+                    </form>
+                </div>
+                <h4 class="title is-5">Recent Announcements</h4>
+                <div class="box">
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong>Elevator Maintenance Scheduled</strong> <small>10:30 AM - July 15, 2025</small>
+                                    <br>
+                                    Please be advised that elevator 'A' will be out of service for scheduled maintenance on July 20th from 9:00 AM to 1:00 PM. We apologize for any inconvenience.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.main-tabs .tabs li');
+            const sections = document.querySelectorAll('.content-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetTabId = tab.dataset.tabId;
+                    
+                    // Deactivate all tabs and hide all sections
+                    tabs.forEach(item => item.classList.remove('is-active'));
+                    sections.forEach(item => item.classList.remove('is-active'));
+
+                    // Activate the clicked tab
+                    tab.classList.add('is-active');
+
+                    // Show the corresponding section
+                    const targetSection = document.getElementById(targetTabId);
+                    if (targetSection) {
+                        targetSection.classList.add('is-active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

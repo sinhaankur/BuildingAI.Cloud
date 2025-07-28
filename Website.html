@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildingAi.cloud - Condo Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+        }
+        
+        body {
+            background: #fafaf9;
+            color: #1f2937;
+        }
+        
+        .claude-bg {
+            background: linear-gradient(135deg, #f8f6f0 0%, #f3f1ea 100%);
+        }
+        
+        .claude-orange {
+            background: #cc785c;
+        }
+        
+        .claude-orange-hover:hover {
+            background: #b86a4f;
+        }
+        
+        .claude-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        
+        .claude-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transform: translateY(-1px);
+        }
+        
+        .claude-button {
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            padding: 8px 16px;
+        }
+        
+        .claude-button-primary {
+            background: #1f2937;
+            color: white;
+            border: 1px solid #1f2937;
+        }
+        
+        .claude-button-primary:hover {
+            background: #374151;
+            border-color: #374151;
+        }
+        
+        .claude-button-secondary {
+            background: transparent;
+            color: #1f2937;
+            border: 1px solid #d1d5db;
+        }
+        
+        .claude-button-secondary:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+        }
+        
+        .claude-input {
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 12px 16px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+        
+        .claude-input:focus {
+            outline: none;
+            border-color: #cc785c;
+            box-shadow: 0 0 0 3px rgba(204, 120, 92, 0.1);
+        }
+        
+        .navigation-blur {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f6f0;
+            color: #cc785c;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(-12px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+        }
+        
+        .text-claude-gray {
+            color: #6b7280;
+        }
+        
+        .border-claude {
+            border-color: #e5e7eb;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-2px);
+        }
+        
+        .sidebar-gradient {
+            background: linear-gradient(180deg, #ffffff 0%, #f8f6f0 100%);
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            color: #6b7280;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-button.active {
+            background: #ffffff;
+            color: #1f2937;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        .tab-button:not(.active):hover {
+            background: #f3f4f6;
+        }
+
+        /* Styles for the new standalone login page */
+        .login-page-container {
+            min-height: calc(100vh - 64px); /* Full height minus nav height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        /* Styles for the documentation page */
+        .documentation-page-container {
+            min-height: calc(100vh - 64px - 100px); /* Adjust for nav and footer */
+            padding: 2rem 0;
+        }
+        .documentation-article {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .documentation-article h3 {
+            font-size: 1.75rem; /* text-2xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+        .documentation-article p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .documentation-article ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+        .documentation-article li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="claude-bg min-h-screen">
+    <!-- Navigation -->
+    <nav class="navigation-blur sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 claude-orange rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-building text-white text-sm"></i>
+                        </div>
+                        <span class="text-xl font-semibold text-gray-900">BuildingAi.cloud</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <select id="languageSelect" class="claude-input text-sm pr-8 bg-white border-gray-200">
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                        </select>
+                    </div>
+                    <button id="loginBtn" class="claude-button claude-button-secondary text-sm">
+                        <span data-translate="login">Sign in</span>
+                    </button>
+                    <button id="signupBtn" class="claude-button claude-button-primary text-sm">
+                        <span data-translate="signup">Sign up</span>
+                    </button>
+                    <div id="userMenu" class="hidden items-center space-x-3">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                                <span id="userInitial" class="text-sm font-medium text-gray-600"></span>
+                            </div>
+                            <span id="userName" class="text-sm font-medium text-gray-700"></span>
+                        </div>
+                        <button id="logoutBtn" class="claude-button claude-button-secondary text-sm">
+                            <span data-translate="logout">Sign out</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen" class="text-center hidden">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-12">
+                    <h1 class="text-5xl font-light text-gray-900 mb-6" data-translate="welcome_title">Welcome to BuildingAi.cloud</h1>
+                    <p class="text-xl text-claude-gray mb-12 font-light" data-translate="welcome_subtitle">Comprehensive condo management system for modern living</p>
+                    
+                    <!-- Role Selection Cards -->
+                    <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                        <div class="claude-card p-8 hover-lift transition-all duration-200 cursor-pointer group">
+                            <div class="feature-icon mx-auto mb-6">
+                                <i class="fas fa-user-shield text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-medium mb-3 text-gray-900" data-translate="admin_title">Admin</h3>
+                            <p class="text-claude-gray mb-6 leading-relaxed" data-translate="admin_desc">Complete system oversight and management capabilities</p>
+                            <button class="role-select claude-button claude-button-primary w-full group-hover:bg-gray-800" data-role="admin">
+                                <span data-translate="admin_access">Access admin panel</span>
+                            </button>
+                        </div>
+                        
+                        <div class="claude-card p-8 hover-lift transition-all duration-200 cursor-pointer group">
+                            <div class="feature-icon mx-auto mb-6">
+                                <i class="fas fa-building text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-medium mb-3 text-gray-900" data-translate="management_title">Management</h3>
+                            <p class="text-claude-gray mb-6 leading-relaxed" data-translate="management_desc">Building operations and resident services</p>
+                            <button class="role-select claude-button claude-button-primary w-full group-hover:bg-gray-800" data-role="management">
+                                <span data-translate="management_portal">Management portal</span>
+                            </button>
+                        </div>
+                        
+                        <div class="claude-card p-8 hover-lift transition-all duration-200 cursor-pointer group">
+                            <div class="feature-icon mx-auto mb-6">
+                                <i class="fas fa-home text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-medium mb-3 text-gray-900" data-translate="residents_title">Residents</h3>
+                            <p class="text-claude-gray mb-6 leading-relaxed" data-translate="residents_desc">Personal services and building amenities</p>
+                            <button class="role-select claude-button claude-button-primary w-full group-hover:bg-gray-800" data-role="resident">
+                                <span data-translate="resident_portal">Resident portal</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div
+        
+        <!-- Section 1: Effortless Premises Management -->
+        <section class="py-16">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4" data-translate="effortless_management_title">Effortless Premises Management: Smart, Secure, and Seamless.</h2>
+                    <p class="text-xl text-claude-gray leading-relaxed" data-translate="effortless_management_subtitle">We make building and premises management simple, so you can focus on what matters most.</p>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <!-- Illustration Placeholder -->
+                    <div class="w-80 h-80 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
+                        <i class="fas fa-tablet-alt text-6xl"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Protecting Resident Privacy -->
+        <section class="py-16 claude-bg">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row-reverse items-center justify-between gap-12">
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4" data-translate="privacy_security_title">Protecting Resident Privacy & Ensuring Data Security.</h2>
+                    <p class="text-xl text-claude-gray leading-relaxed" data-translate="privacy_security_subtitle">Our top priority is to diligently protect resident privacy and meticulously secure all data. We employ advanced protocols to ensure confidentiality and integrity.</p>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <!-- Illustration Placeholder -->
+                    <div class="w-80 h-80 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
+                        <i class="fas fa-shield-alt text-6xl"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Our Product Helps You With Following -->
+        <section class="py-16">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-900 text-center mb-4" data-translate="product_features_heading">Our product helps you with following</h2>
+                <p class="text-xl text-claude-gray text-center mb-12" data-translate="product_features_subtitle">Intuitive Technology: Cloud-based, mobile-friendly platform.</p>
+
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Tabs Navigation -->
+                    <div class="lg:w-1/4 claude-card p-4 sidebar-gradient">
+                        <nav class="flex flex-col space-y-2" id="featureTabs">
+                            <button class="tab-button active" data-feature-tab="packages">
+                                <div class="feature-icon w-8 h-8 flex-shrink-0"><i class="fas fa-box text-sm"></i></div>
+                                <span data-translate="package_management">Package Management</span>
+                            </button>
+                            <button class="tab-button" data-feature-tab="amenities">
+                                <div class="feature-icon w-8 h-8 flex-shrink-0"><i class="fas fa-calendar-alt text-sm"></i></div>
+                                <span data-translate="amenity_reservations">Amenity Reservations</span>
+                            </button>
+                            <button class="tab-button" data-feature-tab="visitors">
+                                <div class="feature-icon w-8 h-8 flex-shrink-0"><i class="fas fa-user-friends text-sm"></i></div>
+                                <span data-translate="visitor_management">Visitor Management</span>
+                            </button>
+                            <button class="tab-button" data-feature-tab="documents">
+                                <div class="feature-icon w-8 h-8 flex-shrink-0"><i class="fas fa-file-alt text-sm"></i></div>
+                                <span data-translate="document_library">Document Library</span>
+                            </button>
+                        </nav>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="lg:w-3/4 claude-card p-8">
+                        <div id="tabContent">
+                            <!-- Package Management Content -->
+                            <div id="packages-content" class="feature-tab-content">
+                                <h3 class="text-2xl font-medium text-gray-900 mb-4" data-translate="tab_package_title">Package Management</h3>
+                                <p class="text-claude-gray leading-relaxed mb-6" data-translate="tab_package_desc">Efficiently track incoming and outgoing packages, notify residents, and manage pickup logistics. Reduce clutter and improve resident satisfaction with seamless package handling.</p>
+                                <ul class="list-disc list-inside space-y-2 text-claude-gray">
+                                    <li data-translate="tab_package_li1">Automated notifications sent to residents upon package arrival.</li>
+                                    <li data-translate="tab_package_li2">Digital signature capture for secure package pickups.</li>
+                                    <li data-translate="tab_package_li3">Real-time tracking of package status from delivery to pickup.</li>
+                                </ul>
+                                <div class="mt-8 bg-gray-100 p-6 rounded-lg text-center">
+                                    <p class="text-lg font-semibold text-gray-700" data-translate="tab_package_quote">"Never miss a delivery again!"</p>
+                                    <p class="text-sm text-gray-500" data-translate="tab_package_quote_author">- A satisfied Resident</p>
+                                </div>
+                            </div>
+
+                            <!-- Amenity Reservations Content -->
+                            <div id="amenities-content" class="feature-tab-content hidden">
+                                <h3 class="text-2xl font-medium text-gray-900 mb-4" data-translate="tab_amenity_title">Amenity Reservations</h3>
+                                <p class="text-claude-gray leading-relaxed mb-6" data-translate="tab_amenity_desc">Allow residents to easily view availability and book common facilities like gyms, party rooms, or guest suites online. Simplify scheduling and prevent double bookings.</p>
+                                <ul class="list-disc list-inside space-y-2 text-claude-gray">
+                                    <li data-translate="tab_amenity_li1">Real-time amenity availability calendar.</li>
+                                    <li data-translate="tab_amenity_li2">Online booking and payment (optional).</li>
+                                    <li data-translate="tab_amenity_li3">Automated confirmation and reminder emails.</li>
+                                    <li data-translate="tab_amenity_li4">Fair usage policies enforcement.</li>
+                                </ul>
+                                <div class="mt-8 bg-gray-100 p-6 rounded-lg text-center">
+                                    <p class="text-lg font-semibold text-gray-700" data-translate="tab_amenity_quote">"Booking the gym is so much easier now!"</p>
+                                    <p class="text-sm text-gray-500" data-translate="tab_amenity_quote_author">- A satisfied Resident</p>
+                                </div>
+                            </div>
+
+                            <!-- Visitor Management Content -->
+                            <div id="visitors-content" class="feature-tab-content hidden">
+                                <h3 class="text-2xl font-medium text-gray-900 mb-4" data-translate="tab_visitor_title">Visitor Management</h3>
+                                <p class="text-claude-gray leading-relaxed mb-6" data-translate="tab_visitor_desc">Enhance security and streamline guest arrivals by allowing residents to pre-register visitors. Keep a secure log of all entries and exits.</p>
+                                <ul class="list-disc list-inside space-y-2 text-claude-gray">
+                                    <li data-translate="tab_visitor_li1">Pre-registration of guests by residents.</li>
+                                    <li data-translate="tab_visitor_li2">Digital check-in/check-out for visitors.</li>
+                                    <li data-translate="tab_visitor_li3">Improved building security.</li>
+                                    <li data-translate="tab_visitor_li4">Reduced wait times at the front desk.</li>
+                                </ul>
+                                <div class="mt-8 bg-gray-100 p-6 rounded-lg text-center">
+                                    <p class="text-lg font-semibold text-gray-700" data-translate="tab_visitor_quote">"Quick and secure visitor entry."</p>
+                                    <p class="text-sm text-gray-500" data-translate="tab_visitor_quote_author">- A happy Security Staff</p>
+                                </div>
+                            </div>
+
+                            <!-- Document Library Content -->
+                            <div id="documents-content" class="feature-tab-content hidden">
+                                <h3 class="text-2xl font-medium text-gray-900 mb-4" data-translate="tab_document_title">Document Library</h3>
+                                <p class="text-claude-gray leading-relaxed mb-6" data-translate="tab_document_desc">Provide residents and management with a centralized, secure repository for important building documents like bylaws, meeting minutes, and maintenance schedules.</p>
+                                <ul class="list-disc list-inside space-y-2 text-claude-gray">
+                                    <li data-translate="tab_document_li1">Centralized access to all important documents.</li>
+                                    <li data-translate="tab_document_li2">Version control and audit trails.</li>
+                                    <li data-translate="tab_document_li3">Easy search and filter options.</li>
+                                    <li data-translate="tab_document_li4">Reduced need for physical paperwork.</li>
+                                </ul>
+                                <div class="mt-8 bg-gray-100 p-6 rounded-lg text-center">
+                                    <p class="text-lg font-semibold text-gray-700" data-translate="tab_document_quote">"All essential documents are just a click away."</p>
+                                    <p class="text-sm text-gray-500" data-translate="tab_document_quote_author">- A well-informed Resident</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Views -->
+        <div id="dashboard" class="hidden">
+            <!-- Dashboard Header -->
+            <div class="claude-card p-6 mb-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 id="dashboardTitle" class="text-2xl font-medium text-gray-900 mb-1"></h2>
+                        <p id="dashboardSubtitle" class="text-claude-gray"></p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button id="notificationBtn" class="relative claude-button claude-button-secondary">
+                            <i class="fas fa-bell"></i>
+                            <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Cards Grid -->
+            <div id="featureGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Package Management -->
+                <div class="feature-card claude-card p-6 hover-lift transition-all duration-200 cursor-pointer" data-feature="packages">
+                    <div class="flex items-start space-x-4">
+                        <div class="feature-icon flex-shrink-0">
+                            <i class="fas fa-box text-lg"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-medium text-gray-900 mb-1" data-translate="package_management">Package Management</h3>
+                            <p class="text-sm text-claude-gray mb-3" data-translate="package_desc">Track deliveries and pickups</p>
+                            <div class="text-sm text-claude-gray">
+                                <span id="packageCount" class="font-medium">0</span> <span data-translate="pending_packages">pending packages</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Amenity Reservations -->
+                <div class="feature-card claude-card p-6 hover-lift transition-all duration-200 cursor-pointer" data-feature="amenities">
+                    <div class="flex items-start space-x-4">
+                        <div class="feature-icon flex-shrink-0">
+                            <i class="fas fa-calendar-alt text-lg"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-medium text-gray-900 mb-1" data-translate="amenity_reservations">Amenity Reservations</h3>
+                            <p class="text-sm text-claude-gray mb-3" data-translate="amenity_desc">Book facilities and amenities</p>
+                            <div class="text-sm text-claude-gray">
+                                <span id="reservationCount" class="font-medium">0</span> <span data-translate="active_reservations">active reservations</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visitor Management -->
+                <div class="feature-card claude-card p-6 hover-lift transition-all duration-200 cursor-pointer" data-feature="visitors">
+                    <div class="flex items-start space-x-4">
+                        <div class="feature-icon flex-shrink-0">
+                            <i class="fas fa-user-friends text-lg"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-medium text-gray-900 mb-1" data-translate="visitor_management">Visitor Management</h3>
+                            <p class="text-sm text-claude-gray mb-3" data-translate="visitor_desc">Register and manage guests</p>
+                            <div class="text-sm text-claude-gray">
+                                <span id="visitorCount" class="font-medium">0</span> <span data-translate="expected_visitors">expected visitors</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Library -->
+                <div class="feature-card claude-card p-6 hover-lift transition-all duration-200 cursor-pointer" data-feature="documents">
+                    <div class="flex items-start space-x-4">
+                        <div class="feature-icon flex-shrink-0">
+                            <i class="fas fa-file-alt text-lg"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-medium text-gray-900 mb-1" data-translate="document_library">Document Library</h3>
+                            <p class="text-sm text-claude-gray mb-3" data-translate="document_desc">Access important documents</p>
+                            <div class="text-sm text-claude-gray">
+                                <span id="documentCount" class="font-medium">0</span> <span data-translate="documents_available">documents available</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maintenance Requests -->
+                <div class="feature-card claude-card p-6 hover-lift transition-all duration-200 cursor-pointer" data-feature="maintenance">
+                    <div class="flex items-start space-x-4">
+                        <div class="feature-icon flex-shrink-0">
+                            <i class="fas fa-tools text-lg"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-medium text-gray-900 mb-1" data-translate="maintenance_requests">Maintenance Requests</h3>
+                            <p class="text-sm text-claude-gray mb-3" data-translate="maintenance_desc">Report and track issues</p>
+                            <div class="text-sm text-claude-gray">
+                                <span id="maintenanceCount" class="font-medium">0</span> <span data-translate="open_requests">open requests</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Details -->
+        <div id="featureDetails" class="hidden">
+            <div class="claude-card p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 id="featureTitle" class="text-xl font-medium text-gray-900"></h3>
+                    <button id="backBtn" class="claude-button claude-button-secondary">
+                        <i class="fas fa-arrow-left mr-2"></i><span data-translate="back">Back</span>
+                    </button>
+                </div>
+                <div id="featureContent"></div>
+            </div>
+        </div>
+
+        <!-- Documentation Page -->
+        <div id="documentationPage" class="documentation-page-container hidden">
+            <div class="max-w-3xl mx-auto">
+                <button id="backToHomeFromDocs" class="claude-button claude-button-secondary mb-8">
+                    <i class="fas fa-arrow-left mr-2"></i> <span data-translate="back_to_home">Back to Home</span>
+                </button>
+                <h2 class="text-4xl font-bold text-gray-900 mb-8" data-translate="documentation_page_title">BuildingAi.cloud Documentation</h2>
+                
+                <div class="documentation-article">
+                    <h3 data-translate="doc_article_package_title">Understanding Package Management</h3>
+                    <p data-translate="doc_article_package_text1">Our Package Management system is designed to streamline the process of handling deliveries for residents and management alike. It provides a centralized log for all incoming and outgoing packages, ensuring nothing gets lost or misplaced.</p>
+                    <p data-translate="doc_article_package_text2">Key features include:</p>
+                    <ul>
+                        <li data-translate="doc_article_package_li1">Automated notifications sent to residents upon package arrival.</li>
+                        <li data-translate="doc_article_package_li2">Digital signature capture for secure package pickups.</li>
+                        <li data-translate="doc_article_package_li3">Real-time tracking of package status from delivery to pickup.</li>
+                    </ul>
+                </div>
+
+                <div class="documentation-article">
+                    <h3 data-translate="doc_article_amenity_title">Amenity Reservation Guide</h3>
+                    <p data-translate="doc_article_amenity_text1">The Amenity Reservation system allows residents to conveniently book common facilities online, reducing conflicts and improving accessibility. This includes spaces like gyms, party rooms, guest suites, and more.</p>
+                    <p data-translate="doc_article_amenity_text2">How it works:</p>
+                    <ul>
+                        <li data-translate="doc_article_amenity_li1">View real-time availability of all bookable amenities.</li>
+                        <li data-translate="doc_article_amenity_li2">Securely reserve time slots and manage your bookings.</li>
+                        <li data-translate="doc_article_amenity_li3">Receive instant confirmations and reminders for your reservations.</li>
+                    </ul>
+                </div>
+
+                <div class="documentation-article">
+                    <h3 data-translate="doc_article_visitor_title">Visitor Management & Security</h3>
+                    <p data-translate="doc_article_visitor_text1">Our Visitor Management system enhances building security by allowing residents to pre-register their guests. This streamlines the entry process for visitors while maintaining a comprehensive log for security purposes.</p>
+                    <p data-translate="doc_article_visitor_text2">Benefits include:</p>
+                    <ul>
+                        <li data-translate="doc_article_visitor_li1">Faster and more secure check-ins for pre-registered guests.</li>
+                        <li data-translate="doc_article_visitor_li2">Digital records of all visitor entries and exits.</li>
+                        <li data-translate="doc_article_visitor_li3">Improved overall building security and resident peace of mind.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Login Page Container -->
+    <div id="loginPage" class="login-page-container hidden">
+        <div class="claude-card p-8 max-w-sm w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-medium text-gray-900" data-translate="login">Sign in</h3>
+            </div>
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="email">Email</label>
+                    <input type="email" id="loginEmail" class="claude-input w-full" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="password">Password</label>
+                    <input type="password" id="loginPassword" class="claude-input w-full" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="role">Role</label>
+                    <select id="loginRole" class="claude-input w-full">
+                        <option value="admin" data-translate="admin_title">Admin</option>
+                        <option value="management" data-translate="management_title">Management</option>
+                        <option value="resident" data-translate="residents_title">Resident</option>
+                    </select>
+                </div>
+                <button type="submit" class="claude-button claude-button-primary w-full">
+                    <span data-translate="login">Sign in</span>
+                </button>
+                <p class="text-center text-sm text-claude-gray mt-4">
+                    <span data-translate="dont_have_account">Don't have an account?</span> <a href="#" id="showSignupFromLogin" class="text-claude-orange hover:underline" data-translate="signup">Sign up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal (still a modal for now, can be converted to page similarly if needed) -->
+    <div id="signupModal" class="fixed inset-0 modal-backdrop flex items-center justify-center hidden z-50">
+        <div class="claude-card p-8 max-w-sm w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-medium text-gray-900" data-translate="signup">Sign up</h3>
+                <button id="closeSignup" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="signupForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="full_name">Full Name</label>
+                    <input type="text" id="signupName" class="claude-input w-full" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="email">Email</label>
+                    <input type="email" id="signupEmail" class="claude-input w-full" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="password">Password</label>
+                    <input type="password" id="signupPassword" class="claude-input w-full" required minlength="8">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="confirm_password">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" class="claude-input w-full" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="role">Role</label>
+                    <select id="signupRole" class="claude-input w-full">
+                        <option value="resident" data-translate="residents_title">Resident</option>
+                        <option value="management" data-translate="management_title">Management</option>
+                    </select>
+                </div>
+                <div id="unitField">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="unit_number">Unit Number</label>
+                    <input type="text" id="signupUnit" class="claude-input w-full">
+                </div>
+                <div>
+                    <label class="flex items-start space-x-2">
+                        <input type="checkbox" id="signupTerms" class="mt-1" required>
+                        <span class="text-sm text-gray-700" data-translate="terms_agreement">I agree to the Terms of Service and Privacy Policy</span>
+                    </label>
+                </div>
+                <button type="submit" class="claude-button claude-button-primary w-full">
+                    <span data-translate="signup">Sign up</span>
+                </button>
+                <p class="text-center text-sm text-claude-gray mt-4">
+                    <span data-translate="already_have_account">Already have an account?</span> <a href="#" id="showLoginFromSignup" class="text-claude-orange hover:underline" data-translate="login">Sign in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="notification hidden">
+        <div class="claude-card p-4 max-w-sm">
+            <div class="flex items-center space-x-3">
+                <div class="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span id="notificationText" class="text-sm text-gray-900"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="claude-card mt-16 mx-4 sm:mx-6 lg:mx-8 mb-8">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center mb-6">
+                        <div class="w-6 h-6 claude-orange rounded-md flex items-center justify-center mr-3">
+                            <i class="fas fa-building text-white text-xs"></i>
+                        </div>
+                        <span class="text-lg font-medium text-gray-900">BuildingAI</span>
+                    </div>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="service">Service</a></li>
+                        <li><a href="#" id="documentationLink" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="documentation">Documentation</a></li>
+                        <li><a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="about_us">About us</a></li>
+                        <li><a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="faqs">FAQs</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Empty columns for spacing -->
+                <div class="md:col-span-2"></div>
+                
+                <!-- Social Links -->
+                <div class="md:col-span-1 flex justify-end items-start space-x-4">
+                    <a href="#" class="text-claude-gray hover:text-gray-900 transition" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-claude-gray hover:text-gray-900 transition" aria-label="GitHub">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Bottom Section -->
+            <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-0">
+                    <a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="legal_terms">Legal Terms</a>
+                    <a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="cookies_policy">Cookies Policy</a>
+                    <a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="legal_terms">Legal Terms</a>
+                </div>
+                <div class="text-claude-gray text-sm">
+                    <span data-translate="connect">Connect:</span> 
+                    <a href="#" class="hover:text-gray-900 transition">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Translations
+        const translations = {
+            en: {
+                welcome_title: "Welcome to BuildingAi.cloud",
+                welcome_subtitle: "Comprehensive condo management system for modern living",
+                admin_title: "Admin",
+                admin_desc: "Complete system oversight and management capabilities",
+                admin_access: "Access admin panel",
+                management_title: "Management",
+                management_desc: "Building operations and resident services",
+                management_portal: "Management portal",
+                residents_title: "Residents",
+                residents_desc: "Personal services and building amenities",
+                resident_portal: "Resident portal",
+                login: "Sign in",
+                signup: "Sign up",
+                logout: "Sign out",
+                email: "Email",
+                password: "Password",
+                role: "Role",
+                back: "Back",
+                package_management: "Package Management",
+                package_desc: "Track deliveries and pickups",
+                pending_packages: "pending packages",
+                amenity_reservations: "Amenity Reservations",
+                amenity_desc: "Book facilities and amenities",
+                active_reservations: "active reservations",
+                visitor_management: "Visitor Management",
+                visitor_desc: "Register and manage guests",
+                expected_visitors: "expected visitors",
+                document_library: "Document Library",
+                document_desc: "Access important documents",
+                documents_available: "documents available",
+                maintenance_requests: "Maintenance Requests",
+                maintenance_desc: "Report and track issues",
+                open_requests: "open requests",
+                service: "Service",
+                documentation: "Documentation",
+                about_us: "About us",
+                faqs: "FAQs",
+                legal_terms: "Legal Terms",
+                cookies_policy: "Cookies Policy",
+                connect: "Connect",
+                // New translations for sections and tabs
+                effortless_management_title: "Effortless Premises Management: Smart, Secure, and Seamless.",
+                effortless_management_subtitle: "We make building and premises management simple, so you can focus on what matters most.",
+                privacy_security_title: "Protecting Resident Privacy & Ensuring Data Security.",
+                privacy_security_subtitle: "Our top priority is to diligently protect resident privacy and meticulously secure all data. We employ advanced protocols to ensure confidentiality and integrity.",
+                product_features_heading: "Our product helps you with following",
+                product_features_subtitle: "Intuitive Technology: Cloud-based, mobile-friendly platform.",
+                tab_package_title: "Package Management",
+                tab_package_desc: "Efficiently track incoming and outgoing packages, notify residents, and manage pickup logistics. Reduce clutter and improve resident satisfaction with seamless package handling.",
+                tab_package_li1: "Automated notifications sent to residents upon package arrival.",
+                tab_package_li2: "Digital log for package tracking, including pickup signatures.",
+                tab_package_li3: "Reduced lost or misplaced packages.",
+                tab_package_li4: "Streamlined delivery and pickup processes.",
+                tab_package_quote: "\"Never miss a delivery again!\"",
+                tab_package_quote_author: "- A satisfied Resident",
+                tab_amenity_title: "Amenity Reservations",
+                tab_amenity_desc: "Allow residents to easily view availability and book common facilities like gyms, party rooms, or guest suites online. Simplify scheduling and prevent double bookings.",
+                tab_amenity_li1: "Real-time amenity availability calendar.",
+                tab_amenity_li2: "Online booking and payment (optional).",
+                tab_amenity_li3: "Automated confirmation and reminder emails.",
+                tab_amenity_li4: "Fair usage policies enforcement.",
+                tab_amenity_quote: "\"Booking the gym is so much easier now!\"",
+                tab_amenity_quote_author: "- A satisfied Resident",
+                tab_visitor_title: "Visitor Management",
+                tab_visitor_desc: "Enhance security and streamline guest arrivals by allowing residents to pre-register visitors. Keep a secure log of all entries and exits.",
+                tab_visitor_li1: "Pre-registration of guests by residents.",
+                tab_visitor_li2: "Digital check-in/check-out for visitors.",
+                tab_visitor_li3: "Improved building security.",
+                tab_visitor_li4: "Reduced wait times at the front desk.",
+                tab_visitor_quote: "\"Quick and secure visitor entry.\"",
+                tab_visitor_quote_author: "- A happy Security Staff",
+                tab_document_title: "Document Library",
+                tab_document_desc: "Provide residents and management with a centralized, secure repository for important building documents like bylaws, meeting minutes, and maintenance schedules.",
+                tab_document_li1: "Centralized access to all important documents.",
+                tab_document_li2: "Version control and audit trails.",
+                tab_document_li3: "Easy search and filter options.",
+                tab_document_li4: "Reduced need for physical paperwork.",
+                tab_document_quote: "\"All essential documents are just a click away.\"",
+                tab_document_quote_author: "- A well-informed Resident",
+                full_name: "Full Name",
+                confirm_password: "Confirm Password",
+                unit_number: "Unit Number",
+                terms_agreement: "I agree to the Terms of Service and Privacy Policy",
+                // New translations for notification and detail sections
+                logged_in_as: "Logged in as ",
+                invalid_credentials: "Invalid credentials or role.",
+                signup_successful: "Signup successful! You can now log in.",
+                logged_out_successfully: "Logged out successfully.",
+                exploring_as_role: "Exploring as {role} role.",
+                password_mismatch: "Passwords do not match.",
+                terms_not_agreed: "You must agree to the Terms of Service and Privacy Policy.",
+                pending_packages_detail: "Pending Packages: ",
+                active_reservations_detail: "Active Reservations: ",
+                expected_visitors_detail: "Expected Visitors: ",
+                documents_available_detail: "Documents Available: ",
+                open_requests_detail: "Open Requests: ",
+                // New dashboard titles and subtitles
+                admin_dashboard_title: "Admin Dashboard",
+                admin_dashboard_subtitle: "Full system control and overview.",
+                management_dashboard_title: "Management Dashboard",
+                management_dashboard_subtitle: "Manage building operations and services.",
+                resident_portal_title: "Resident Portal",
+                resident_portal_subtitle: "Access personal services and amenities.",
+                already_have_account: "Already have an account?",
+                dont_have_account: "Don't have an account?",
+                documentation_page_title: "BuildingAi.cloud Documentation",
+                back_to_home: "Back to Home",
+                doc_article_package_title: "Understanding Package Management",
+                doc_article_package_text1: "Our Package Management system is designed to streamline the process of handling deliveries for residents and management alike. It provides a centralized log for all incoming and outgoing packages, ensuring nothing gets lost or misplaced.",
+                doc_article_package_text2: "Key features include:",
+                doc_article_package_li1: "Automated notifications sent to residents upon package arrival.",
+                doc_article_package_li2: "Digital signature capture for secure package pickups.",
+                doc_article_package_li3: "Real-time tracking of package status from delivery to pickup.",
+                doc_article_amenity_title: "Amenity Reservation Guide",
+                doc_article_amenity_text1: "The Amenity Reservation system allows residents to conveniently book common facilities online, reducing conflicts and improving accessibility. This includes spaces like gyms, party rooms, guest suites, and more.",
+                doc_article_amenity_text2: "How it works:",
+                doc_article_amenity_li1: "View real-time availability of all bookable amenities.",
+                doc_article_amenity_li2: "Securely reserve time slots and manage your bookings.",
+                doc_article_amenity_li3: "Receive instant confirmations and reminders for your reservations.",
+                doc_article_visitor_title: "Visitor Management & Security",
+                doc_article_visitor_text1: "Our Visitor Management system enhances building security by allowing residents to pre-register their guests. This streamlines the entry process for visitors while maintaining a comprehensive log for security purposes.",
+                doc_article_visitor_text2: "Benefits include:",
+                doc_article_visitor_li1: "Faster and more secure check-ins for pre-registered guests.",
+                doc_article_visitor_li2: "Digital records of all visitor entries and exits.",
+                doc_article_visitor_li3: "Improved overall building security and resident peace of mind."
+            },
+            fr: {
+                welcome_title: "Bienvenue sur BuildingAi.cloud",
+                welcome_subtitle: "Système complet de gestion de copropriété pour la vie moderne",
+                admin_title: "Administrateur",
+                admin_desc: "Supervision complète du système et capacités de gestion",
+                admin_access: "Accéder au panneau d'administration",
+                management_title: "Gestion",
+                management_desc: "Opérations du bâtiment et services aux résidents",
+                management_portal: "Portail de gestion",
+                residents_title: "Résidents",
+                residents_desc: "Services personnels et commodités du bâtiment",
+                resident_portal: "Portail résident",
+                login: "Se connecter",
+                signup: "S'inscrire",
+                logout: "Se déconnecter",
+                email: "Courriel",
+                password: "Mot de passe",
+                role: "Rôle",
+                back: "Retour",
+                package_management: "Gestion des colis",
+                package_desc: "Suivre les livraisons et collectes",
+                pending_packages: "colis en attente",
+                amenity_reservations: "Réservations d'installations",
+                amenity_desc: "Réserver des installations et commodités",
+                active_reservations: "réservations actives",
+                visitor_management: "Gestion des visiteurs", 
+                visitor_desc: "Enregistrer et gérer les invités",
+                expected_visitors: "visiteurs attendus",
+                document_library: "Bibliothèque de documents",
+                document_desc: "Accéder aux documents importants",
+                documents_available: "documents disponibles",
+                maintenance_requests: "Demandes de maintenance",
+                maintenance_desc: "Signaler et suivre les problèmes",
+                open_requests: "demandes ouvertes",
+                service: "Service",
+                documentation: "Documentation",
+                about_us: "À propos de nous",
+                faqs: "FAQ",
+                legal_terms: "Conditions légales",
+                cookies_policy: "Politique des cookies",
+                connect: "Connecter",
+                // Nouvelles traductions pour les sections et les onglets
+                effortless_management_title: "Gestion Immobilière Sans Effort : Intelligente, Sécurisée et Fluide.",
+                effortless_management_subtitle: "Nous simplifions la gestion des bâtiments et des locaux, afin que vous puissiez vous concentrer sur l'essentiel.",
+                privacy_security_title: "Protection de la Vie Privée des Résidents & Sécurité des Données.",
+                privacy_security_subtitle: "Notre priorité absolue est de protéger avec diligence la vie privée des résidents et de sécuriser méticuleusement toutes les données. Nous employons des protocoles avancés pour assurer la confidentialité et l'intégrité.",
+                product_features_heading: "Notre produit vous aide avec les éléments suivants",
+                product_features_subtitle: "Technologie Intuitive : Plateforme basée sur le cloud et adaptée aux mobiles.",
+                tab_package_title: "Gestion des Colis",
+                tab_package_desc: "Suivez efficacement les colis entrants et sortants, notifiez les résidents et gérez la logistique de ramassage. Réduisez l'encombrement et améliorez la satisfaction des résidents grâce à une gestion transparente des colis.",
+                tab_package_li1: "Notifications automatiques aux résidents à l'arrivée des colis.",
+                tab_package_li2: "Journal numérique pour le suivi des colis, y compris les signatures de ramassage.",
+                tab_package_li3: "Réduction des colis perdus ou égarés.",
+                tab_package_li4: "Processus de livraison et de ramassage rationalisés.",
+                tab_package_quote: "\"Ne manquez plus jamais une livraison !\"",
+                tab_package_quote_author: "- Un résident satisfait",
+                tab_amenity_title: "Réservations d'Installations",
+                tab_amenity_desc: "Permettez aux résidents de consulter facilement la disponibilité et de réserver en ligne les installations communes comme les salles de sport, les salles de fête ou les suites d'invités. Simplifiez la planification et évitez les doubles réservations.",
+                tab_amenity_li1: "Calendrier de disponibilité des installations en temps réel.",
+                tab_amenity_li2: "Réservation et paiement en ligne (facultatif).",
+                tab_amenity_li3: "Confirmations et rappels automatiques par e-mail.",
+                tab_amenity_li4: "Application des politiques d'utilisation équitable.",
+                tab_amenity_quote: "\"Réserver la salle de sport est tellement plus facile maintenant !\"",
+                tab_amenity_quote_author: "- Un résident satisfait",
+                tab_visitor_title: "Gestion des Visiteurs",
+                tab_visitor_desc: "Améliorez la sécurité et rationalisez les arrivées des invités en permettant aux résidents de pré-enregistrer les visiteurs. Conservez un journal sécurisé de toutes les entrées et sorties.",
+                tab_visitor_li1: "Pré-enregistrement des invités par les résidents.",
+                tab_visitor_li2: "Enregistrement/départ numérique pour les visiteurs.",
+                tab_visitor_li3: "Sécurité améliorée du bâtiment.",
+                tab_visitor_li4: "Temps d'attente réduits à la réception.",
+                tab_visitor_quote: "\"Entrée rapide et sécurisée des visiteurs.\"",
+                tab_visitor_quote_author: "- Un personnel de sécurité heureux",
+                tab_document_title: "Bibliothèque de Documents",
+                tab_document_desc: "Fournissez aux résidents et à la direction un référentiel centralisé et sécurisé pour les documents importants du bâtiment tels que les règlements, les procès-verbaux de réunion et les calendriers d'entretien.",
+                tab_document_li1: "Accès centralisé à tous les documents importants.",
+                tab_document_li2: "Contrôle de version et pistes d'audit.",
+                tab_document_li3: "Options de recherche et de filtrage faciles.",
+                tab_document_li4: "Besoin réduit de paperasse physique.",
+                tab_document_quote: "\"All essential documents are just a click away.\"",
+                tab_document_quote_author: "- Un résident bien informé",
+                full_name: "Nom complet",
+                confirm_password: "Confirmer le mot de passe",
+                unit_number: "Numéro d'unité",
+                terms_agreement: "J'accepte les conditions d'utilisation et la politique de confidentialité",
+                // Nouvelles traductions pour les notifications et les sections de détail
+                logged_in_as: "Connecté en tant que ",
+                invalid_credentials: "Identifiants ou rôle invalides.",
+                signup_successful: "Inscription réussie ! Vous pouvez maintenant vous connecter.",
+                logged_out_successfully: "Déconnexion réussie.",
+                exploring_as_role: "Exploration en tant que rôle de {role}.",
+                password_mismatch: "Les mots de passe ne correspondent pas.",
+                terms_not_agreed: "Vous devez accepter les conditions d'utilisation et la politique de confidentialité.",
+                pending_packages_detail: "Colis en attente : ",
+                active_reservations_detail: "Réservations actives : ",
+                expected_visitors_detail: "Visiteurs attendus : ",
+                documents_available_detail: "Documents disponibles : ",
+                open_requests_detail: "Demandes ouvertes : ",
+                // Nouveaux titres et sous-titres du tableau de bord
+                admin_dashboard_title: "Tableau de bord administrateur",
+                admin_dashboard_subtitle: "Contrôle et aperçu complets du système.",
+                management_dashboard_title: "Tableau de bord de gestion",
+                management_dashboard_subtitle: "Gérer les opérations et les services du bâtiment.",
+                resident_portal_title: "Portail résident",
+                resident_portal_subtitle: "Accéder aux services personnels et aux commodités.",
+                already_have_account: "Vous avez déjà un compte ?",
+                dont_have_account: "Vous n'avez pas de compte ?",
+                documentation_page_title: "Documentation BuildingAi.cloud",
+                back_to_home: "Retour à l'accueil",
+                doc_article_package_title: "Comprendre la gestion des colis",
+                doc_article_package_text1: "Notre système de gestion des colis est conçu pour rationaliser le processus de traitement des livraisons pour les résidents et la direction. Il fournit un journal centralisé pour tous les colis entrants et sortants, garantissant que rien ne soit perdu ou égaré.",
+                doc_article_package_text2: "Les principales fonctionnalités incluent :",
+                doc_article_package_li1: "Notifications automatisées envoyées aux résidents à l'arrivée des colis.",
+                doc_article_package_li2: "Capture de signature numérique pour des ramassages de colis sécurisés.",
+                doc_article_package_li3: "Suivi en temps réel du statut des colis, de la livraison au ramassage." ,
+                doc_article_amenity_title: "Guide de réservation des installations",
+                doc_article_amenity_text1: "Le système de réservation des installations permet aux résidents de réserver facilement les installations communes en ligne, réduisant les conflits et améliorant l'accessibilité. Cela inclut des espaces comme les gymnases, les salles de fête ou les suites d'invités. Simplifiez la planification et évitez les doubles réservations.",
+                doc_article_amenity_text2: "Comment ça marche :",
+                doc_article_amenity_li1: "Consultez la disponibilité en temps réel de toutes les installations réservables.",
+                doc_article_amenity_li2: "Réservez des créneaux horaires en toute sécurité et gérez vos réservations.",
+                doc_article_amenity_li3: "Recevez des confirmations et des rappels instantanés pour vos réservations.",
+                doc_article_visitor_title: "Gestion des visiteurs et sécurité",
+                doc_article_visitor_text1: "Notre système de gestion des visiteurs améliore la sécurité du bâtiment en permettant aux résidents de pré-enregistrer leurs invités. Cela rationalise le processus d'entrée pour les visiteurs tout en conservant un journal complet à des fins de sécurité.",
+                doc_article_visitor_text2: "Les avantages incluent :",
+                doc_article_visitor_li1: "Enregistrements plus rapides et plus sécurisés pour les invités pré-enregistrés.",
+                doc_article_visitor_li2: "Enregistrements numériques de toutes les entrées et sorties des visiteurs.",
+                doc_article_visitor_li3: "Amélioration de la sécurité globale du bâtiment et tranquillité d'esprit des résidents."
+            }
+        };
+
+        let currentLanguage = 'en';
+        
+        // Application State
+        let currentUser = null;
+        let currentRole = null;
+        let currentFeature = null;
+        
+        // Language Functions
+        function updateLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // Update select options
+            const loginRoleSelect = document.getElementById('loginRole');
+            const signupRoleSelect = document.getElementById('signupRole');
+
+            // Clear existing options and add new ones based on current language
+            loginRoleSelect.innerHTML = '';
+            ['admin', 'management', 'resident'].forEach(role => {
+                const option = document.createElement('option');
+                option.value = role;
+                option.textContent = translations[lang][`${role}_title`];
+                loginRoleSelect.appendChild(option);
+            });
+
+            signupRoleSelect.innerHTML = '';
+            ['resident', 'management'].forEach(role => {
+                const option = document.createElement('option');
+                option.value = role;
+                option.textContent = translations[lang][`${role}_title`];
+                signupRoleSelect.appendChild(option);
+            });
+
+            // Update dashboard titles and subtitles on language change
+            if (currentRole) {
+                const dashboardTitle = document.getElementById('dashboardTitle');
+                const dashboardSubtitle = document.getElementById('dashboardSubtitle');
+                if (currentRole === 'admin') {
+                    dashboardTitle.textContent = translations[currentLanguage].admin_dashboard_title || "Admin Dashboard";
+                    dashboardSubtitle.textContent = translations[currentLanguage].admin_dashboard_subtitle || "Full system control and overview.";
+                } else if (currentRole === 'management') {
+                    dashboardTitle.textContent = translations[currentLanguage].management_dashboard_title || "Management Dashboard";
+                    dashboardSubtitle.textContent = translations[currentLanguage].management_dashboard_subtitle || "Manage building operations and services.";
+                } else if (currentRole === 'resident') {
+                    dashboardTitle.textContent = translations[currentLanguage].resident_portal_title || "Resident Portal";
+                    dashboardSubtitle.textContent = translations[currentLanguage].resident_portal_subtitle || "Access personal services and amenities.";
+                }
+            }
+        }
+
+        // --- Authentication Logic (Simplified) ---
+        function showNotification(message, isError = false) {
+            const notificationDiv = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            notificationText.textContent = message;
+            
+            if (isError) {
+                notificationDiv.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+                notificationDiv.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+                notificationDiv.querySelector('i').classList.remove('fa-check', 'bg-green-500');
+                notificationDiv.querySelector('i').classList.add('fa-times', 'bg-red-500');
+            } else {
+                notificationDiv.classList.remove('bg-red-100', 'border-red-400', 'text-red-700');
+                notificationDiv.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+                notificationDiv.querySelector('i').classList.remove('fa-times', 'bg-red-500');
+                notificationDiv.querySelector('i').classList.add('fa-check', 'bg-green-500');
+            }
+
+            notificationDiv.classList.remove('hidden');
+            notificationDiv.classList.add('fade-in');
+            setTimeout(() => {
+                notificationDiv.classList.add('hidden');
+                notificationDiv.classList.remove('fade-in');
+            }, 3000);
+        }
+
+        function login(email, password, role) {
+            // In a real application, you'd send this to a server for authentication
+            if (email === "admin@example.com" && password === "password" && role === "admin") {
+                currentUser = { name: "Admin User", email: email, role: role };
+                showNotification(translations[currentLanguage].logged_in_as + translations[currentLanguage].admin_title + "!");
+                updateUIForLoggedInUser();
+                showDashboard(role);
+            } else if (email === "manager@example.com" && password === "password" && role === "management") {
+                currentUser = { name: "Management User", email: email, role: role };
+                showNotification(translations[currentLanguage].logged_in_as + translations[currentLanguage].management_title + "!");
+                updateUIForLoggedInUser();
+                showDashboard(role);
+            } else if (email === "resident@example.com" && password === "password" && role === "resident") {
+                currentUser = { name: "Resident User", email: email, role: role };
+                showNotification(translations[currentLanguage].logged_in_as + translations[currentLanguage].residents_title + "!");
+                updateUIForLoggedInUser();
+                showDashboard(role);
+            } else {
+                showNotification(translations[currentLanguage].invalid_credentials, true);
+            }
+        }
+
+        function signup(name, email, password, role, unit) {
+            // In a real application, you'd send this to a server for user registration
+            console.log(`Signing up: ${name}, ${email}, ${role}, Unit: ${unit}`);
+            showNotification(translations[currentLanguage].signup_successful);
+            hideSignupModal();
+            // After signup, typically you'd want them to log in, so show the login page
+            showLoginPage();
+        }
+
+        function logout() {
+            currentUser = null;
+            currentRole = null;
+            currentFeature = null;
+            showNotification(translations[currentLanguage].logged_out_successfully);
+            updateUIForLoggedOutUser();
+            showWelcomeScreen(); // After logout, go back to the welcome screen
+        }
+
+        function updateUIForLoggedInUser() {
+            document.getElementById('loginBtn').classList.add('hidden');
+            document.getElementById('signupBtn').classList.add('hidden');
+            document.getElementById('userMenu').classList.remove('hidden');
+            document.getElementById('userInitial').textContent = currentUser.name.charAt(0).toUpperCase();
+            document.getElementById('userName').textContent = currentUser.name;
+        }
+
+        function updateUIForLoggedOutUser() {
+            document.getElementById('loginBtn').classList.remove('hidden');
+            document.getElementById('signupBtn').classList.remove('hidden');
+            document.getElementById('userMenu').classList.add('hidden');
+        }
+
+        // --- UI State Management ---
+        // Function to hide all main content sections
+        function hideAllMainContent() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('featureDetails').classList.add('hidden');
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('signupModal').classList.add('hidden');
+            document.getElementById('documentationPage').classList.add('hidden'); // New: Hide documentation page
+        }
+
+        // Function to show the login page and hide all other main content
+        function showLoginPage() {
+            hideAllMainContent();
+            document.getElementById('loginPage').classList.remove('hidden');
+            // Set default role for login page to 'resident' when shown
+            document.getElementById('loginRole').value = 'resident';
+        }
+
+        // Function to show the welcome screen (home page)
+        function showWelcomeScreen() {
+            hideAllMainContent();
+            document.getElementById('welcomeScreen').classList.remove('hidden');
+        }
+
+        // Function to show the dashboard based on role
+        function showDashboard(role) {
+            currentRole = role;
+            hideAllMainContent();
+            document.getElementById('dashboard').classList.remove('hidden');
+
+            const dashboardTitle = document.getElementById('dashboardTitle');
+            const dashboardSubtitle = document.getElementById('dashboardSubtitle');
+            const featureGrid = document.getElementById('featureGrid');
+
+            featureGrid.querySelectorAll('.feature-card').forEach(card => card.classList.add('hidden'));
+
+            if (role === 'admin') {
+                dashboardTitle.textContent = translations[currentLanguage].admin_dashboard_title || "Admin Dashboard";
+                dashboardSubtitle.textContent = translations[currentLanguage].admin_dashboard_subtitle || "Full system control and overview.";
+                featureGrid.querySelectorAll('[data-feature]').forEach(card => card.classList.remove('hidden'));
+                // Example data for admin
+                document.getElementById('packageCount').textContent = '15';
+                document.getElementById('reservationCount').textContent = '8';
+                document.getElementById('visitorCount').textContent = '20';
+                document.getElementById('documentCount').textContent = '120';
+                document.getElementById('maintenanceCount').textContent = '5';
+            } else if (role === 'management') {
+                dashboardTitle.textContent = translations[currentLanguage].management_dashboard_title || "Management Dashboard";
+                dashboardSubtitle.textContent = translations[currentLanguage].management_dashboard_subtitle || "Manage building operations and services.";
+                featureGrid.querySelectorAll('[data-feature]').forEach(card => card.classList.remove('hidden'));
+                // Example data for management
+                document.getElementById('packageCount').textContent = '7';
+                document.getElementById('reservationCount').textContent = '4';
+                document.getElementById('visitorCount').textContent = '10';
+                document.getElementById('documentCount').textContent = '50';
+                document.getElementById('maintenanceCount').textContent = '3';
+            } else if (role === 'resident') {
+                dashboardTitle.textContent = translations[currentLanguage].resident_portal_title || "Resident Portal";
+                dashboardSubtitle.textContent = translations[currentLanguage].resident_portal_subtitle || "Access personal services and amenities.";
+                ['packages', 'amenities', 'visitors', 'documents', 'maintenance'].forEach(feature => {
+                    document.querySelector(`.feature-card[data-feature="${feature}"]`).classList.remove('hidden');
+                });
+                // Example data for resident
+                document.getElementById('packageCount').textContent = '1';
+                document.getElementById('reservationCount').textContent = '0';
+                document.getElementById('visitorCount').textContent = '2';
+                document.getElementById('documentCount').textContent = '15';
+                document.getElementById('maintenanceCount').textContent = '1';
+            }
+        }
+
+        // Function to show specific feature details
+        function showFeatureDetails(feature) {
+            currentFeature = feature;
+            hideAllMainContent();
+            document.getElementById('featureDetails').classList.remove('hidden');
+
+            const featureTitle = document.getElementById('featureTitle');
+            const featureContent = document.getElementById('featureContent');
+
+            featureContent.innerHTML = ''; // Clear previous content
+
+            switch (feature) {
+                case 'packages':
+                    featureTitle.textContent = translations[currentLanguage].package_management;
+                    featureContent.innerHTML = `
+                        <p class="text-claude-gray mb-4">${translations[currentLanguage].package_desc}</p>
+                        <ul class="list-disc list-inside text-claude-gray space-y-2">
+                            <li>${translations[currentLanguage].tab_package_li1}</li>
+                            <li>${translations[currentLanguage].tab_package_li2}</li>
+                            <li>${translations[currentLanguage].tab_package_li3}</li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-medium text-gray-800">${translations[currentLanguage].pending_packages_detail}<span id="detailPackageCount">0</span></h4>
+                        </div>
+                    `;
+                    document.getElementById('detailPackageCount').textContent = document.getElementById('packageCount').textContent;
+                    break;
+                case 'amenities':
+                    featureTitle.textContent = translations[currentLanguage].amenity_reservations;
+                    featureContent.innerHTML = `
+                        <p class="text-claude-gray mb-4">${translations[currentLanguage].amenity_desc}</p>
+                        <ul class="list-disc list-inside text-claude-gray space-y-2">
+                            <li>${translations[currentLanguage].tab_amenity_li1}</li>
+                            <li>${translations[currentLanguage].tab_amenity_li2}</li>
+                            <li>${translations[currentLanguage].tab_amenity_li3}</li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-medium text-gray-800">${translations[currentLanguage].active_reservations_detail}<span id="detailReservationCount">0</span></h4>
+                        </div>
+                    `;
+                    document.getElementById('detailReservationCount').textContent = document.getElementById('reservationCount').textContent;
+                    break;
+                case 'visitors':
+                    featureTitle.textContent = translations[currentLanguage].visitor_management;
+                    featureContent.innerHTML = `
+                        <p class="text-claude-gray mb-4">${translations[currentLanguage].visitor_desc}</p>
+                        <ul class="list-disc list-inside text-claude-gray space-y-2">
+                            <li>${translations[currentLanguage].tab_visitor_li1}</li>
+                            <li>${translations[currentLanguage].tab_visitor_li2}</li>
+                            <li>${translations[currentLanguage].tab_visitor_li3}</li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-medium text-gray-800">${translations[currentLanguage].expected_visitors_detail}<span id="detailVisitorCount">0</span></h4>
+                        </div>
+                    `;
+                    document.getElementById('detailVisitorCount').textContent = document.getElementById('visitorCount').textContent;
+                    break;
+                case 'documents':
+                    featureTitle.textContent = translations[currentLanguage].document_library;
+                    featureContent.innerHTML = `
+                        <p class="text-claude-gray mb-4">${translations[currentLanguage].document_desc}</p>
+                        <ul class="list-disc list-inside text-claude-gray space-y-2">
+                            <li>${translations[currentLanguage].tab_document_li1}</li>
+                            <li>${translations[currentLanguage].tab_document_li2}</li>
+                            <li>${translations[currentLanguage].tab_document_li3}</li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-medium text-gray-800">${translations[currentLanguage].documents_available_detail}<span id="detailDocumentCount">0</span></h4>
+                        </div>
+                    `;
+                    document.getElementById('detailDocumentCount').textContent = document.getElementById('documentCount').textContent;
+                    break;
+                case 'maintenance':
+                    featureTitle.textContent = translations[currentLanguage].maintenance_requests;
+                    featureContent.innerHTML = `
+                        <p class="text-claude-gray mb-4">${translations[currentLanguage].maintenance_desc}</p>
+                        <ul class="list-disc list-inside text-claude-gray space-y-2">
+                            <li>${translations[currentLanguage].maintenance_requests}</li>
+                            <li>${translations[currentLanguage].maintenance_desc}</li>
+                            <li>Receive updates on repair progress.</li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-medium text-gray-800">${translations[currentLanguage].open_requests_detail}<span id="detailMaintenanceCount">0</span></h4>
+                        </div>
+                    `;
+                    document.getElementById('detailMaintenanceCount').textContent = document.getElementById('maintenanceCount').textContent;
+                    break;
+            }
+        }
+
+        // Function to show the documentation page
+        function showDocumentationPage() {
+            hideAllMainContent();
+            document.getElementById('documentationPage').classList.remove('hidden');
+        }
+
+        // Function to show the signup modal
+        function showSignupModal() {
+            hideAllMainContent();
+            document.getElementById('signupModal').classList.remove('hidden');
+        }
+
+        // Function to hide the signup modal
+        function hideSignupModal() {
+            document.getElementById('signupModal').classList.add('hidden');
+        }
+
+        // --- Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Language Selector
+            document.getElementById('languageSelect').addEventListener('change', (e) => {
+                updateLanguage(e.target.value);
+            });
+
+            // Role Selection on Welcome Screen - these buttons now simulate login
+            document.querySelectorAll('.role-select').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const role = e.currentTarget.dataset.role;
+                    showNotification(translations[currentLanguage].exploring_as_role.replace('{role}', translations[currentLanguage][`${role}_title`]));
+                    // Simulate login
+                    currentUser = { name: role.charAt(0).toUpperCase() + role.slice(1) + " User", email: `${role}@example.com`, role: role };
+                    updateUIForLoggedInUser();
+                    showDashboard(role);
+                });
+            });
+
+            // Nav Buttons
+            document.getElementById('loginBtn').addEventListener('click', showLoginPage);
+            document.getElementById('signupBtn').addEventListener('click', showSignupModal);
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+
+            // Link from Login page to Signup modal
+            const showSignupFromLoginLink = document.getElementById('showSignupFromLogin');
+            if (showSignupFromLoginLink) {
+                showSignupFromLoginLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSignupModal();
+                });
+            }
+
+            // Link from Signup modal to Login page
+            const showLoginFromSignupLink = document.getElementById('showLoginFromSignup');
+            if (showLoginFromSignupLink) {
+                showLoginFromSignupLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showLoginPage();
+                });
+            }
+
+            // Close Signup Modal - now goes back to login page if not logged in
+            document.getElementById('closeSignup').addEventListener('click', () => {
+                hideSignupModal();
+                if (!currentUser) {
+                    showLoginPage(); // Go back to login page if not logged in
+                }
+            });
+
+            // Login Form Submission
+            document.getElementById('loginForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                const role = document.getElementById('loginRole').value;
+                login(email, password, role);
+            });
+
+            // Signup Form Submission
+            document.getElementById('signupForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('signupName').value;
+                const email = document.getElementById('signupEmail').value;
+                const password = document.getElementById('signupPassword').value;
+                const confirmPassword = document.getElementById('signupConfirmPassword').value;
+                const role = document.getElementById('signupRole').value;
+                const unit = document.getElementById('signupUnit').value;
+                const termsAgreed = document.getElementById('signupTerms').checked;
+
+                if (password !== confirmPassword) {
+                    showNotification(translations[currentLanguage].password_mismatch, true);
+                    return;
+                }
+                if (!termsAgreed) {
+                    showNotification(translations[currentLanguage].terms_not_agreed, true);
+                    return;
+                }
+
+                signup(name, email, password, role, unit);
+            });
+
+            // Toggle Unit field based on signup role
+            document.getElementById('signupRole').addEventListener('change', (e) => {
+                const unitField = document.getElementById('unitField');
+                if (e.target.value === 'resident') {
+                    unitField.classList.remove('hidden');
+                } else {
+                    unitField.classList.add('hidden');
+                }
+            });
+            document.getElementById('signupRole').dispatchEvent(new Event('change')); // Initialize unit field visibility
+
+            // Feature Card Clicks on Dashboard
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const feature = e.currentTarget.dataset.feature;
+                    showFeatureDetails(feature);
+                });
+            });
+
+            // Back button from Feature Details
+            document.getElementById('backBtn').addEventListener('click', () => {
+                showDashboard(currentRole);
+            });
+
+            // Tabs functionality for "Our product helps you with following" section
+            document.querySelectorAll('#featureTabs .tab-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    // Remove active class from all buttons
+                    document.querySelectorAll('#featureTabs .tab-button').forEach(btn => btn.classList.remove('active'));
+                    // Add active class to the clicked button
+                    e.currentTarget.classList.add('active');
+
+                    // Hide all tab contents
+                    document.querySelectorAll('.feature-tab-content').forEach(content => content.classList.add('hidden'));
+                    // Show the relevant tab content
+                    const targetTabId = e.currentTarget.dataset.featureTab + '-content';
+                    document.getElementById(targetTabId).classList.remove('hidden');
+                });
+            });
+
+            // Documentation Link in Footer
+            document.getElementById('documentationLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                showDocumentationPage();
+            });
+
+            // Back to Home from Documentation Page
+            document.getElementById('backToHomeFromDocs').addEventListener('click', () => {
+                showWelcomeScreen();
+            });
+
+            // Initial setup on page load
+            updateLanguage(currentLanguage);
+            showWelcomeScreen(); // This function now handles the initial display logic
+        });
+    </script>
+</body>
+</html>
