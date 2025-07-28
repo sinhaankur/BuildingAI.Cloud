@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildingAi.cloud - Condo Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+        }
+        
+        body {
+            background: #fafaf9;
+            color: #1f2937;
+        }
+        
+        .claude-bg {
+            background: linear-gradient(135deg, #f8f6f0 0%, #f3f1ea 100%);
+        }
+        
+        .claude-orange {
+            background: #cc785c;
+        }
+        
+        .claude-orange-hover:hover {
+            background: #b86a4f;
+        }
+        
+        .claude-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        
+        .claude-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transform: translateY(-1px);
+        }
+        
+        .claude-button {
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            padding: 8px 16px;
+        }
+        
+        .claude-button-primary {
+            background: #1f2937;
+            color: white;
+            border: 1px solid #1f2937;
+        }
+        
+        .claude-button-primary:hover {
+            background: #374151;
+            border-color: #374151;
+        }
+        
+        .claude-button-secondary {
+            background: transparent;
+            color: #1f2937;
+            border: 1px solid #d1d5db;
+        }
+        
+        .claude-button-secondary:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+        }
+        
+        .claude-input {
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 12px 16px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+        
+        .claude-input:focus {
+            outline: none;
+            border-color: #cc785c;
+            box-shadow: 0 0 0 3px rgba(204, 120, 92, 0.1);
+        }
+        
+        .navigation-blur {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f6f0;
+            color: #cc785c;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(-12px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+        }
+        
+        .text-claude-gray {
+            color: #6b7280;
+        }
+        
+        .border-claude {
+            border-color: #e5e7eb;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-2px);
+        }
+        
+        .sidebar-gradient {
+            background: linear-gradient(180deg, #ffffff 0%, #f8f6f0 100%);
+        }
+    </style>
+</head>
+<body class="claude-bg min-h-screen">
+    <!-- Navigation -->
+    <nav class="navigation-blur sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 claude-orange rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-building text-white text-sm"></i>
+                        </div>
+                        <span class="text-xl font-semibold text-gray-900">BuildingAi.cloud</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <select id="languageSelect" class="claude-input text-sm pr-8 bg-white border-gray-200">
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                        </select>
+                    </div>
+                    <button id="loginBtn" class="claude-button claude-button-secondary text-sm">
+                        <span data-translate="login">Sign in</span>
+                    </button>
+                    <button id="signupBtn" class="claude-button claude-button-primary text-sm">
+                        <span data-translate="signup">Sign up</span>
+                    </button>
+                    <div id="userMenu" class="hidden items-center space-x-3">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                                <span id="userInitial" class="text-sm font-medium text-gray-600"></span>
+                            </div>
+                            <span id="userName" class="text-sm font-medium text-gray-700"></span>
+                        </div>
+                        <button id="logoutBtn" class="claude-button claude-button-secondary text-sm">
+                            <span data-translate="logout">Sign out</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen" class="text-center">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-12">
+                    <h1 class="text-5xl font-light text-gray-900 mb-6" data-translate="welcome_title">Welcome to BuildingAi.cloud</h1>
+                    <p class="text-xl text-claude-gray mb-12 font-light" data-translate="welcome_subtitle">Comprehensive condo management system for modern living</p>
+                    
+                    <!-- Role Selection Cards -->
+                    <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                        <div class="claude-card p-8 hover-lift transition-all duration-200 cursor-pointer group">
+                            <div class="feature-icon mx-auto mb-6">
+                                <i class="fas fa-user-shield text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-medium mb-3 text-gray-900" data-translate="admin_title">Admin</h3>
+                            <p class="text-claude-gray mb-6 leading-relaxed" data-translate="admin_desc">Complete system oversight and management capabilities</p>
+                            <button class="role-select claude-button claude-button-primary w-full group-hover:bg-gray-800" data-role="admin">
+                                <span data-translate="admin_access">Access admin panel</span>
+                            </button>
+                        </div>
+                        
+                        <div class="claude-card p-8 hover-lift transition-all duration-200 cursor-pointer group">
+                            <div class="feature-icon mx-auto mb-6">
+                                <i class="fas fa-building text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-medium mb-3 text-gray-900" data-translate="management_title">Management</h3>
+                            <p class="text-claude-gray mb-6 leading-relaxed" data-translate="management_desc">Building operations and resident services</p>
+                            <button class="role-select claude-button claude-button-primary w-full group-hover:bg-gray-800" data-role="management">
+                                <span data-translate="management_portal">Management portal</span>
+                            </button>
+                        </div>
+                        
+                        <div class="claude-card p-8 hover-lift transition-all duration-200 cursor-pointer group">
+                            <div class="feature-icon mx-auto mb-6">
+                                <i class="fas fa-home text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-medium mb-3 text-gray-900" data-translate="residents_title">Residents</h3>
+                            <p class="text-claude-gray mb-6 leading-relaxed" data-translate="residents_desc">Personal services and building amenities</p>
+                            <button class="role-select claude-button claude-button-primary w-full group-hover:bg-gray-800" data-role="resident">
+                                <span data-translate="resident_portal">Resident portal</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Views -->
+        <div id="dashboard" class="hidden">
+            <!-- Dashboard Header -->
+            <div class="claude-card p-6 mb-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 id="dashboardTitle" class="text-2xl font-medium text-gray-900 mb-1"></h2>
+                        <p id="dashboardSubtitle" class="text-claude-gray"></p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button id="notificationBtn" class="relative claude-button claude-button-secondary">
+                            <i class="fas fa-bell"></i>
+                            <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Cards Grid -->
+            <div id="featureGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Package Management -->
+                <div class="feature-card claude-card p-6 hover-lift transition-all duration-200 cursor-pointer" data-feature="packages">
+                    <div class="flex items-start space-x-4">
+                        <div class="feature-icon flex-shrink-0">
+                            <i class="fas fa-box text-lg"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-medium text-gray-900 mb-1" data-translate="package_management">Package Management</h3>
+                            <p class="text-sm text-claude-gray mb-3" data-translate="package_desc">Track deliveries and pickups</p>
+                            <div class="text-sm text-claude-gray">
+                                <span id="packageCount" class="font-medium">0</span> <span data-translate="pending_packages">pending packages</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Amenity Reservations -->
+                <div class="feature-card claude-card p-6 hover-lift transition-all duration-200 cursor-pointer" data-feature="amenities">
+                    <div class="flex items-start space-x-4">
+                        <div class="feature-icon flex-shrink-0">
+                            <i class="fas fa-calendar-alt text-lg"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-medium text-gray-900 mb-1" data-translate="amenity_reservations">Amenity Reservations</h3>
+                            <p class="text-sm text-claude-gray mb-3" data-translate="amenity_desc">Book facilities and amenities</p>
+                            <div class="text-sm text-claude-gray">
+                                <span id="reservationCount" class="font-medium">0</span> <span data-translate="active_reservations">active reservations</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visitor Management -->
+                <div class="feature-card claude-card p-6 hover-lift transition-all duration-200 cursor-pointer" data-feature="visitors">
+                    <div class="flex items-start space-x-4">
+                        <div class="feature-icon flex-shrink-0">
+                            <i class="fas fa-user-friends text-lg"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-medium text-gray-900 mb-1" data-translate="visitor_management">Visitor Management</h3>
+                            <p class="text-sm text-claude-gray mb-3" data-translate="visitor_desc">Register and manage guests</p>
+                            <div class="text-sm text-claude-gray">
+                                <span id="visitorCount" class="font-medium">0</span> <span data-translate="expected_visitors">expected visitors</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Library -->
+                <div class="feature-card claude-card p-6 hover-lift transition-all duration-200 cursor-pointer" data-feature="documents">
+                    <div class="flex items-start space-x-4">
+                        <div class="feature-icon flex-shrink-0">
+                            <i class="fas fa-file-alt text-lg"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-medium text-gray-900 mb-1" data-translate="document_library">Document Library</h3>
+                            <p class="text-sm text-claude-gray mb-3" data-translate="document_desc">Access important documents</p>
+                            <div class="text-sm text-claude-gray">
+                                <span id="documentCount" class="font-medium">0</span> <span data-translate="documents_available">documents available</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maintenance Requests -->
+                <div class="feature-card claude-card p-6 hover-lift transition-all duration-200 cursor-pointer" data-feature="maintenance">
+                    <div class="flex items-start space-x-4">
+                        <div class="feature-icon flex-shrink-0">
+                            <i class="fas fa-tools text-lg"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-medium text-gray-900 mb-1" data-translate="maintenance_requests">Maintenance Requests</h3>
+                            <p class="text-sm text-claude-gray mb-3" data-translate="maintenance_desc">Report and track issues</p>
+                            <div class="text-sm text-claude-gray">
+                                <span id="maintenanceCount" class="font-medium">0</span> <span data-translate="open_requests">open requests</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Details -->
+        <div id="featureDetails" class="hidden">
+            <div class="claude-card p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 id="featureTitle" class="text-xl font-medium text-gray-900"></h3>
+                    <button id="backBtn" class="claude-button claude-button-secondary">
+                        <i class="fas fa-arrow-left mr-2"></i><span data-translate="back">Back</span>
+                    </button>
+                </div>
+                <div id="featureContent"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 modal-backdrop flex items-center justify-center hidden z-50">
+        <div class="claude-card p-8 max-w-sm w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-medium text-gray-900" data-translate="login">Sign in</h3>
+                <button id="closeLogin" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="email">Email</label>
+                    <input type="email" id="loginEmail" class="claude-input w-full" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="password">Password</label>
+                    <input type="password" id="loginPassword" class="claude-input w-full" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="role">Role</label>
+                    <select id="loginRole" class="claude-input w-full">
+                        <option value="admin" data-translate="admin_title">Admin</option>
+                        <option value="management" data-translate="management_title">Management</option>
+                        <option value="resident" data-translate="residents_title">Resident</option>
+                    </select>
+                </div>
+                <button type="submit" class="claude-button claude-button-primary w-full">
+                    <span data-translate="login">Sign in</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="fixed inset-0 modal-backdrop flex items-center justify-center hidden z-50">
+        <div class="claude-card p-8 max-w-sm w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-medium text-gray-900" data-translate="signup">Sign up</h3>
+                <button id="closeSignup" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="signupForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                    <input type="text" id="signupName" class="claude-input w-full" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="email">Email</label>
+                    <input type="email" id="signupEmail" class="claude-input w-full" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="password">Password</label>
+                    <input type="password" id="signupPassword" class="claude-input w-full" required minlength="8">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" class="claude-input w-full" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="role">Role</label>
+                    <select id="signupRole" class="claude-input w-full">
+                        <option value="resident" data-translate="residents_title">Resident</option>
+                        <option value="management" data-translate="management_title">Management</option>
+                    </select>
+                </div>
+                <div id="unitField">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Unit Number</label>
+                    <input type="text" id="signupUnit" class="claude-input w-full">
+                </div>
+                <div>
+                    <label class="flex items-start space-x-2">
+                        <input type="checkbox" id="signupTerms" class="mt-1" required>
+                        <span class="text-sm text-gray-700">I agree to the Terms of Service and Privacy Policy</span>
+                    </label>
+                </div>
+                <button type="submit" class="claude-button claude-button-primary w-full">
+                    <span data-translate="signup">Sign up</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="notification hidden">
+        <div class="claude-card p-4 max-w-sm">
+            <div class="flex items-center space-x-3">
+                <div class="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span id="notificationText" class="text-sm text-gray-900"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="claude-card mt-16 mx-4 sm:mx-6 lg:mx-8 mb-8">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center mb-6">
+                        <div class="w-6 h-6 claude-orange rounded-md flex items-center justify-center mr-3">
+                            <i class="fas fa-building text-white text-xs"></i>
+                        </div>
+                        <span class="text-lg font-medium text-gray-900">BuildingAI</span>
+                    </div>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="service">Service</a></li>
+                        <li><a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="documentation">Documentation</a></li>
+                        <li><a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="about_us">About us</a></li>
+                        <li><a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="faqs">FAQs</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Empty columns for spacing -->
+                <div class="md:col-span-2"></div>
+                
+                <!-- Social Links -->
+                <div class="md:col-span-1 flex justify-end items-start space-x-4">
+                    <a href="#" class="text-claude-gray hover:text-gray-900 transition" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-claude-gray hover:text-gray-900 transition" aria-label="GitHub">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Bottom Section -->
+            <div class="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex flex-wrap gap-6 mb-4 md:mb-0">
+                    <a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="legal_terms">Legal Terms</a>
+                    <a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="cookies_policy">Cookies Policy</a>
+                    <a href="#" class="text-claude-gray hover:text-gray-900 transition text-sm" data-translate="legal_terms">Legal Terms</a>
+                </div>
+                <div class="text-claude-gray text-sm">
+                    <span data-translate="connect">Connect:</span> 
+                    <a href="#" class="hover:text-gray-900 transition">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Translations
+        const translations = {
+            en: {
+                welcome_title: "Welcome to BuildingAi.cloud",
+                welcome_subtitle: "Comprehensive condo management system for modern living",
+                admin_title: "Admin",
+                admin_desc: "Complete system oversight and management capabilities",
+                admin_access: "Access admin panel",
+                management_title: "Management",
+                management_desc: "Building operations and resident services",
+                management_portal: "Management portal",
+                residents_title: "Residents",
+                residents_desc: "Personal services and building amenities",
+                resident_portal: "Resident portal",
+                login: "Sign in",
+                signup: "Sign up",
+                logout: "Sign out",
+                email: "Email",
+                password: "Password",
+                role: "Role",
+                back: "Back",
+                package_management: "Package Management",
+                package_desc: "Track deliveries and pickups",
+                pending_packages: "pending packages",
+                amenity_reservations: "Amenity Reservations",
+                amenity_desc: "Book facilities and amenities",
+                active_reservations: "active reservations",
+                visitor_management: "Visitor Management",
+                visitor_desc: "Register and manage guests",
+                expected_visitors: "expected visitors",
+                document_library: "Document Library",
+                document_desc: "Access important documents",
+                documents_available: "documents available",
+                maintenance_requests: "Maintenance Requests",
+                maintenance_desc: "Report and track issues",
+                open_requests: "open requests",
+                service: "Service",
+                documentation: "Documentation",
+                about_us: "About us",
+                faqs: "FAQs",
+                legal_terms: "Legal Terms",
+                cookies_policy: "Cookies Policy",
+                connect: "Connect"
+            },
+            fr: {
+                welcome_title: "Bienvenue sur BuildingAi.cloud",
+                welcome_subtitle: "Système complet de gestion de copropriété pour la vie moderne",
+                admin_title: "Administrateur",
+                admin_desc: "Supervision complète du système et capacités de gestion",
+                admin_access: "Accéder au panneau d'administration",
+                management_title: "Gestion",
+                management_desc: "Opérations du bâtiment et services aux résidents",
+                management_portal: "Portail de gestion",
+                residents_title: "Résidents",
+                residents_desc: "Services personnels et commodités du bâtiment",
+                resident_portal: "Portail résident",
+                login: "Se connecter",
+                signup: "S'inscrire",
+                logout: "Se déconnecter",
+                email: "Courriel",
+                password: "Mot de passe",
+                role: "Rôle",
+                back: "Retour",
+                package_management: "Gestion des colis",
+                package_desc: "Suivre les livraisons et collectes",
+                pending_packages: "colis en attente",
+                amenity_reservations: "Réservations d'installations",
+                amenity_desc: "Réserver des installations et commodités",
+                active_reservations: "réservations actives",
+                visitor_management: "Gestion des visiteurs", 
+                visitor_desc: "Enregistrer et gérer les invités",
+                expected_visitors: "visiteurs attendus",
+                document_library: "Bibliothèque de documents",
+                document_desc: "Accéder aux documents importants",
+                documents_available: "documents disponibles",
+                maintenance_requests: "Demandes de maintenance",
+                maintenance_desc: "Signaler et suivre les problèmes",
+                open_requests: "demandes ouvertes",
+                service: "Service",
+                documentation: "Documentation",
+                about_us: "À propos de nous",
+                faqs: "FAQ",
+                legal_terms: "Conditions légales",
+                cookies_policy: "Politique des cookies",
+                connect: "Connecter"
+            }
+        };
+
+        let currentLanguage = 'en';
+        
+        // Application State
+        let currentUser = null;
+        let currentRole = null;
+        let currentFeature = null;
+        
+        // Language Functions
+        function updateLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // Update select options
+            const loginRoleSelect = document.getElementById('loginRole');
+            const signupR

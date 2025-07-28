@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Management Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles to override or enhance Bulma */
+        html, body {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F8F8;
+            color: #333;
+        }
+        .main-content {
+            padding: 2rem;
+            background-color: #F8F8F8;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content-area {
+            flex-grow: 1;
+            background-color: #ffffff;
+            padding: 2rem;
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.05), 0 0px 0 1px rgba(10, 10, 10, 0.01);
+            border-radius: 0.75rem;
+            max-width: 400px;
+        }
+        .box {
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .title.is-4 {
+            color: #333;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .button.is-primary {
+            background-color: #EFBC68;
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(239, 188, 104, 0.3);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .button.is-primary:hover, .button.is-primary.is-hovered {
+            background-color: #E2A750;
+            box-shadow: 0 4px 8px rgba(239, 188, 104, 0.4);
+        }
+        /* Message box styles */
+        .message-box {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+            max-width: 300px;
+            width: 90%;
+        }
+        .message-box h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .message-box p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .message-box button {
+            background-color: #EFBC68;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .message-box button:hover {
+            background-color: #E2A750;
+        }
+        .overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="content-area">
+            <h4 class="title is-4">Building Management / Admin Login</h4>
+            <div class="box">
+                <form id="loginForm">
+                    <div class="field">
+                        <label class="label" for="username">Username</label>
+                        <div class="control">
+                            <input class="input" type="text" id="username" placeholder="Enter your username" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="password">Password</label>
+                        <div class="control">
+                            <input class="input" type="password" id="password" placeholder="Enter your password" required>
+                        </div>
+                    </div>
+                    <div class="field mt-5">
+                        <div class="control">
+                            <button class="button is-primary is-fullwidth" type="submit">Log In</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Box HTML -->
+    <div id="messageBox" class="message-box">
+        <h3 id="messageTitle"></h3>
+        <p id="messageText"></p>
+        <button id="messageOkButton">OK</button>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simple simulated authentication
+            if (username === 'admin' && password === 'admin') {
+                showMessage('Login Successful', 'Redirecting to Admin Console...');
+                setTimeout(() => {
+                    window.location.href = 'admin-panel.html';
+                }, 1500); // Redirect after 1.5 seconds
+            } else if (username === 'manager' && password === 'manager') {
+                showMessage('Login Successful', 'Redirecting to Building Management Dashboard...');
+                setTimeout(() => {
+                    window.location.href = 'Building.html';
+                }, 1500); // Redirect after 1.5 seconds
+            } else {
+                showMessage('Login Failed', 'Invalid username or password. Please try again.');
+            }
+        });
+
+        // Function to show custom message box
+        function showMessage(title, message) {
+            document.getElementById('messageTitle').textContent = title;
+            document.getElementById('messageText').textContent = message;
+            document.getElementById('messageBox').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+
+            document.getElementById('messageOkButton').onclick = function() {
+                document.getElementById('messageBox').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+            };
+            // Close on overlay click as well
+            document.getElementById('overlay').onclick = function() {
+                document.getElementById('messageBox').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+            };
+        }
+    </script>
+</body>
+</html>

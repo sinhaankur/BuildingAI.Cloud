@@ -1,0 +1,2557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildingAi.cloud - Residents Portal</title>
+    <!-- Bulma CSS CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- Font Awesome for icons (e.g., user icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS for mobile optimization and sticky elements -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent body scroll, content areas will scroll */
+        }
+
+        .is-fullheight {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Custom slate color for the navbar */
+        .navbar.is-primary {
+            background-color: #475569 !important; /* Slate color */
+            color: #fff; /* Ensure text is white on slate background */
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000; /* Ensure navbar is on top */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Add shadow for sticky effect */
+        }
+
+        /* Ensure navbar links and text are white */
+        .navbar-item, .navbar-link, .navbar-item .icon-text span, .navbar-item .buttons .button.is-text {
+            color: #fff !important;
+        }
+        .navbar-burger {
+            color: #fff !important;
+        }
+        .navbar-link:hover, .navbar-link:focus {
+            background-color: rgba(255, 255, 255, 0.1) !important; /* Slightly lighter hover for slate */
+            color: #fff !important;
+        }
+        .navbar-dropdown a.navbar-item {
+            color: #475569 !important; /* Text color for dropdown items */
+        }
+        .navbar-dropdown a.navbar-item:hover {
+            background-color: #f5f5f5 !important;
+            color: #363636 !important;
+        }
+
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: row; /* Default desktop layout */
+            overflow: hidden; /* Prevent main-content from scrolling, its children will */
+        }
+
+        .page-container {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden; /* Prevent page-container from scrolling, its children will */
+        }
+
+        .main-tabs {
+            position: sticky;
+            top: 52px; /* Height of the navbar */
+            width: 200px; /* Fixed width for desktop sidebar */
+            flex-shrink: 0;
+            padding: 1rem;
+            background-color: #f5f5f5;
+            border-right: 1px solid #dbdbdb;
+            overflow-y: auto; /* Allow sidebar content to scroll */
+            height: calc(100vh - 52px); /* Full height minus navbar */
+            z-index: 900; /* Below navbar, above content */
+        }
+
+        .content-area {
+            flex-grow: 1;
+            padding: 1.5rem;
+            overflow-y: auto; /* Allow content to scroll */
+            height: calc(100vh - 52px); /* Full height minus navbar */
+            position: relative; /* For positioning sticky internal elements */
+        }
+
+        /* Sticky header for content sections */
+        .content-section .title,
+        .content-section .subtitle,
+        .content-section .tabs {
+            position: sticky;
+            top: 0; /* Sticky to the top of the content-area */
+            background-color: #fff; /* Ensure background is solid when sticky */
+            z-index: 500; /* Below main-tabs, above scrollable content */
+            padding-bottom: 0.5rem; /* Space below sticky elements */
+            margin-bottom: 1rem; /* Space before content starts */
+            box-shadow: 0 2px 2px -2px rgba(0,0,0,0.1); /* Subtle shadow for sticky effect */
+        }
+
+        .content-section .title {
+            top: 0; /* Adjust if other sticky elements are above it */
+        }
+        .content-section .subtitle {
+            top: 40px; /* Adjust based on title height */
+        }
+        .content-section .tabs {
+            top: 80px; /* Adjust based on title and subtitle height */
+        }
+
+
+        /* Mobile adjustments */
+        @media screen and (max-width: 768px) {
+            .main-content {
+                flex-direction: column; /* Stack sidebar and content on mobile */
+            }
+
+            .main-tabs {
+                position: fixed;
+                top: 52px; /* Height of the navbar */
+                left: 0;
+                width: 100%;
+                height: calc(100% - 52px); /* Full height minus navbar */
+                background-color: #f5f5f5;
+                z-index: 1000; /* Ensure sidebar is on top of content when open */
+                transform: translateX(-100%); /* Hide off-screen by default */
+                transition: transform 0.3s ease-in-out;
+                box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+                padding: 1rem;
+                border-right: none;
+                overflow-y: auto; /* Allow sidebar content to scroll */
+            }
+
+            .main-tabs.is-active-mobile {
+                transform: translateX(0%); /* Show on-screen when active */
+            }
+
+            .content-area {
+                padding: 1rem; /* Adjust padding for mobile */
+                width: 100%; /* Take full width on mobile */
+                height: calc(100vh - 52px); /* Full height minus navbar */
+            }
+
+            .navbar-burger-mobile {
+                display: block; /* Show burger icon on mobile */
+            }
+
+            .navbar-menu {
+                display: none; /* Hide desktop navbar menu on mobile */
+            }
+
+            .navbar-menu.is-active {
+                display: flex; /* Show when active (for original Bulma burger) */
+            }
+
+            /* Ensure columns stack on mobile */
+            .columns:not(.is-vcentered) {
+                flex-direction: column;
+            }
+
+            /* Adjust spacing for mobile app screenshots */
+            .app-screenshots img {
+                margin-bottom: 1rem;
+            }
+
+            /* Modals should take up more screen space on mobile */
+            .modal-content {
+                width: 90%;
+                margin: 0 auto;
+            }
+            .amenity-modal-content, .booking-modal-content {
+                width: 95%;
+                margin: 0 auto;
+            }
+
+            /* Ensure tables are scrollable on small screens */
+            .table-container {
+                overflow-x: auto;
+            }
+        }
+
+        /* General styling for rounded corners, etc. */
+        .box, .image img, .modal-content, .amenity-item {
+            border-radius: 0.75rem;
+        }
+
+        .amenity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 0.75rem;
+        }
+
+        .amenity-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border: 1px solid #dbdbdb;
+            border-radius: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            background-color: #fff;
+        }
+
+        .amenity-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .amenity-item .icon-box {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #48c78e; /* Bulma success color - keeping green for icons */
+        }
+
+        .amenity-item img {
+            max-width: 60px;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+
+        .amenity-item p {
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .amenity-item small {
+            font-size: 0.75rem;
+            color: #7a7a7a;
+        }
+
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-table td {
+            text-align: center;
+            vertical-align: middle;
+            height: 60px; /* Fixed height for calendar cells */
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .calendar-table td.is-disabled {
+            background-color: #f0f0f0;
+            cursor: not-allowed;
+            color: #ccc;
+        }
+
+        .calendar-table td.is-today {
+            background-color: #e6ffe6; /* Light green for today */
+            font-weight: bold;
+        }
+
+        .calendar-table td.is-selected {
+            background-color: #48c78e; /* Bulma success color */
+            color: white;
+            font-weight: bold;
+        }
+
+        .calendar-table td.has-event {
+            position: relative;
+        }
+
+        .calendar-table td.has-event::after {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            background-color: #ffdd57; /* Bulma warning color */
+            border-radius: 50%;
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 0.75rem;
+        }
+
+        .time-slot-item {
+            padding: 0.5rem 1rem;
+            border: 1px solid #dbdbdb;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            background-color: #fff;
+        }
+
+        .time-slot-item:hover:not(.is-booked) {
+            background-color: #f0f0f0;
+        }
+
+        .time-slot-item.is-selected {
+            background-color: #209cee; /* Bulma info color */
+            color: white;
+            border-color: #209cee;
+        }
+
+        .time-slot-item.is-booked {
+            background-color: #f5f5f5;
+            color: #b5b5b5;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
+        /* Style for sub-section content boxes */
+        .sub-section-content {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+            margin-top: 1.5rem;
+            /* Ensure content inside this box is scrollable if it overflows */
+            max-height: calc(100vh - 250px); /* Adjust based on sticky header/tab height */
+            overflow-y: auto;
+        }
+
+        /* Tabs styling for sub-sections */
+        .tabs.is-boxed ul li.is-active a {
+            border-bottom-color: #48c78e;
+            color: #48c78e;
+        }
+        .tabs.is-boxed a {
+            border-radius: 0.75rem 0.75rem 0 0; /* Rounded top corners */
+        }
+        .tabs.is-boxed {
+            margin-bottom: 0; /* Remove default margin */
+        }
+
+        /* Ensure content sections are hidden by default */
+        .content-section {
+            display: none;
+        }
+
+        /* Mobile app section styling */
+        .mobile-app-section {
+            background-color: #f0f0f0;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+
+        .mobile-app-section .app-screenshots {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .mobile-app-section .app-screenshots img {
+            width: 30%; /* Adjust for 3 columns on desktop */
+            max-width: 100px;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .mobile-app-section .app-badges img {
+            height: 40px;
+            margin: 0.5rem;
+        }
+
+        /* Adjust for smaller screens where screenshots should stack */
+        @media screen and (max-width: 768px) {
+            .mobile-app-section .app-screenshots img {
+                width: 45%; /* Two columns on mobile */
+                max-width: 120px;
+            }
+        }
+        @media screen and (max-width: 480px) {
+            .mobile-app-section .app-screenshots img {
+                width: 60%; /* One column on very small screens */
+                max-width: 150px;
+            }
+        }
+
+        /* Modal specific styles for centering and sizing */
+        .modal-content {
+            position: relative; /* Needed for z-index to work correctly with modal-background */
+            z-index: 1001; /* Ensure modal content is above modal-background */
+            margin: auto; /* Center horizontally */
+            top: 50%; /* Center vertically */
+            transform: translateY(-50%); /* Adjust for vertical centering */
+            max-width: 600px; /* Max width for desktop */
+            width: 90%; /* Responsive width */
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Add shadow for better visual */
+        }
+
+        /* Specific modal content adjustments */
+        .amenity-modal-content, .booking-modal-content {
+            max-width: 800px; /* Wider for amenity selection and booking */
+            width: 95%;
+        }
+
+        .modal-background {
+            background-color: rgba(0, 0, 0, 0.6); /* Darker background for better focus */
+        }
+
+        /* Custom Switch Styling */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 48px; /* Width of the switch */
+            height: 24px; /* Height of the switch */
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 24px; /* Rounded corners for the track */
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px; /* Height of the thumb */
+            width: 18px; /* Width of the thumb */
+            left: 3px; /* Initial position of the thumb */
+            bottom: 3px; /* Initial position of the thumb */
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%; /* Make the thumb round */
+        }
+
+        input:checked + .slider {
+            background-color: #48c78e; /* Green when checked */
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #48c78e;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(24px); /* Move thumb to the right */
+            -ms-transform: translateX(24px);
+            transform: translateX(24px);
+        }
+
+        /* Adjustments for the bulletin board content scrolling */
+        #full-bulletin-board-posts-container {
+            max-height: 400px; /* Example max height, adjust as needed */
+            overflow-y: auto;
+            border: 1px solid #dbdbdb; /* Optional: add a border to show scrollable area */
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            background-color: #fdfdfd;
+        }
+    </style>
+</head>
+<body>
+    <div class="is-fullheight">
+        <!-- Navbar -->
+        <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="#">
+                    <!-- Placeholder for logo. You can replace this with an actual image. -->
+                    <span class="icon is-large">
+                        <i class="fas fa-cloud fa-2x"></i>
+                    </span>
+                    <span class="is-size-4 has-text-weight-bold">BuildingAi.cloud</span>
+                </a>
+
+                <!-- Mobile Burger for Main Tabs (left sidebar) -->
+                <a role="button" class="navbar-burger navbar-burger-mobile" aria-label="menu" aria-expanded="false" data-target="main-tabs-menu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+
+                <!-- Original Navbar Burger (for top right menu, hidden on mobile by default Bulma) -->
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <!-- Language Selector -->
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link is-arrowless">
+                            Language: English (Canada)
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item">English (US)</a>
+                            <a class="navbar-item">French (Canada)</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <span class="icon-text">
+                                <span class="icon">
+                                    <i class="fas fa-user-circle"></i>
+                                </span>
+                                <span>Ankur Sinha, Suite 502-A</span>
+                            </span>
+                            <a class="button is-text" data-section="my-profile">My Profile</a>
+                            <a class="button is-text" id="help-button">Help</a>
+                            <a class="button is-text" id="logout-button">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="page-container">
+                <!-- Main Navigation Tabs (left sidebar) -->
+                <aside class="main-tabs menu" id="main-tabs-menu">
+                    <ul class="menu-list">
+                        <li class="is-active" data-main-tab="home">
+                            <a>
+                                <span class="icon"><i class="fas fa-home"></i></span>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li data-main-tab="resident-services">
+                            <a>
+                                <span class="icon"><i class="fas fa-user-friends"></i></span>
+                                <span>Resident Services</span>
+                            </a>
+                        </li>
+                        <li data-main-tab="my-building">
+                            <a>
+                                <span class="icon"><i class="fas fa-building"></i></span>
+                                <span>My Building</span>
+                            </a>
+                        </li>
+                        <li data-main-tab="services-offers">
+                            <a>
+                                <span class="icon"><i class="fas fa-handshake"></i></span>
+                                <span>Services & Offers</span>
+                            </a>
+                        </li>
+                        <li data-main-tab="neighbournet">
+                            <a>
+                                <span class="icon"><i class="fas fa-users"></i></span>
+                                <span>NeighbourNet</span>
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+
+                <!-- Content Area -->
+                <div class="content-area">
+                    <!-- Home Section (Default View) -->
+                    <section id="home-section" class="content-section">
+                        <h1 class="title is-4">Home</h1>
+                        <div class="columns">
+                            <div class="column is-8">
+                                <!-- Announcements -->
+                                <div class="box">
+                                    <h2 class="title is-5">Announcements <span class="icon is-pulled-right"><i class="fas fa-chevron-up"></i></span></h2>
+                                    <div class="content">
+                                        <ul>
+                                            <li><a href="#">Supervision of children in the Superclub notice</a></li>
+                                            <li><a href="#">Reopening of the outdoor amenities</a></li>
+                                            <li><a href="#">Superclub Water Feature Waterproofing Project</a></li>
+                                            <li><a href="#">Temporary Closure of the Path Leading Into The Superclub</a></li>
+                                            <li><a href="#">Spring 2023 Garage Power Wash Cleaning</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Upcoming Events -->
+                                <div class="box mt-4">
+                                    <h2 class="title is-5">Upcoming Events <span class="icon is-pulled-right"><i class="fas fa-chevron-up"></i></span></h2>
+                                    <div class="content">
+                                        <p>There are NO entries to display.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Bulletin Board Postings -->
+                                <div class="box mt-4">
+                                    <h2 class="title is-5">Bulletin Board Postings <span class="icon is-pulled-right"><i class="fas fa-chevron-up"></i></span></h2>
+                                    <div class="content">
+                                        <a class="button is-small is-primary is-pulled-right mb-3" id="add-new-post-button-home">Add New Post</a>
+                                        <div class="table-container">
+                                            <table class="table is-fullwidth is-striped is-hoverable">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="home-bulletin-board-posts">
+                                                    <!-- Bulletin board posts will be rendered here by JavaScript -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <a href="#" class="button is-link is-small" id="view-all-bulletin-posts">View All Posts</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-4">
+                                <!-- Surveys -->
+                                <div class="box">
+                                    <h2 class="title is-5">Surveys <span class="icon is-pulled-right"><i class="fas fa-chevron-up"></i></span></h2>
+                                    <div class="content">
+                                        <p>No surveys available.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Slideshow (Placeholder) -->
+                                <div class="box mt-4">
+                                    <h2 class="title is-5">Slideshow <span class="icon is-pulled-right"><i class="fas fa-chevron-up"></i></span></h2>
+                                    <figure class="image is-4by3">
+                                        <img src="https://placehold.co/600x450/cccccc/333333?text=Slideshow+Image" alt="Slideshow Placeholder" style="border-radius: 0.75rem;">
+                                    </figure>
+                                </div>
+
+                                <!-- Download Mobile App Section -->
+                                <div class="mobile-app-section mt-4">
+                                    <h2 class="title is-4">Download the BuildingAi.cloud Mobile App to...</h2>
+                                    <p class="subtitle is-6">Make service requests View and post classifieds View delivery details Post suite instructions Book amenities and more...</p>
+                                    <div class="columns is-vcentered is-mobile">
+                                        <div class="column is-one-third">
+                                            <div class="app-screenshots">
+                                                <img src="https://placehold.co/100x200/cccccc/333333?text=App+Screen+1" alt="App Screenshot 1">
+                                            </div>
+                                        </div>
+                                        <div class="column is-one-third">
+                                            <div class="app-screenshots">
+                                                <img src="https://placehold.co/100x200/cccccc/333333?text=App+Screen+2" alt="App Screenshot 2">
+                                            </div>
+                                        </div>
+                                        <div class="column is-one-third">
+                                            <div class="app-screenshots">
+                                                <img src="https://placehold.co/100x200/cccccc/333333?text=App+Screen+3" alt="App Screenshot 3">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="is-size-6 mt-4">TO ACCESS BuildingAi.cloud FROM A TABLET OR MOBILE PHONE. SEARCH</p>
+                                    <p class="is-size-5 has-text-weight-bold mt-2">"Google Play" OR "App Store"</p>
+                                    <div class="app-badges mt-4">
+                                    <a href="#"><img src="https://placehold.co/120x40/000000/ffffff?text=Google+Play" alt="Google Play Badge"></a>
+                                    <a href="#"><img src="https://placehold.co/120x40/000000/ffffff?text=App+Store" alt="App Store Badge"></a>
+                                    </div>
+                                </div>
+
+                                <!-- Local Links -->
+                                <div class="box mt-4">
+                                    <h2 class="title is-5">Local Links for MSV 3V2 <span class="icon is-pulled-right"><i class="fas fa-chevron-up"></i></span></h2>
+                                    <div class="content">
+                                        <p>No local links available.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Other sections (initially hidden) -->
+                    <section id="resident-services-section" class="content-section">
+                        <h1 class="title is-4">Resident Services</h1>
+                        <p class="subtitle is-6">Manage your daily interactions and requests with ease.</p>
+                        <div class="tabs is-boxed">
+                            <ul>
+                                <li class="is-active" data-resident-service-tab="instructions-notes"><a>My Instructions & Notes</a></li>
+                                <li data-resident-service-tab="amenity-reservations"><a>Amenity Reservations</a></li>
+                                <li data-resident-service-tab="my-deliveries"><a>My Deliveries</a></li>
+                            </ul>
+                        </div>
+                        <div id="instructions-notes-content" class="box mt-4 sub-section-content">
+                            <h2 class="title is-5">My Instructions & Notes</h2>
+                            <p>Keep track of all your personal instructions and notes for building staff, such as delivery preferences, pet care instructions, or temporary access details for visitors. Ensure important information is always available when needed.</p>
+                        </div>
+                        <div id="amenity-reservations-content" class="box mt-4 sub-section-content" style="display:none;">
+                            <h2 class="title is-5">Amenity Reservations</h2>
+                            <p>Book common amenities like the gym, party room, or guest suites with a few clicks. View availability, make reservations, and manage your bookings directly from this portal, ensuring fair access for all residents.</p>
+                            <a class="button is-success is-small" id="add-reservation-button"><span class="icon"><i class="fas fa-plus"></i></span> Add New Reservation</a>
+                            <a class="button is-info is-small is-pulled-right">View My Reservations (0)</a>
+                            <div class="field is-grouped is-grouped-multiline mt-4">
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox" checked>
+                                        Show only my reservations
+                                    </label>
+                                </div>
+                                <div class="control">
+                                    <div class="select is-small">
+                                        <select>
+                                            <option>All Amenities</option>
+                                            <option>Amenity 1</option>
+                                            <option>Amenity 2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox">
+                                        Show Selection
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="field is-grouped is-grouped-multiline">
+                                <div class="control">
+                                    <label class="label is-small">Go to:</label>
+                                </div>
+                                <div class="control">
+                                    <input class="input is-small" type="date" value="2025-05-01">
+                                </div>
+                                <div class="control">
+                                    <button class="button is-small">Prev</button>
+                                </div>
+                                <div class="control">
+                                    <span class="tag is-info is-light">May 2025</span>
+                                </div>
+                                <div class="control">
+                                    <button class="button is-small">Next</button>
+                                </div>
+                                <div class="control is-pulled-right">
+                                    <button class="button is-small">Switch to Grid View</button>
+                                </div>
+                            </div>
+                            <div class="tags has-addons mt-4">
+                                <span class="tag is-light">Legend:</span>
+                                <span class="tag is-success">Approved</span>
+                                <span class="tag is-warning">Requested</span>
+                                <span class="tag is-danger">Declined</span>
+                                <span class="tag is-dark">Canceled</span>
+                            </div>
+                            <div class="table-container">
+                                <table class="table is-bordered is-fullwidth">
+                                    <thead>
+                                        <tr>
+                                            <th>27</th>
+                                            <th>28</th>
+                                            <th>29</th>
+                                            <th>30</th>
+                                            <th>1 May</th>
+                                            <th>2</th>
+                                            <th>3</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <p><small>25-04-22 4:00 PM - 25-04-28 11:00 AM</small></p>
+                                                <p>Guest Suite #11 at 10 Mariner Terrace</p>
+                                            </td>
+                                            <td>
+                                                <p><small>25-04-28 8:00 AM - 25-04-30 8:00 AM</small></p>
+                                                <p>Basketball Court</p>
+                                            </td>
+                                            <td>
+                                                <p><small>25-04-30 6:00 PM - 25-05-06 6:00 PM</small></p>
+                                                <p>Party Room</p>
+                                            </td>
+                                            <td>
+                                                <p><small>7:00 AM - 8:00 AM</small></p>
+                                                <p>Basketball Court</p>
+                                            </td>
+                                            <td>
+                                                <p><small>7:00 AM - 8:00 AM</small></p>
+                                                <p>Tennis Court</p>
+                                            </td>
+                                            <td>
+                                                <p><small>9:00 AM - 12:00 PM</small></p>
+                                                <p>Service Elevator - 10 Navy (Tower A)</p>
+                                            </td>
+                                            <td>
+                                                <p><small>9:00 AM - 12:00 PM</small></p>
+                                                <p>Party Room</p>
+                                            </td>
+                                        </tr>
+                                        <!-- More rows as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="my-deliveries-content" class="box mt-4 sub-section-content" style="display:none;">
+                            <h2 class="title is-5">Open Deliveries</h2>
+                            <p>View the status of your current deliveries and pick-ups. Get real-time updates on packages held at the front desk or scheduled for delivery to your unit.</p>
+                            <div class="table-container">
+                                <table class="table is-fullwidth is-striped is-hoverable">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Delivery</th>
+                                            <th>Comment</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="3">No records to display.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="my-building-section" class="content-section">
+                        <h1 class="title is-4">My Building</h1>
+                        <p class="subtitle is-6">Access building information and resources.</p>
+                        <div class="tabs is-boxed">
+                            <ul>
+                                <li class="is-active" data-my-building-tab="building-calendar"><a>Calendar</a></li>
+                                <li data-my-building-tab="building-contacts"><a>Building Contacts</a></li>
+                                <li data-my-building-tab="building-library"><a>Building Library</a></li>
+                                <li data-my-building-tab="survey-questions"><a>Survey Questions</a></li>
+                                <li data-my-building-tab="waiver-forms"><a>Waiver Forms</a></li>
+                                <li data-my-building-tab="registration-forms"><a>Registration Forms</a></li>
+                            </ul>
+                        </div>
+                        <div id="building-calendar-content" class="box mt-4 sub-section-content">
+                            <h2 class="title is-5">Building Calendar</h2>
+                            <div class="tabs is-toggle is-small">
+                                <ul>
+                                    <li class="is-active"><a>Monthly view</a></li>
+                                    <li><a>List view</a></li>
+                                </ul>
+                            </div>
+                            <div class="field is-grouped is-grouped-multiline">
+                                <div class="control">
+                                    <button class="button is-small"><span class="icon"><i class="fas fa-chevron-left"></i></span></button>
+                                </div>
+                                <div class="control">
+                                    <div class="select is-small">
+                                        <select>
+                                            <option>May 2025</option>
+                                            <option>June 2025</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control">
+                                    <button class="button is-small"><span class="icon"><i class="fas fa-chevron-right"></i></span></button>
+                                </div>
+                                <div class="control">
+                                    <button class="button is-small is-info">Today</button>
+                                </div>
+                                <div class="control has-icons-left">
+                                    <input class="input is-small" type="text" placeholder="Search events">
+                                    <span class="icon is-small is-left"><i class="fas fa-search"></i></span>
+                                </div>
+                                <div class="control">
+                                    <div class="select is-small">
+                                        <select>
+                                            <option>Categories</option>
+                                            <option>Events</option>
+                                            <option>Bookings</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control">
+                                    <button class="button is-small is-danger is-light">Clear filters</button>
+                                </div>
+                                <div class="control is-pulled-right">
+                                    <button class="button is-small">Print view</button>
+                                    <button class="button is-small">Reservation calendar</button>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table class="table is-bordered is-fullwidth is-narrow">
+                                    <thead>
+                                        <tr>
+                                            <th>Sun</th>
+                                            <th>Mon</th>
+                                            <th>Tue</th>
+                                            <th>Wed</th>
+                                            <th>Thu</th>
+                                            <th>Fri</th>
+                                            <th>Sat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="has-text-grey-light">27</td>
+                                            <td class="has-text-grey-light">28</td>
+                                            <td class="has-text-grey-light">29</td>
+                                            <td class="has-text-grey-light">30</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>5</td>
+                                            <td>6</td>
+                                            <td>7</td>
+                                            <td>8</td>
+                                            <td>9</td>
+                                            <td>10</td>
+                                        </tr>
+                                        <tr>
+                                            <td>11</td>
+                                            <td>12</td>
+                                            <td>13</td>
+                                            <td>14</td>
+                                            <td>15</td>
+                                            <td>16</td>
+                                            <td>17</td>
+                                        </tr>
+                                        <tr>
+                                            <td>18</td>
+                                            <td>19</td>
+                                            <td style="background-color: #C8CFD6;">20</td> <!-- Highlighted today with light blue-grey -->
+                                            <td>21</td>
+                                            <td>22</td>
+                                            <td>23</td>
+                                            <td>24</td>
+                                        </tr>
+                                        <tr>
+                                            <td>25</td>
+                                            <td>26</td>
+                                            <td>27</td>
+                                            <td>28</td>
+                                            <td>29</td>
+                                            <td>30</td>
+                                            <td class="has-text-grey-light">1</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="building-contacts-content" class="box mt-4 sub-section-content" style="display:none;">
+                            <h2 class="title is-5">Building Contacts</h2>
+                            <p>Find important contact information for building management, concierge, and emergency services.</p>
+                        </div>
+                        <div id="building-library-content" class="box mt-4 sub-section-content" style="display:none;">
+                            <h2 class="title is-5">Building Library</h2>
+                            <div class="field is-grouped is-grouped-multiline">
+                                <div class="control">
+                                    <label class="radio">
+                                        <input type="radio" name="document-group" checked>
+                                        Group by Category
+                                    </label>
+                                </div>
+                                <div class="control">
+                                    <label class="radio">
+                                        <input type="radio" name="document-group">
+                                        Group by Date
+                                    </label>
+                                </div>
+                                <div class="control has-icons-left">
+                                    <input class="input is-small" type="text" placeholder="Text Search">
+                                    <span class="icon is-small is-left"><i class="fas fa-search"></i></span>
+                                </div>
+                                <div class="control">
+                                    <button class="button is-small is-info">Search</button>
+                                </div>
+                                <div class="control is-pulled-right">
+                                    <button class="button is-small">Expand All</button>
+                                    <button class="button is-small">Hide All</button>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table class="table is-fullwidth is-striped is-hoverable">
+                                    <thead>
+                                        <tr>
+                                            <th>Document Name</th>
+                                            <th>Date Posted</th>
+                                            <th>Last Revised On</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="#">Amenity Reservation Forms (1)</a></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Declaration - Rules & Regulation (3)</a></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Information about the Amenities Building (Superclub) (12)</a></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Acknowledgement of risk and waiver of liability: Covid-19 (Important)</a></td>
+                                            <td>21-06-22</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Amenities Re-Opening -Update Notice (Important)</a></td>
+                                            <td>21-10-29</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Covid-19 Screening Poster (Important)</a></td>
+                                            <td>21-06-21</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">INDOOR AMENITIES - SUPERCLUB BOOKING HOURS - UPDATE (Important)</a></td>
+                                            <td>21-08-25</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Indoor Amenity Update Notice (Important)</a></td>
+                                            <td>21-08-10</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">New Amenity Restrictions Starting November 1, 2021 (Important)</a></td>
+                                            <td>21-10-29</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Procedures for entering and exiting the SuperClub (Important)</a></td>
+                                            <td>21-06-22</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Reopening information of the indoor amenities (Important)</a></td>
+                                            <td>21-07-16</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Spring 2021 BBQ notice for HVE (Important)</a></td>
+                                            <td>21-03-26</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Insurance Information (1)</a></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Registration Forms (4)</a></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Directory information for Harbourview Estate</a></td>
+                                            <td>24-09-27</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Mail & Parcel Delivery Waiver Form (Important)</a></td>
+                                            <td>22-07-06</td>
+                                            <td>24-09-27</td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Pet Registration Form (Important)</a></td>
+                                            <td>22-07-06</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Resident & Owners Registration Form (Important)</a></td>
+                                            <td>22-07-06</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Troubleshoot Information (4)</a></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Waiver Forms (1)</a></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="survey-questions-content" class="box mt-4 sub-section-content" style="display:none;">
+                            <h2 class="title is-5">Survey Questions</h2>
+                            <p>Participate in surveys to provide feedback to building management.</p>
+                        </div>
+                        <div id="waiver-forms-content" class="box mt-4 sub-section-content" style="display:none;">
+                            <h2 class="title is-5">Waiver Forms</h2>
+                            <p>Access and submit necessary waiver forms.</p>
+                        </div>
+                        <div id="registration-forms-content" class="box mt-4 sub-section-content" style="display:none;">
+                            <h2 class="title is-5">Registration Forms</h2>
+                            <p>Find and complete various registration forms for building services.</p>
+                        </div>
+                    </section>
+                    <section id="services-offers-section" class="content-section">
+                        <h1 class="title is-4">Services & Offers</h1>
+                        <p class="subtitle is-6">Discover local businesses and exclusive offers.</p>
+                        <div class="tabs is-boxed">
+                            <ul>
+                                <li class="is-active" data-services-offers-tab="local-businesses"><a>Local Businesses</a></li>
+                                <li data-services-offers-tab="offers"><a>Offers</a></li>
+                            </ul>
+                        </div>
+                        <div id="local-businesses-content" class="box mt-4 sub-section-content">
+                            <h2 class="title is-5">Directory of Local Vendors</h2>
+                            <p class="is-size-7 has-text-grey">
+                                <strong>Disclaimer:</strong> Links to vendor services are provided for the user's convenience only. Being listed on this site does not represent an endorsement or acceptance of BuildingAi.cloud, or by any of this property's owners, managers, employees or affiliates for any goods or services offered or provided by any vendor herein. Any business, financial or other transactions or agreements that the user enters into with a vendor, merchant or other party listed in this site or linked to from this site are solely between the user and that vendor, merchant or other party.
+                            </p>
+                        </div>
+                        <div id="offers-content" class="box mt-4 sub-section-content" style="display:none;">
+                            <h2 class="title is-5">About This Page</h2>
+                            <p class="is-size-7 has-text-grey">
+                                <strong>Disclaimer:</strong> Links to vendor services are provided for the user's convenience only. Being listed on this site does not represent an endorsement or acceptance of BuildingAi.cloud, or by any of this property's owners, managers, employees or affiliates for any goods or services offered or provided by any vendor herein. Any business, financial or other transactions or agreements that the user enters into with a vendor, merchant or other party listed in this site or linked to from this site are solely between the user and that vendor, merchant or other party.
+                            </p>
+                            <div class="field is-grouped is-grouped-multiline mt-4">
+                                <div class="control">
+                                    <label class="label is-small">Sort by:</label>
+                                </div>
+                                <div class="control">
+                                    <div class="select is-small">
+                                        <select>
+                                            <option>Most Recent</option>
+                                            <option>Category</option>
+                                            <option>Distance</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control">
+                                    <label class="label is-small">Show offers within</label>
+                                </div>
+                                <div class="control">
+                                    <input class="input is-small" type="number" value="10" style="width: 60px;">
+                                </div>
+                                <div class="control">
+                                    <span class="tag is-light">kilometer(s)</span>
+                                </div>
+                                <div class="control">
+                                    <label class="label is-small">Show offers listed under:</label>
+                                </div>
+                                <div class="control">
+                                    <div class="select is-small">
+                                        <select>
+                                            <option>All Categories</option>
+                                            <option>Food</option>
+                                            <option>Services</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content">
+                                <p>There are no offers to display</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="neighbournet-section" class="content-section">
+                        <h1 class="title is-4">NeighbourNet</h1>
+                        <p class="subtitle is-6">Connect with your neighbours and community.</p>
+                        <!-- Tabs for My Neighbours, Bulletin Board, My Public Profile -->
+                        <div class="tabs is-boxed">
+                            <ul>
+                                <li class="is-active" data-neighbournet-tab="my-neighbours"><a>My Neighbours</a></li>
+                                <li data-neighbournet-tab="bulletin-board"><a>Bulletin Board</a></li>
+                                <li data-neighbournet-tab="my-public-profile"><a>My Public Profile</a></li>
+                            </ul>
+                        </div>
+
+                        <div id="my-neighbours-content" class="box mt-4 neighbournet-content-tab">
+                            <h2 class="title is-5">My Neighbours</h2>
+                            <div class="field is-grouped is-grouped-multiline">
+                                <div class="control">
+                                    <label class="label is-small">Show:</label>
+                                </div>
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox" checked>
+                                        Contact Info
+                                    </label>
+                                </div>
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox">
+                                        More About Me
+                                    </label>
+                                </div>
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox">
+                                        Work Info
+                                    </label>
+                                </div>
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox">
+                                        Recreation
+                                    </label>
+                                </div>
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox">
+                                        Favorites
+                                    </label>
+                                </div>
+                                <div class="control has-icons-left">
+                                    <input class="input is-small" type="text" placeholder="Search:">
+                                    <span class="icon is-small is-left"><i class="fas fa-search"></i></span>
+                                </div>
+                                <div class="control">
+                                    <button class="button is-small is-info">Search</button>
+                                    <button class="button is-small is-danger">Clear</button>
+                                </div>
+                            </div>
+                            <div class="field is-grouped is-grouped-multiline">
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox">
+                                        Show only recently updated profiles
+                                    </label>
+                                </div>
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox">
+                                        Show only my friends
+                                    </label>
+                                </div>
+                                <div class="control">
+                                    <label class="label is-small">Sort by:</label>
+                                </div>
+                                <div class="control">
+                                    <label class="radio">
+                                        <input type="radio" name="sort-neighbours" checked>
+                                        Last Name
+                                    </label>
+                                </div>
+                                <div class="control">
+                                    <label class="radio">
+                                        <input type="radio" name="sort-neighbours">
+                                        First Name
+                                    </label>
+                                </div>
+                                <div class="control">
+                                    <label class="radio">
+                                        <input type="radio" name="sort-neighbours">
+                                        Unit #
+                                    </label>
+                                </div>
+                            </div >
+                            <nav class="pagination is-small" role="navigation" aria-label="pagination">
+                                <a class="pagination-previous">Previous</a>
+                                <a class="pagination-next">Next</a>
+                                <ul class="pagination-list">
+                                    <li><a class="pagination-link is-current">1</a></li>
+                                    <li><a class="pagination-link">2</a></li>
+                                    <li><a class="pagination-link">3</a></li>
+                                    <li><a class="pagination-link">4</a></li>
+                                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                                    <li><a class="pagination-link">10</a></li>
+                                </ul>
+                                <span class="pagination-info">Displaying Neighbours 1 to 15 of 222</span>
+                            </nav>
+                            <div class="content mt-4">
+                                <div class="box">
+                                    <article class="media">
+                                        <div class="media-left">
+                                            <figure class="image is-64x64">
+                                                <img class="is-rounded" src="https://placehold.co/64x64/C8CFD6/333333?text=User" alt="Placeholder image">
+                                            </figure>
+                                        </div>
+                                        <div class="media-content">
+                                            <div class="content">
+                                                <p>
+                                                    <strong>Contact Name</strong>
+                                                    <br>
+                                                    Unit 208-A
+                                                </p>
+                                                <p>
+                                                    <strong>Contact Info:</strong> Home Phone: 6478926636 Work Phone:
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <!-- More neighbour entries -->
+                            </div>
+                        </div>
+                        <div id="bulletin-board-content" class="box mt-4 neighbournet-content-tab">
+                            <h2 class="title is-5">Bulletin Board</h2>
+                            <div class="field">
+                                <label class="switch">
+                                    <input type="checkbox" id="show-my-posts-switch" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <label for="show-my-posts-switch" style="margin-left: 10px;">Show only my posts</label>
+                            </div>
+                            <div class="columns">
+                                <div class="column is-4">
+                                    <aside class="menu">
+                                        <p class="menu-label">Recent Postings (<span id="total-bulletin-posts">91</span>)</p>
+                                        <ul class="menu-list">
+                                            <li><a class="is-active" data-category="Market Place">Market Place (<span id="market-place-count">44</span>)</a></li>
+                                            <li><a data-category="Help Needed/Offered">Help Needed/Offered (<span id="help-needed-count">18</span>)</a></li>
+                                            <li><a data-category="Housing">Housing (<span id="housing-count">22</span>)</a></li>
+                                            <li><a data-category="Topics">Topics (<span id="topics-count">3</span>)</a></li>
+                                            <li><a data-category="Announcements">Announcements</a></li>
+                                            <li><a data-category="Activity Partners">Activity Partners (<span id="activity-partners-count">4</span>)</a></li>
+                                            <li><a data-category="Recommendations">Recommendations</a></li>
+                                        </ul>
+                                    </aside>
+                                </div>
+                                <div class="column is-8">
+                                    <h2 class="title is-5">Recent Postings</h2>
+                                    <a class="button is-small is-primary is-pulled-right mb-3" id="add-new-post-button-bulletin">Add New Post</a>
+                                    <nav class="pagination is-small" role="navigation" aria-label="pagination">
+                                        <ul class="pagination-list">
+                                            <li><a class="pagination-link is-current">1</a></li>
+                                            <li><a class="pagination-link">2</a></li>
+                                            <li><a class="pagination-link">3</a></li>
+                                            <li><a class="pagination-link">4</a></li>
+                                            <li><a class="pagination-link">Next</a></li>
+                                        </ul>
+                                    </nav>
+                                    <div class="content mt-4" id="full-bulletin-board-posts-container">
+                                        <div id="full-bulletin-board-posts">
+                                            <!-- Full bulletin board posts will be rendered here by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="my-public-profile-content" class="box mt-4 neighbournet-content-tab" style="display:none;">
+                            <h2 class="title is-5">My Public Profile</h2>
+                            <p>Edit information visible to other residents.</p>
+                            <div class="field mt-4">
+                                <label class="label is-small">Display Name:</label>
+                                <div class="control">
+                                    <input class="input is-small" type="text" value="Ankur Sinha">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label is-small">About Me:</label>
+                                <div class="control">
+                                    <textarea class="textarea is-small" rows="3" placeholder="Tell your neighbours about yourself..."></textarea>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label is-small">Interests:</label>
+                                <div class="control">
+                                    <input class="input is-small" type="text" placeholder="e.g., Reading, Hiking, Cooking">
+                                </div>
+                            </div>
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button class="button is-success is-small">Save Public Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- My Profile Section (remains separate due to its own tab system) -->
+                    <section id="my-profile-section" class="content-section">
+                        <h1 class="title is-4">My Profile</h1>
+                        <p class="subtitle is-6">Manage your personal information and preferences.</p>
+
+                        <div class="profile-tabs">
+                            <div class="tabs is-boxed">
+                                <ul>
+                                    <li class="is-active" data-tab="contact-info"><a>My Name / Contact Info</a></li>
+                                    <li data-tab="login-password"><a>Login & Password</a></li>
+                                    <li data-tab="emergency-contact"><a>Emergency Contact Info.</a></li>
+                                    <li data-tab="notifications"><a>Notifications</a></li>
+                                    <li data-tab="public-profile"><a>My Public Profile</a></li>
+                                    <li data-tab="unit-info"><a>Unit Info</a></li>
+                                    <li data-tab="vehicles"><a>Vehicles</a></li>
+                                    <li data-tab="pet-registry"><a>Pet Registry</a></li>
+                                </ul>
+                            </div>
+                            <div class="profile-content-box">
+                                <div id="contact-info-tab" class="tab-content">
+                                    <h2 class="title is-5">Name and Contact Info</h2>
+                                    <p class="is-size-7 has-text-grey">Update the contact info that your building management and staff can use when they need to reach you. When done, click on the "Save Contact Info" button.</p>
+                                    <div class="field mt-4">
+                                        <label class="label is-small">First name:</label>
+                                        <div class="control">
+                                            <input class="input is-small" type="text" value="Ankur">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label is-small">Middle:</label>
+                                    <div class="control">
+                                        <input class="input is-small" type="text">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label is-small">Last name:</label>
+                                    <div class="control">
+                                        <input class="input is-small" type="text" value="Sinha">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label is-small">Home Phone Number:</label>
+                                    <div class="control">
+                                        <input class="input is-small" type="text">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label is-small">Mobile Phone:</label>
+                                    <div class="control">
+                                        <input class="input is-small" type="text" value="1-647-548-6558">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label is-small">Work Phone:</label>
+                                    <div class="control">
+                                        <input class="input is-small" type="text">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label is-small">Fax:</label>
+                                    <div class="control">
+                                        <input class="input is-small" type="text">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label is-small">Email:</label>
+                                    <div class="control">
+                                        <input class="input is-small" type="email" value="sinhaankur927@gmail.com">
+                                    </div>
+                                    <p class="help is-size-7">(Add semicolon (;) to separate addresses)</p>
+                                </div>
+                                <div class="field is-grouped">
+                                    <div class="control">
+                                        <button class="button is-success is-small">Save Contact Info</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="login-password-tab" class="tab-content" style="display:none;">
+                                <h2 class="title is-5">Login & Password</h2>
+                                <p>Update your login credentials here.</p>
+                            </div>
+                            <div id="emergency-contact-tab" class="tab-content" style="display:none;">
+                                <h2 class="title is-5">Emergency Contact Info.</h2>
+                                <p>Manage your emergency contact details.</p>
+                            </div>
+                            <div id="notifications-tab" class="tab-content" style="display:none;">
+                                <h2 class="title is-5">Notifications</h2>
+                                <p>Configure your notification preferences.</p>
+                            </div>
+                            <div id="public-profile-tab" class="tab-content" style="display:none;">
+                                <h2 class="title is-5">My Public Profile</h2>
+                                <p>Edit information visible to other residents.</p>
+                            </div>
+                            <div id="unit-info-tab" class="tab-content" style="display:none;">
+                                <h2 class="title is-5">Unit Info</h2>
+                                <p>View details about your unit.</p>
+                            </div>
+                            <div id="vehicles-tab" class="tab-content" style="display:none;">
+                                <h2 class="title is-5">Vehicles</h2>
+                                <p>Register and manage your vehicles.</p>
+                            </div>
+                            <div id="pet-registry-tab" class="tab-content" style="display:none;">
+                                <h2 class="title is-5">Pet Registry</h2>
+                                <p>Register your pets with the building management.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add New Reservation Modal (Amenity Selection) -->
+        <div id="amenity-selection-modal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content amenity-modal-content">
+                <h3 class="title is-4 has-text-centered">Which Amenity would you like to reserve?</h3>
+                <div class="amenity-grid">
+                    <!-- Amenity Item 1 -->
+                    <div class="amenity-item" data-amenity="1st Floor Lounge & Billiards Area">
+                        <div class="icon-box">
+                            <i class="fas fa-couch"></i>
+                        </div>
+                        <p>1st Floor Lounge & Billiards Area</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 2 -->
+                    <div class="amenity-item" data-amenity="Basketball Court">
+                        <div class="icon-box">
+                            <i class="fas fa-basketball-ball"></i>
+                        </div>
+                        <p>Basketball Court</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 3 -->
+                    <div class="amenity-item" data-amenity="BBQ1">
+                        <div class="icon-box">
+                            <i class="fas fa-fire-alt"></i>
+                        </div>
+                        <p>BBQ1</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 4 -->
+                    <div class="amenity-item" data-amenity="BBQ2">
+                        <div class="icon-box">
+                            <i class="fas fa-fire-alt"></i>
+                        </div>
+                        <p>BBQ2</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 5 -->
+                    <div class="amenity-item" data-amenity="BBQ3">
+                        <div class="icon-box">
+                            <i class="fas fa-fire-alt"></i>
+                        </div>
+                        <p>BBQ3</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 6 -->
+                    <div class="amenity-item" data-amenity="BBQ4">
+                        <div class="icon-box">
+                            <i class="fas fa-fire-alt"></i>
+                        </div>
+                        <p>BBQ4</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 7 -->
+                    <div class="amenity-item" data-amenity="BBQ6">
+                        <div class="icon-box">
+                            <i class="fas fa-fire-alt"></i>
+                        </div>
+                        <p>BBQ6</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 8 -->
+                    <div class="amenity-item" data-amenity="Guest Suite #101 at 3 Navy Wharf">
+                        <div class="icon-box">
+                             <img src="https://placehold.co/60x60/C8CFD6/333333?text=Suite" alt="Guest Suite Icon">
+                        </div>
+                        <p>Guest Suite #101 at 3 Navy Wharf</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                     <!-- Amenity Item 9 -->
+                    <div class="amenity-item" data-amenity="Guest Suite #103 at 5 Mariner Terrace">
+                        <div class="icon-box">
+                             <img src="https://placehold.co/60x60/C8CFD6/333333?text=Suite" alt="Guest Suite Icon">
+                        </div>
+                        <p>Guest Suite #103 at 5 Mariner Terrace</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                     <!-- Amenity Item 10 -->
+                    <div class="amenity-item" data-amenity="Guest Suite #103 at 9 Spadina">
+                        <div class="icon-box">
+                             <img src="https://placehold.co/60x60/C8CFD6/333333?text=Suite" alt="Guest Suite Icon">
+                        </div>
+                        <p>Guest Suite #103 at 9 Spadina</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                     <!-- Amenity Item 11 -->
+                    <div class="amenity-item" data-amenity="Guest Suite #112 at 35 Mariner Terrace">
+                        <div class="icon-box">
+                             <img src="https://placehold.co/60x60/C8CFD6/333333?text=Suite" alt="Guest Suite Icon">
+                        </div>
+                        <p>Guest Suite #112 at 35 Mariner Terrace</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                     <!-- Amenity Item 12 -->
+                    <div class="amenity-item" data-amenity="Guest Suite #113 at 35 Mariner Terrace">
+                        <div class="icon-box">
+                             <img src="https://placehold.co/60x60/C8CFD6/333333?text=Suite" alt="Guest Suite Icon">
+                        </div>
+                        <p>Guest Suite #113 at 35 Mariner Terrace</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 13 -->
+                    <div class="amenity-item" data-amenity="Movie Theater">
+                        <div class="icon-box">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <p>Movie Theater</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 14 -->
+                    <div class="amenity-item" data-amenity="Party Room">
+                        <div class="icon-box">
+                            <i class="fas fa-glass-cheers"></i>
+                        </div>
+                        <p>Party Room</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 15 -->
+                    <div class="amenity-item" data-amenity="Ping Pong">
+                        <div class="icon-box">
+                            <i class="fas fa-table-tennis"></i>
+                        </div>
+                        <p>Ping Pong</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 16 -->
+                    <div class="amenity-item" data-amenity="Pool">
+                        <div class="icon-box">
+                            <i class="fas fa-swimmer"></i>
+                        </div>
+                        <p>Pool</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 17 -->
+                    <div class="amenity-item" data-amenity="Sauna Mens">
+                        <div class="icon-box">
+                            <i class="fas fa-sauna"></i>
+                        </div>
+                        <p>Sauna Mens</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 18 -->
+                    <div class="amenity-item" data-amenity="Sauna Womens">
+                        <div class="icon-box">
+                            <i class="fas fa-sauna"></i>
+                        </div>
+                        <p>Sauna Womens</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 19 -->
+                    <div class="amenity-item" data-amenity="Service Elevator - 10 Navy (Tower A)">
+                        <div class="icon-box">
+                            <img src="https://placehold.co/60x60/C8CFD6/333333?text=Door" alt="Service Elevator Icon">
+                        </div>
+                        <p>Service Elevator - 10 Navy (Tower A)</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 20 -->
+                    <div class="amenity-item" data-amenity="Squash Court">
+                        <div class="icon-box">
+                            <i class="fas fa-racquet"></i>
+                        </div>
+                        <p>Squash Court</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                    <!-- Amenity Item 21 -->
+                    <div class="amenity-item" data-amenity="Tennis Court">
+                        <div class="icon-box">
+                            <i class="fas fa-tennis-ball"></i>
+                        </div>
+                        <p>Tennis Court</p>
+                        <small>(shared from Harbour View Residential Shared Facilities)</small>
+                    </div>
+                </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close" id="close-amenity-selection-modal"></button>
+        </div>
+
+
+        <!-- Amenity Booking Modal (Calendar and Time Slots) -->
+        <div id="amenity-booking-modal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content booking-modal-content">
+                <h3 class="title is-4 has-text-centered" id="booking-amenity-name"></h3>
+                <p class="subtitle is-6 has-text-centered">Select a date and time slot for your reservation.</p>
+
+                <div class="box">
+                    <h4 class="title is-5">Select Date</h4>
+                    <div class="calendar-nav">
+                        <button class="button is-small" id="prev-month"><span class="icon"><i class="fas fa-chevron-left"></i></span></button>
+                        <h5 class="title is-5" id="current-month-year"></h5>
+                        <button class="button is-small" id="next-month"><span class="icon"><i class="fas fa-chevron-right"></i></span></button>
+                    </div>
+                    <div class="table-container">
+                        <table class="table is-bordered is-fullwidth calendar-table">
+                            <thead>
+                                <tr>
+                                    <th>Sun</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                </tr>
+                            </thead>
+                            <tbody id="calendar-body">
+                                <!-- Calendar days will be rendered here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="box mt-4">
+                    <h4 class="title is-5">Select Time Slot</h4>
+                    <div class="time-slots" id="time-slots-container">
+                        <p class="has-text-grey">Please select a date from the calendar to view available time slots.</p>
+                        <!-- Time slots will be rendered here by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="field is-grouped is-grouped-centered mt-5">
+                    <div class="control">
+                        <button class="button is-success" id="confirm-booking-button" disabled>Confirm Reservation</button>
+                    </div>
+                    <div class="control">
+                        <button class="button is-light" id="cancel-booking-button">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close" id="close-amenity-booking-modal"></button>
+        </div>
+
+        <!-- Add New Post Modal -->
+        <div id="add-post-modal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content" >
+                <h3 class="title is-4 has-text-centered">Add New Bulletin Board Post</h3>
+                <form id="add-post-form">
+                    <div class="field">
+                        <label class="label">Title</label>
+                        <div class="control">
+                            <input class="input" type="text" id="post-title" placeholder="e.g., Parking space for rent" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Category</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select id="post-category" required>
+                                    <option value="">Select a category</option>
+                                    <option value="Market Place">Market Place</option>
+                                    <option value="Help Needed/Offered">Help Needed/Offered</option>
+                                    <option value="Housing">Housing</option>
+                                    <option value="Topics">Topics</option>
+                                    <option value="Announcements">Announcements</option>
+                                    <option value="Activity Partners">Activity Partners</option>
+                                    <option value="Recommendations">Recommendations</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Content</label>
+                        <div class="control">
+                            <textarea class="textarea" id="post-content" placeholder="Write your post here..." rows="5" required></textarea>
+                        </div>
+                    </div>
+                    <div class="field is-grouped is-grouped-centered mt-5">
+                        <div class="control">
+                            <button class="button is-primary" type="submit">Submit Post for Approval</button>
+                        </div>
+                        <div class="control">
+                            <button class="button is-light" type="button" id="cancel-add-post">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <button class="modal-close is-large" aria-label="close" id="close-add-post-modal"></button>
+        </div>
+
+
+        <!-- Logout Confirmation Modal -->
+        <div id="logout-modal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content has-text-centered" style="max-width: 400px; padding: 2rem; background-color: #fff; border-radius: 0.75rem;">
+                <p class="title is-5">Confirm Logout</p>
+                <p class="subtitle is-6 mb-4">Are you sure you want to log out?</p>
+                <div class="buttons is-centered">
+                    <button class="button is-danger" id="confirm-logout">Logout</button>
+                    <button class="button is-light" id="cancel-logout">Cancel</button>
+                </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close" id="close-logout-modal"></button>
+        </div>
+
+        <!-- Custom Message Modal -->
+        <div id="custom-message-modal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content has-text-centered" style="max-width: 400px; padding: 2rem; background-color: #fff; border-radius: 0.75rem;">
+                <p class="title is-5" id="custom-message-title"></p>
+                <p class="subtitle is-6 mb-4" id="custom-message-body"></p>
+                <div class="buttons is-centered" id="custom-message-buttons">
+                    <button class="button is-primary" id="custom-message-ok">OK</button>
+                    <button class="button is-light" id="custom-message-cancel" style="display:none;">Cancel</button>
+                </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close" id="close-custom-message-modal"></button>
+        </div>
+
+    </div>
+
+    <script>
+        // Custom Message Box Functions
+        function showMessage(title, message) {
+            const modal = document.getElementById('custom-message-modal');
+            document.getElementById('custom-message-title').textContent = title;
+            document.getElementById('custom-message-body').textContent = message;
+            document.getElementById('custom-message-ok').style.display = 'inline-block';
+            document.getElementById('custom-message-cancel').style.display = 'none';
+            modal.classList.add('is-active');
+
+            document.getElementById('custom-message-ok').onclick = () => {
+                modal.classList.remove('is-active');
+            };
+            document.getElementById('close-custom-message-modal').onclick = () => {
+                modal.classList.remove('is-active');
+            };
+            modal.querySelector('.modal-background').onclick = () => {
+                modal.classList.remove('is-active');
+            };
+        }
+
+        function showConfirm(title, message, onConfirm, onCancel) {
+            const modal = document.getElementById('custom-message-modal');
+            document.getElementById('custom-message-title').textContent = title;
+            document.getElementById('custom-message-body').textContent = message;
+            document.getElementById('custom-message-ok').style.display = 'inline-block';
+            document.getElementById('custom-message-cancel').style.display = 'inline-block';
+            modal.classList.add('is-active');
+
+            document.getElementById('custom-message-ok').onclick = () => {
+                modal.classList.remove('is-active');
+                if (onConfirm) onConfirm();
+            };
+            document.getElementById('custom-message-cancel').onclick = () => {
+                modal.classList.remove('is-active');
+                if (onCancel) onCancel();
+            };
+            document.getElementById('close-custom-message-modal').onclick = () => {
+                modal.classList.remove('is-active');
+                if (onCancel) onCancel();
+            };
+            modal.querySelector('.modal-background').onclick = () => {
+                modal.classList.remove('is-active');
+                if (onCancel) onCancel();
+            };
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Global variables for calendar
+            let currentMonth = new Date().getMonth();
+            let currentYear = new Date().getFullYear();
+            let selectedDate = null;
+            let selectedAmenity = null;
+            let selectedTimeSlot = null;
+
+            // Mock data for booked slots (for demonstration)
+            const bookedSlots = {
+                "Basketball Court": {
+                    "2025-07-10": ["10:00 AM", "11:00 AM"],
+                    "2025-07-15": ["02:00 PM"]
+                },
+                "Party Room": {
+                    "2025-07-20": ["07:00 PM", "08:00 PM"]
+                }
+            };
+
+            // Mock data for bulletin board posts
+            let bulletinPosts = [
+                { id: 1, title: "$99 PARKING for rent available now 10 navy wharf", category: "Market Place", date: "2025-05-15", content: "Hi All, No longer need my parking spot. $99 / month. Available immediately it's on P3 10 navy wharf next Text ME 647-987-6671 EMAIL ME rnarchess@gmail.com Cheers! Nolan", status: "approved", userId: "user123" },
+                { id: 2, title: "Side Tables/ Night Stand", category: "Market Place", date: "2025-05-12", content: "2 Side Tables Dimensions 22.83 x 20.88 x 5.91H Like New $35 each or BO", status: "approved", userId: "user456" },
+                { id: 3, title: "Cat Sitter", category: "Help Needed/Offered", date: "2025-05-10", content: "Hey neighbors, My partner and I will be travelling from June 13 to July 6, and we're looking for someone in the building who will be willing to drop by to check on our", status: "approved", userId: "user123" },
+                { id: 4, title: "BRAND NEW (never opened) - Galaxy Tab S9 FE+ 128GB & Samsung Case", category: "Market Place", date: "2025-05-09", content: "This tablet has never been opened, still in its original packaging. Decided I no longer need it but couldn't find the receipt to return it. $900 value. No low balling please.", status: "approved", userId: "user789" },
+                { id: 5, title: "New Birkenstock Arizon Flex Platform Sandals", category: "Market Place", date: "2025-05-08", content: "Size: EU 38 (US 7-7.5) Colour: White Purchased (taxes included) for $163.85 Basically brand new and worn once so they're still in perfect condition :)", status: "approved", userId: "user456" },
+                { id: 6, title: "Luxury High-Floor 1 + 1 Condo at 10 Navy Wharf Court! Spectacular City & Waterfront Views!", category: "Housing", date: "2025-05-07", content: "High-floor 1+1 unit with walk-out balcony offering breathtaking views of Toronto's skyline, waterfront, Rogers Centre, and CN Tower. Pls contact 9059888434 (Raj) for", status: "approved", userId: "user123" },
+                { id: 7, title: "Large Bean Bag", category: "Market Place", date: "2025-05-07", content: "Large Bean Bag. Very comfortable", status: "approved", userId: "user789" },
+                { id: 8, title: "Graco modes Stroller", category: "Market Place", date: "2025-05-06", content: "Graco Modes 3 Like Travel System", status: "approved", userId: "user123" },
+                { id: 9, title: "Parking space available in P2", category: "Housing", date: "2025-05-04", content: "Parking space available in P2", status: "approved", userId: "user456" },
+            ];
+
+            // Mock current user ID for "Show only my posts" functionality
+            const currentUserId = "user123"; // This would typically come from authentication
+
+            // Function to render bulletin board posts
+            function renderBulletinBoardPosts(containerId, limit = null, categoryFilter = null, showOnlyMyPosts = false) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                container.innerHTML = ''; // Clear existing posts
+
+                let filteredPosts = bulletinPosts.filter(post => post.status === 'approved');
+
+                if (categoryFilter && categoryFilter !== 'All Categories') {
+                    filteredPosts = filteredPosts.filter(post => post.category === categoryFilter);
+                }
+
+                if (showOnlyMyPosts) {
+                    filteredPosts = filteredPosts.filter(post => post.userId === currentUserId);
+                }
+
+                // Sort by date descending (most recent first)
+                filteredPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                const postsToRender = limit ? filteredPosts.slice(0, limit) : filteredPosts;
+
+                if (postsToRender.length === 0) {
+                    container.innerHTML = '<p>No posts to display.</p>';
+                    return;
+                }
+
+                postsToRender.forEach(post => {
+                    const article = document.createElement('article');
+                    article.classList.add('media');
+                    article.innerHTML = `
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong><a href="#">${post.title}</a></strong> <small>${post.category}</small>
+                                    <br>
+                                    <small>${post.date}</small>
+                                    <br>
+                                    ${post.content}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="media-right">
+                            <figure class="image is-64x64">
+                                <img src="https://placehold.co/64x64/C8CFD6/333333?text=Img" alt="Image">
+                            </figure>
+                        </div>
+                    `;
+                    const box = document.createElement('div');
+                    box.classList.add('box');
+                    container.appendChild(box);
+                });
+
+                // Update counts for categories in the NeighbourNet > Bulletin Board section
+                if (containerId === 'full-bulletin-board-posts') {
+                    const totalCount = bulletinPosts.filter(post => post.status === 'approved').length;
+                    document.getElementById('total-bulletin-posts').textContent = totalCount;
+
+                    const categories = ['Market Place', 'Help Needed/Offered', 'Housing', 'Topics', 'Activity Partners'];
+                    categories.forEach(cat => {
+                        const count = bulletinPosts.filter(post => post.status === 'approved' && post.category === cat).length;
+                        const element = document.getElementById(cat.toLowerCase().replace(/\s/g, '-') + '-count');
+                        if (element) {
+                            element.textContent = count;
+                        }
+                    });
+                }
+            }
+
+
+            // Function to generate time slots (e.g., every hour from 9 AM to 9 PM)
+            function generateTimeSlots() {
+                const slots = [];
+                for (let i = 9; i <= 21; i++) { // 9 AM to 9 PM
+                    const hour = i % 12 === 0 ? 12 : i % 12;
+                    const ampm = i < 12 ? "AM" : "PM";
+                    slots.push(`${String(hour).padStart(2, '0')}:00 ${ampm}`);
+                }
+                return slots;
+            }
+
+            function renderTimeSlots(date, amenityName) {
+                const timeSlotsContainer = document.getElementById('time-slots-container');
+                timeSlotsContainer.innerHTML = ''; // Clear previous slots
+                selectedTimeSlot = null; // Reset selected time slot
+                document.getElementById('confirm-booking-button').disabled = true; // Disable button
+
+                if (!date) {
+                    timeSlotsContainer.innerHTML = '<p class="has-text-grey">Please select a date from the calendar to view available time slots.</p>';
+                    return;
+                }
+
+                const allSlots = generateTimeSlots();
+                const dateString = date.toISOString().split('T')[0]; // ISO 8601 format: YYYY-MM-DD
+                const amenityBookedSlots = bookedSlots[amenityName] ? bookedSlots[amenityName][dateString] || [] : [];
+
+                allSlots.forEach(slot => {
+                    const timeSlotItem = document.createElement('span');
+                    timeSlotItem.classList.add('time-slot-item');
+                    timeSlotItem.textContent = slot;
+
+                    if (amenityBookedSlots.includes(slot)) {
+                        timeSlotItem.classList.add('is-booked');
+                        timeSlotItem.title = 'Already booked';
+                    } else {
+                        timeSlotItem.addEventListener('click', () => {
+                            // Remove selected class from previously selected slot
+                            const currentSelected = timeSlotsContainer.querySelector('.time-slot-item.is-selected');
+                            if (currentSelected) {
+                                currentSelected.classList.remove('is-selected');
+                            }
+                            // Add selected class to the clicked slot
+                            timeSlotItem.classList.add('is-selected');
+                            selectedTimeSlot = slot;
+                            document.getElementById('confirm-booking-button').disabled = false;
+                        });
+                    }
+                    timeSlotsContainer.appendChild(timeSlotItem);
+                });
+            }
+
+
+            // Function to render the calendar for a given month and year
+            function renderCalendar(month, year) {
+                const calendarBody = document.getElementById('calendar-body');
+                calendarBody.innerHTML = ''; // Clear previous calendar
+                document.getElementById('current-month-year').textContent = new Date(year, month).toLocaleString('en-US', { month: 'long', year: 'numeric' });
+
+                const firstDay = new Date(year, month, 1).getDay(); // 0 for Sunday, 1 for Monday, etc.
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                let date = 1;
+                for (let i = 0; i < 6; i++) { // Max 6 rows for calendar
+                    const row = document.createElement('tr');
+                    for (let j = 0; j < 7; j++) { // 7 days in a week
+                        const cell = document.createElement('td');
+                        if (i === 0 && j < firstDay) {
+                            // Empty cells before the first day of the month
+                            cell.classList.add('is-disabled');
+                            row.appendChild(cell);
+                        } else if (date > daysInMonth) {
+                            // Empty cells after the last day of the month
+                            cell.classList.add('is-disabled');
+                            row.appendChild(cell);
+                        } else {
+                            const currentDay = new Date(year, month, date);
+                            cell.textContent = date;
+                            cell.dataset.date = currentDay.toISOString().split('T')[0]; // Store YYYY-MM-DD
+
+                            // Highlight today
+                            const today = new Date();
+                            if (currentDay.getDate() === today.getDate() &&
+                                currentDay.getMonth() === today.getMonth() &&
+                                currentDay.getFullYear() === today.getFullYear()) {
+                                cell.classList.add('is-today');
+                            }
+
+                            // Add click listener for date selection
+                            cell.addEventListener('click', () => {
+                                // Remove selected class from previously selected date
+                                const currentSelected = calendarBody.querySelector('.calendar-table td.is-selected');
+                                if (currentSelected) {
+                                    currentSelected.classList.remove('is-selected');
+                                }
+                                // Add selected class to the clicked date
+                                cell.classList.add('is-selected');
+                                selectedDate = currentDay;
+                                renderTimeSlots(selectedDate, selectedAmenity); // Re-render time slots for new date
+                            });
+
+                            // Add mock event indicator (example: if a specific amenity has bookings on this date)
+                            const dateString = currentDay.toISOString().split('T')[0];
+                            if (selectedAmenity && bookedSlots[selectedAmenity] && bookedSlots[selectedAmenity][dateString] && bookedSlots[selectedAmenity][dateString].length > 0) {
+                                cell.classList.add('has-event');
+                                cell.title = `Booked slots: ${bookedSlots[selectedAmenity][dateString].join(', ')}`;
+                            }
+
+                            row.appendChild(cell);
+                            date++;
+                        }
+                    }
+                    calendarBody.appendChild(row);
+                    if (date > daysInMonth) break; // Stop if all days are rendered
+                }
+            }
+
+            // Navigation for calendar
+            document.getElementById('prev-month').addEventListener('click', () => {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                renderCalendar(currentMonth, currentYear);
+                renderTimeSlots(null, selectedAmenity); // Clear time slots on month change
+            });
+
+            document.getElementById('next-month').addEventListener('click', () => {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                renderCalendar(currentMonth, currentYear);
+                renderTimeSlots(null, selectedAmenity); // Clear time slots on month change
+            });
+
+
+            // Get all "navbar-burger" elements
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+            // Check if there are any navbar burgers
+            if ($navbarBurgers.length > 0) {
+                // Add a click event on each of them
+                $navbarBurgers.forEach(el => {
+                    el.addEventListener('click', () => {
+                        // Get the target from the "data-target" attribute
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+
+                        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                    });
+                });
+            }
+
+            // Mobile menu toggle for left sidebar
+            const mobileMenuBurger = document.querySelector('.navbar-burger-mobile');
+            const mainTabsMenu = document.getElementById('main-tabs-menu');
+            if (mobileMenuBurger && mainTabsMenu) {
+                mobileMenuBurger.addEventListener('click', () => {
+                    mainTabsMenu.classList.toggle('is-active-mobile');
+                    mobileMenuBurger.classList.toggle('is-active'); // Also toggle burger icon
+                });
+
+                // Close sidebar when clicking outside (on content area)
+                document.querySelector('.content-area').addEventListener('click', () => {
+                    if (mainTabsMenu.classList.contains('is-active-mobile')) {
+                        mainTabsMenu.classList.remove('is-active-mobile');
+                        mobileMenuBurger.classList.remove('is-active');
+                    }
+                });
+
+                // Close sidebar when a menu item is clicked
+                mainTabsMenu.querySelectorAll('li').forEach(item => {
+                    item.addEventListener('click', () => {
+                        mainTabsMenu.classList.remove('is-active-mobile');
+                        mobileMenuBurger.classList.remove('is-active');
+                    });
+                });
+            }
+
+
+            // --- Main Tab Navigation Logic ---
+            const mainTabs = document.querySelectorAll('.main-tabs .menu-list li'); // Updated selector
+            const allContentSections = document.querySelectorAll('.content-section');
+
+            mainTabs.forEach(tab => {
+                tab.addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    // Remove 'is-active' from all main tabs
+                    mainTabs.forEach(t => t.classList.remove('is-active'));
+                    // Add 'is-active' to the clicked main tab
+                    tab.classList.add('is-active');
+
+                    const targetMainTab = tab.dataset.mainTab;
+
+                    // Hide all content sections
+                    allContentSections.forEach(section => section.style.display = 'none');
+
+                    // Show the corresponding content section
+                    const targetSection = document.getElementById(`${targetMainTab}-section`);
+                    if (targetSection) {
+                        targetSection.style.display = 'block';
+
+                        // For sections with new tab structures, activate the first tab
+                        if (targetMainTab === 'resident-services') {
+                            const firstResidentServiceTab = document.querySelector('#resident-services-section .tabs li[data-resident-service-tab="instructions-notes"]');
+                            if (firstResidentServiceTab) {
+                                firstResidentServiceTab.click();
+                            }
+                        } else if (targetMainTab === 'my-building') {
+                            const firstMyBuildingTab = document.querySelector('#my-building-section .tabs li[data-my-building-tab="building-calendar"]');
+                            if (firstMyBuildingTab) {
+                                firstMyBuildingTab.click();
+                            }
+                        } else if (targetMainTab === 'services-offers') {
+                            const firstServicesOffersTab = document.querySelector('#services-offers-section .tabs li[data-services-offers-tab="local-businesses"]');
+                            if (firstServicesOffersTab) {
+                                firstServicesOffersTab.click();
+                            }
+                        } else if (targetMainTab === 'neighbournet') {
+                            const firstNeighbournetTab = document.querySelector('#neighbournet-section .tabs li[data-neighbournet-tab="my-neighbours"]');
+                            if (firstNeighbournetTab) {
+                                firstNeighbournetTab.click();
+                            }
+                        }
+                    }
+                });
+            });
+
+            // --- Resident Services Tabs Logic ---
+            const residentServiceTabs = document.querySelectorAll('#resident-services-section .tabs li');
+            const residentServiceContents = document.querySelectorAll('#resident-services-section .sub-section-content');
+
+            residentServiceTabs.forEach(tab => {
+                tab.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    residentServiceTabs.forEach(t => t.classList.remove('is-active'));
+                    tab.classList.add('is-active');
+                    residentServiceContents.forEach(content => content.style.display = 'none');
+                    const targetContent = document.getElementById(`${tab.dataset.residentServiceTab}-content`);
+                    if (targetContent) {
+                        targetContent.style.display = 'block';
+                    }
+                });
+            });
+
+            // --- My Building Tabs Logic ---
+            const myBuildingTabs = document.querySelectorAll('#my-building-section .tabs li');
+            const myBuildingContents = document.querySelectorAll('#my-building-section .sub-section-content');
+
+            myBuildingTabs.forEach(tab => {
+                tab.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    myBuildingTabs.forEach(t => t.classList.remove('is-active'));
+                    tab.classList.add('is-active');
+                    myBuildingContents.forEach(content => content.style.display = 'none');
+                    const targetContent = document.getElementById(`${tab.dataset.myBuildingTab}-content`);
+                    if (targetContent) {
+                        targetContent.style.display = 'block';
+                    }
+                });
+            });
+
+            // --- Services & Offers Tabs Logic ---
+            const servicesOffersTabs = document.querySelectorAll('#services-offers-section .tabs li');
+            const servicesOffersContents = document.querySelectorAll('#services-offers-section .sub-section-content');
+
+            servicesOffersTabs.forEach(tab => {
+                tab.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    servicesOffersTabs.forEach(t => t.classList.remove('is-active'));
+                    tab.classList.add('is-active');
+                    servicesOffersContents.forEach(content => content.style.display = 'none');
+                    const targetContent = document.getElementById(`${tab.dataset.servicesOffersTab}-content`);
+                    if (targetContent) {
+                        targetContent.style.display = 'block';
+                    }
+                });
+            });
+
+            // Handle profile tabs (remains the same)
+            const profileTabs = document.querySelectorAll('.profile-tabs .tabs li');
+            profileTabs.forEach(tab => {
+                tab.addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    // Remove 'is-active' from all tabs
+                    profileTabs.forEach(t => t.classList.remove('is-active'));
+                    // Add 'is-active' to the clicked tab
+                    tab.classList.add('is-active');
+
+                    // Hide all tab content
+                    document.querySelectorAll('.profile-content-box .tab-content').forEach(content => {
+                        content.style.display = 'none';
+                    });
+
+                    // Show the corresponding tab content
+                    const targetTabContentId = tab.dataset.tab + '-tab';
+                    document.getElementById(targetTabContentId).style.display = 'block';
+                });
+            });
+
+            // Amenity Selection Modal Logic
+            const addReservationButton = document.getElementById('add-reservation-button');
+            const amenitySelectionModal = document.getElementById('amenity-selection-modal');
+            const closeAmenitySelectionModalButton = document.getElementById('close-amenity-selection-modal');
+            const amenityItems = document.querySelectorAll('.amenity-item');
+
+            if (addReservationButton) {
+                addReservationButton.addEventListener('click', () => {
+                    amenitySelectionModal.classList.add('is-active');
+                });
+            }
+
+            if (closeAmenitySelectionModalButton) {
+                closeAmenitySelectionModalButton.addEventListener('click', () => {
+                    amenitySelectionModal.classList.remove('is-active');
+                });
+            }
+
+            // Close amenity selection modal when clicking outside (on modal-background)
+            if (amenitySelectionModal) {
+                amenitySelectionModal.querySelector('.modal-background').addEventListener('click', () => {
+                    amenitySelectionModal.classList.remove('is-active');
+                });
+            }
+
+            // Amenity Booking Modal Logic
+            const amenityBookingModal = document.getElementById('amenity-booking-modal');
+            const closeAmenityBookingModalButton = document.getElementById('close-amenity-booking-modal');
+            const cancelBookingButton = document.getElementById('cancel-booking-button');
+            const confirmBookingButton = document.getElementById('confirm-booking-button');
+
+            amenityItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    selectedAmenity = item.dataset.amenity;
+                    document.getElementById('booking-amenity-name').textContent = `Reserve: ${selectedAmenity}`;
+                    amenitySelectionModal.classList.remove('is-active'); // Close selection modal
+                    amenityBookingModal.classList.add('is-active'); // Open booking modal
+
+                    // Reset calendar and time slots for new amenity
+                    currentMonth = new Date().getMonth();
+                    currentYear = new Date().getFullYear();
+                    selectedDate = null;
+                    selectedTimeSlot = null;
+                    renderCalendar(currentMonth, currentYear);
+                    renderTimeSlots(null, selectedAmenity); // Clear time slots initially
+                });
+            });
+
+            if (closeAmenityBookingModalButton) {
+                closeAmenityBookingModalButton.addEventListener('click', () => {
+                    amenityBookingModal.classList.remove('is-active');
+                });
+            }
+
+            if (cancelBookingButton) {
+                cancelBookingButton.addEventListener('click', () => {
+                    amenityBookingModal.classList.remove('is-active');
+                });
+            }
+
+            if (confirmBookingButton) {
+                confirmBookingButton.addEventListener('click', () => {
+                    if (selectedAmenity && selectedDate && selectedTimeSlot) {
+                        const confirmationMessage = `You are about to reserve "${selectedAmenity}" on ${selectedDate.toDateString()} at ${selectedTimeSlot}. Confirm?`;
+                        showConfirm('Confirm Reservation', confirmationMessage, () => {
+                            // On confirm logic
+                            console.log(`Reservation confirmed for ${selectedAmenity} on ${selectedDate.toDateString()} at ${selectedTimeSlot}`);
+                            showMessage('Success!', 'Reservation successful!');
+                            amenityBookingModal.classList.remove('is-active');
+                            // Optionally, update bookedSlots mock data and re-render calendar/time slots
+                            const dateString = selectedDate.toISOString().split('T')[0];
+                            if (!bookedSlots[selectedAmenity]) {
+                                bookedSlots[selectedAmenity] = {};
+                            }
+                            if (!bookedSlots[selectedAmenity][dateString]) {
+                                bookedSlots[selectedAmenity][dateString] = [];
+                            }
+                            bookedSlots[selectedAmenity][dateString].push(selectedTimeSlot);
+                            // Re-render calendar and time slots to reflect new booking
+                            renderCalendar(currentMonth, currentYear);
+                            renderTimeSlots(selectedDate, selectedAmenity);
+                        }, () => {
+                            // On cancel logic (optional)
+                            console.log('Reservation cancelled by user.');
+                        });
+                    } else {
+                        showMessage('Error', 'Please select both a date and a time slot.');
+                    }
+                });
+            }
+
+            // Close amenity booking modal when clicking outside (on modal-background)
+            if (amenityBookingModal) {
+                amenityBookingModal.querySelector('.modal-background').addEventListener('click', () => {
+                    amenityBookingModal.classList.remove('is-active');
+                });
+            }
+
+            // --- Bulletin Board "Add New Post" Modal Logic ---
+            const addPostModal = document.getElementById('add-post-modal');
+            const addPostForm = document.getElementById('add-post-form');
+            const closeAddPostModalButton = document.getElementById('close-add-post-modal');
+            const cancelAddPostButton = document.getElementById('cancel-add-post');
+            const addNewPostButtonHome = document.getElementById('add-new-post-button-home');
+            const addNewPostButtonBulletin = document.getElementById('add-new-post-button-bulletin');
+
+            function openAddPostModal() {
+                addPostModal.classList.add('is-active');
+                addPostForm.reset(); // Clear form fields
+            }
+
+            function closeAddPostModal() {
+                addPostModal.classList.remove('is-active');
+            }
+
+            if (addNewPostButtonHome) {
+                addNewPostButtonHome.addEventListener('click', openAddPostModal);
+            }
+            if (addNewPostButtonBulletin) {
+                addNewPostButtonBulletin.addEventListener('click', openAddPostModal);
+            }
+            if (closeAddPostModalButton) {
+                closeAddPostModalButton.addEventListener('click', closeAddPostModal);
+            }
+            if (cancelAddPostButton) {
+                cancelAddPostButton.addEventListener('click', closeAddPostModal);
+            }
+            if (addPostModal) {
+                addPostModal.querySelector('.modal-background').addEventListener('click', closeAddPostModal);
+            }
+
+            addPostForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const title = document.getElementById('post-title').value;
+                const category = document.getElementById('post-category').value;
+                const content = document.getElementById('post-content').value;
+                const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+
+                const newPost = {
+                    id: bulletinPosts.length + 1, // Simple ID generation
+                    title: title,
+                    category: category,
+                    date: currentDate,
+                    content: content,
+                    status: "pending", // Awaiting admin approval
+                    userId: currentUserId // Assign current user as author
+                };
+
+                // Simulate admin approval delay
+                showMessage('Post Submitted', 'Your post has been submitted for approval. It will be visible after approval by building management.');
+                closeAddPostModal();
+
+                setTimeout(() => {
+                    newPost.status = "approved"; // Simulate approval
+                    bulletinPosts.push(newPost);
+                    renderBulletinBoardPosts('home-bulletin-board-posts', 5); // Update home view
+                    // Re-render full bulletin board with current filter settings
+                    const showMyPostsChecked = document.getElementById('show-my-posts-switch') ? document.getElementById('show-my-posts-switch').checked : false;
+                    renderBulletinBoardPosts('full-bulletin-board-posts', null, null, showMyPostsChecked);
+                    showMessage('Post Approved', 'Your bulletin board post has been approved and is now visible!');
+                }, 3000); // Simulate 3 seconds for approval
+            });
+
+            // --- "View All Posts" CTA Logic ---
+            const viewAllBulletinPostsButton = document.getElementById('view-all-bulletin-posts');
+            if (viewAllBulletinPostsButton) {
+                viewAllBulletinPostsButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    // Navigate to NeighbourNet main tab
+                    const neighbournetTab = document.querySelector('.main-tabs .menu-list li[data-main-tab="neighbournet"]');
+                    if (neighbournetTab) {
+                        neighbournetTab.click(); // This will also show the sub-menu if hidden
+                    }
+
+                    // Then navigate to Bulletin Board sub-section
+                    const bulletinBoardTab = document.querySelector('.tabs ul li[data-neighbournet-tab="bulletin-board"]');
+                    if (bulletinBoardTab) {
+                        bulletinBoardTab.click();
+                    }
+                });
+            }
+
+            // --- NeighbourNet Tabs Logic ---
+            const neighbournetTabs = document.querySelectorAll('#neighbournet-section .tabs li');
+            const neighbournetContents = document.querySelectorAll('#neighbournet-section .neighbournet-content-tab'); // Updated selector
+
+            neighbournetTabs.forEach(tab => {
+                tab.addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    // Remove 'is-active' from all NeighbourNet tabs
+                    neighbournetTabs.forEach(t => t.classList.remove('is-active'));
+                    // Add 'is-active' to the clicked tab
+                    tab.classList.add('is-active');
+
+                    const targetTab = tab.dataset.neighbournetTab;
+
+                    // Hide all NeighbourNet content sections
+                    neighbournetContents.forEach(content => content.style.display = 'none');
+
+                    // Show the corresponding content section
+                    const targetContent = document.getElementById(`${targetTab}-content`);
+                    if (targetContent) {
+                        targetContent.style.display = 'block';
+                        // Special handling for bulletin board to render posts when its tab is clicked
+                        if (targetTab === 'bulletin-board') {
+                            // Ensure the switch state is respected when rendering
+                            const showMyPostsSwitch = document.getElementById('show-my-posts-switch');
+                            const showOnlyMyPosts = showMyPostsSwitch ? showMyPostsSwitch.checked : false;
+                            renderBulletinBoardPosts('full-bulletin-board-posts', null, null, showOnlyMyPosts);
+                        }
+                    }
+                });
+            });
+
+            // --- "Show only my posts" Switch Logic ---
+            const showMyPostsSwitch = document.getElementById('show-my-posts-switch');
+            if (showMyPostsSwitch) {
+                showMyPostsSwitch.addEventListener('change', () => {
+                    renderBulletinBoardPosts('full-bulletin-board-posts', null, null, showMyPostsSwitch.checked);
+                });
+            }
+
+
+            // Logout Modal Logic
+            const logoutButtons = document.querySelectorAll('#logout-button');
+            const logoutModal = document.getElementById('logout-modal');
+            const confirmLogoutButton = document.getElementById('confirm-logout');
+            const cancelLogoutButton = document.getElementById('cancel-logout');
+            const closeLogoutModalButton = document.getElementById('close-logout-modal');
+
+            logoutButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    logoutModal.classList.add('is-active');
+                });
+            });
+
+            if (confirmLogoutButton) {
+                confirmLogoutButton.addEventListener('click', () => {
+                    // Simulate logout action
+                    console.log('User logged out!');
+                    showMessage('Logged Out', 'You have been successfully logged out.');
+                    logoutModal.classList.remove('is-active');
+                    // In a real application, you would redirect to a login page or clear session.
+                    // window.location.href = '/login';
+                });
+            }
+
+            if (cancelLogoutButton) {
+                cancelLogoutButton.addEventListener('click', () => {
+                    logoutModal.classList.remove('is-active');
+                });
+            }
+
+            if (closeLogoutModalButton) {
+                closeLogoutModalButton.addEventListener('click', () => {
+                    logoutModal.classList.remove('is-active');
+                });
+            }
+
+            // Close modal when clicking outside (on modal-background)
+            if (logoutModal) {
+                logoutModal.querySelector('.modal-background').addEventListener('click', () => {
+                    logoutModal.classList.remove('is-active');
+                });
+            }
+
+
+            // Initial active state for Home on load
+            const initialMainTab = document.querySelector('.main-tabs .menu-list li[data-main-tab="home"]');
+            if (initialMainTab) {
+                allContentSections.forEach(section => section.style.display = 'none');
+                document.getElementById('home-section').style.display = 'block';
+                initialMainTab.classList.add('is-active');
+                renderBulletinBoardPosts('home-bulletin-board-posts', 5); // Render initial 5 posts on Home
+            }
+
+            // Set initial active tab for NeighbourNet if it's the default view or clicked
+            const initialNeighbournetTab = document.querySelector('#neighbournet-section .tabs li[data-neighbournet-tab="my-neighbours"]');
+            if (initialNeighbournetTab) {
+                initialNeighbournetTab.click(); // Simulate click to activate and show content
+            }
+        });
+    </script>
+</body>
+</html>

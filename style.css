@@ -1,0 +1,474 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent body scroll, content areas will scroll */
+}
+
+.is-fullheight {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Custom slate color for the navbar */
+.navbar.is-primary {
+    background-color: #475569 !important; /* Slate color */
+    color: #fff; /* Ensure text is white on slate background */
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Ensure navbar is on top */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Add shadow for sticky effect */
+}
+
+/* Ensure navbar links and text are white */
+.navbar-item, .navbar-link, .navbar-item .icon-text span, .navbar-item .buttons .button.is-text {
+    color: #fff !important;
+}
+.navbar-burger {
+    color: #fff !important;
+}
+.navbar-link:hover, .navbar-link:focus {
+    background-color: rgba(255, 255, 255, 0.1) !important; /* Slightly lighter hover for slate */
+    color: #fff !important;
+}
+.navbar-dropdown a.navbar-item {
+    color: #475569 !important; /* Text color for dropdown items */
+}
+.navbar-dropdown a.navbar-item:hover {
+    background-color: #f5f5f5 !important;
+    color: #363636 !important;
+}
+
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row; /* Default desktop layout */
+    overflow: hidden; /* Prevent main-content from scrolling, its children will */
+}
+
+.page-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden; /* Prevent page-container from scrolling, its children will */
+}
+
+.main-tabs {
+    position: sticky;
+    top: 52px; /* Height of the navbar */
+    width: 200px; /* Fixed width for desktop sidebar */
+    flex-shrink: 0;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-right: 1px solid #dbdbdb;
+    overflow-y: auto; /* Allow sidebar content to scroll */
+    height: calc(100vh - 52px); /* Full height minus navbar */
+    z-index: 900; /* Below navbar, above content */
+}
+
+.content-area {
+    flex-grow: 1;
+    padding: 1.5rem;
+    overflow-y: auto; /* Allow content to scroll */
+    height: calc(100vh - 52px); /* Full height minus navbar */
+    position: relative; /* For positioning sticky internal elements */
+}
+
+/* Sticky header for content sections */
+.content-section .title,
+.content-section .subtitle,
+.content-section .tabs {
+    position: sticky;
+    top: 0; /* Sticky to the top of the content-area */
+    background-color: #fff; /* Ensure background is solid when sticky */
+    z-index: 500; /* Below main-tabs, above scrollable content */
+    padding-bottom: 0.5rem; /* Space below sticky elements */
+    margin-bottom: 1rem; /* Space before content starts */
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,0.1); /* Subtle shadow for sticky effect */
+}
+
+.content-section .title {
+    top: 0; /* Adjust if other sticky elements are above it */
+}
+.content-section .subtitle {
+    top: 40px; /* Adjust based on title height */
+}
+.content-section .tabs {
+    top: 80px; /* Adjust based on title and subtitle height */
+}
+
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    .main-content {
+        flex-direction: column; /* Stack sidebar and content on mobile */
+    }
+
+    .main-tabs {
+        position: fixed;
+        top: 52px; /* Height of the navbar */
+        left: 0;
+        width: 100%;
+        height: calc(100% - 52px); /* Full height minus navbar */
+        background-color: #f5f5f5;
+        z-index: 1000; /* Ensure sidebar is on top of content when open */
+        transform: translateX(-100%); /* Hide off-screen by default */
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+        padding: 1rem;
+        border-right: none;
+        overflow-y: auto; /* Allow sidebar content to scroll */
+    }
+
+    .main-tabs.is-active-mobile {
+        transform: translateX(0%); /* Show on-screen when active */
+    }
+
+    .content-area {
+        padding: 1rem; /* Adjust padding for mobile */
+        width: 100%; /* Take full width on mobile */
+        height: calc(100vh - 52px); /* Full height minus navbar */
+    }
+
+    .navbar-burger-mobile {
+        display: block; /* Show burger icon on mobile */
+    }
+
+    .navbar-menu {
+        display: none; /* Hide desktop navbar menu on mobile */
+    }
+
+    .navbar-menu.is-active {
+        display: flex; /* Show when active (for original Bulma burger) */
+    }
+
+    /* Ensure columns stack on mobile */
+    .columns:not(.is-vcentered) {
+        flex-direction: column;
+    }
+
+    /* Adjust spacing for mobile app screenshots */
+    .app-screenshots img {
+        margin-bottom: 1rem;
+    }
+
+    /* Modals should take up more screen space on mobile */
+    .modal-content {
+        width: 90%;
+        margin: 0 auto;
+    }
+    .amenity-modal-content, .booking-modal-content {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    /* Ensure tables are scrollable on small screens */
+    .table-container {
+        overflow-x: auto;
+    }
+}
+
+/* General styling for rounded corners, etc. */
+.box, .image img, .modal-content, .amenity-item {
+    border-radius: 0.75rem;
+}
+
+.amenity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 0.75rem;
+}
+
+.amenity-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px solid #dbdbdb;
+    border-radius: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    background-color: #fff;
+}
+
+.amenity-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.amenity-item .icon-box {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #48c78e; /* Bulma success color - keeping green for icons */
+}
+
+.amenity-item img {
+    max-width: 60px;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
+
+.amenity-item p {
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.amenity-item small {
+    font-size: 0.75rem;
+    color: #7a7a7a;
+}
+
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calendar-table td {
+    text-align: center;
+    vertical-align: middle;
+    height: 60px; /* Fixed height for calendar cells */
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.calendar-table td.is-disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+    color: #ccc;
+}
+
+.calendar-table td.is-today {
+    background-color: #e6ffe6; /* Light green for today */
+    font-weight: bold;
+}
+
+.calendar-table td.is-selected {
+    background-color: #48c78e; /* Bulma success color */
+    color: white;
+    font-weight: bold;
+}
+
+.calendar-table td.has-event {
+    position: relative;
+}
+
+.calendar-table td.has-event::after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: #ffdd57; /* Bulma warning color */
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.time-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 0.75rem;
+}
+
+.time-slot-item {
+    padding: 0.5rem 1rem;
+    border: 1px solid #dbdbdb;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    background-color: #fff;
+}
+
+.time-slot-item:hover:not(.is-booked) {
+    background-color: #f0f0f0;
+}
+
+.time-slot-item.is-selected {
+    background-color: #209cee; /* Bulma info color */
+    color: white;
+    border-color: #209cee;
+}
+
+.time-slot-item.is-booked {
+    background-color: #f5f5f5;
+    color: #b5b5b5;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+/* Style for sub-section content boxes */
+.sub-section-content {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    margin-top: 1.5rem;
+    /* Ensure content inside this box is scrollable if it overflows */
+    max-height: calc(100vh - 250px); /* Adjust based on sticky header/tab height */
+    overflow-y: auto;
+}
+
+/* Tabs styling for sub-sections */
+.tabs.is-boxed ul li.is-active a {
+    border-bottom-color: #48c78e;
+    color: #48c78e;
+}
+.tabs.is-boxed a {
+    border-radius: 0.75rem 0.75rem 0 0; /* Rounded top corners */
+}
+.tabs.is-boxed {
+    margin-bottom: 0; /* Remove default margin */
+}
+
+/* Ensure content sections are hidden by default */
+.content-section {
+    display: none;
+}
+
+/* Mobile app section styling */
+.mobile-app-section {
+    background-color: #f0f0f0;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    text-align: center;
+}
+
+.mobile-app-section .app-screenshots {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.mobile-app-section .app-screenshots img {
+    width: 30%; /* Adjust for 3 columns on desktop */
+    max-width: 100px;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.mobile-app-section .app-badges img {
+    height: 40px;
+    margin: 0.5rem;
+}
+
+/* Adjust for smaller screens where screenshots should stack */
+@media screen and (max-width: 768px) {
+    .mobile-app-section .app-screenshots img {
+        width: 45%; /* Two columns on mobile */
+        max-width: 120px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .mobile-app-section .app-screenshots img {
+        width: 60%; /* One column on very small screens */
+        max-width: 150px;
+    }
+}
+
+/* Modal specific styles for centering and sizing */
+.modal-content {
+    position: relative; /* Needed for z-index to work correctly with modal-background */
+    z-index: 1001; /* Ensure modal content is above modal-background */
+    margin: auto; /* Center horizontally */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    max-width: 600px; /* Max width for desktop */
+    width: 90%; /* Responsive width */
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Add shadow for better visual */
+}
+
+/* Specific modal content adjustments */
+.amenity-modal-content, .booking-modal-content {
+    max-width: 800px; /* Wider for amenity selection and booking */
+    width: 95%;
+}
+
+.modal-background {
+    background-color: rgba(0, 0, 0, 0.6); /* Darker background for better focus */
+}
+
+/* Custom Switch Styling */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 48px; /* Width of the switch */
+    height: 24px; /* Height of the switch */
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 24px; /* Rounded corners for the track */
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px; /* Height of the thumb */
+    width: 18px; /* Width of the thumb */
+    left: 3px; /* Initial position of the thumb */
+    bottom: 3px; /* Initial position of the thumb */
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%; /* Make the thumb round */
+}
+
+input:checked + .slider {
+    background-color: #48c78e; /* Green when checked */
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #48c78e;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(24px); /* Move thumb to the right */
+    -ms-transform: translateX(24px);
+    transform: translateX(24px);
+}
+
+/* Adjustments for the bulletin board content scrolling */
+#full-bulletin-board-posts-container {
+    max-height: 400px; /* Example max height, adjust as needed */
+    overflow-y: auto;
+    border: 1px solid #dbdbdb; /* Optional: add a border to show scrollable area */
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: #fdfdfd;
+}
