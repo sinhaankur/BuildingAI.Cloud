@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildingAI.Cloud - Smart Resident & Building Management</title>
+    <meta name="description" content="Privacy-first resident and building management platform. Air-gapped encrypted database with management-only access. Lightweight, secure, and cost-effective.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-left">
+                <a href="mailto:hello@buildingai.cloud" class="nav-email">hello@buildingai.cloud</a>
+                <div class="nav-buttons">
+                    <button class="btn-small" onclick="copyEmail()">Copy</button>
+                    <a href="#contact" class="btn-small">Get Demo</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="#security" class="nav-link">Security</a>
+                <span class="nav-divider">/</span>
+                <a href="#features" class="nav-link">Features</a>
+                <span class="nav-divider">/</span>
+                <a href="#portals" class="nav-link">Portals</a>
+                <span class="nav-divider">/</span>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-avatar">
+                    <div class="avatar-image">
+                        <span class="avatar-icon">🔐</span>
+                    </div>
+                    <div class="avatar-label">
+                        <span>BuildingAI.Cloud</span>
+                        <span class="status-dot"></span>
+                    </div>
+                </div>
+                <h1 class="hero-title">
+                    <span class="highlight">Privacy-First</span> Resident
+                    <br>& Building Management
+                    <br>Platform.
+                </h1>
+                <p class="hero-subtitle">
+                    Air-gapped encrypted database with management-only access. Lightweight architecture with smart data retention for optimal storage costs.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        Request Demo
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        Explore Features
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="clients">
+        <div class="container">
+            <p class="clients-label">Built for luxury high-rises and multi-family complexes</p>
+            <div class="clients-grid">
+                <div class="client-logo">
+                    <i class="fas fa-building"></i>
+                    <span>High-Rise</span>
+                </div>
+                <div class="client-logo">
+                    <i class="fas fa-city"></i>
+                    <span>Luxury Condos</span>
+                </div>
+                <div class="client-logo">
+                    <i class="fas fa-home"></i>
+                    <span>Multi-Family</span>
+                </div>
+                <div class="client-logo">
+                    <i class="fas fa-hotel"></i>
+                    <span>Co-living</span>
+                </div>
+                <div class="client-logo">
+                    <i class="fas fa-gem"></i>
+                    <span>Premium HOAs</span>
+                </div>
+                <div class="client-logo">
+                    <i class="fas fa-university"></i>
+                    <span>Student Housing</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition Section -->
+    <section class="collaboration" id="about">
+        <div class="container">
+            <h2 class="collab-title">
+                Your residents' data deserves <span class="highlight">maximum protection.</span>
+                <br>Built with <span class="highlight">privacy by design.</span>
+            </h2>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section class="security-section" id="security">
+        <div class="container">
+            <span class="section-badge">Security First</span>
+            <h2 class="section-title">Enterprise-grade data protection</h2>
+            <div class="security-grid">
+                <div class="security-card">
+                    <div class="security-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Air-Gapped Database</h3>
+                    <p>Completely isolated database infrastructure with no direct internet exposure. Your data stays within your secure perimeter.</p>
+                </div>
+                <div class="security-card">
+                    <div class="security-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>End-to-End Encryption</h3>
+                    <p>AES-256 encryption at rest and TLS 1.3 in transit. Only authorized building management personnel can access the data.</p>
+                </div>
+                <div class="security-card">
+                    <div class="security-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Management-Only Access</h3>
+                    <p>Role-based access control ensures only building management can view sensitive data. Full audit trails included.</p>
+                </div>
+                <div class="security-card">
+                    <div class="security-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Smart Data Retention</h3>
+                    <p>Configurable auto-purge removes old activity data after your defined period, reducing storage costs and keeping the system lightweight.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="services" id="features">
+        <div class="container">
+            <span class="section-badge">Core Features</span>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <h3 class="service-title">Package Tracking</h3>
+                    <p class="service-description">
+                        Real-time package intake with photo capture, instant notifications via SMS/Email/Push. The #1 reason residents log in daily.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-concierge-bell"></i>
+                    </div>
+                    <h3 class="service-title">Front Desk Optimized</h3>
+                    <p class="service-description">
+                        Sub-200ms resident lookup. Built for busy concierges with streamlined visitor log, key tracking, and shift handovers.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="service-title">Work Orders + Offline</h3>
+                    <p class="service-description">
+                        Maintenance requests with photo uploads. Offline-first mobile app syncs when maintenance staff return from basements.
+                    </p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="service-title">Amenity Booking</h3>
+                    <p class="service-description">
+                        Gym, pool, lounge, elevator reservations. Configurable rules, deposit handling, and calendar integrations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Portals Section -->
+    <section class="projects" id="portals">
+        <div class="container">
+            <span class="section-badge">User Portals</span>
+            <h2 class="section-title">Purpose-built interfaces for every role</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop" alt="Resident Portal">
+                        <div class="project-overlay">
+                            <span class="project-category">Resident Portal</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Residents & Families</h3>
+                        <p class="project-description">Submit maintenance requests, book amenities, track packages, and communicate with management—all self-service.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1556741533-411cf82e4e2d?w=600&h=400&fit=crop" alt="Front Desk Portal">
+                        <div class="project-overlay">
+                            <span class="project-category">Front Desk</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Concierge & Security</h3>
+                        <p class="project-description">Speed-optimized UI for visitor logs, package intake, key tracking, and shift handovers. Built for busy lobbies.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=400&fit=crop" alt="Manager Dashboard">
+                        <div class="project-overlay">
+                            <span class="project-category">Management</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Property Managers & Owners</h3>
+                        <p class="project-description">Operational dashboards, financial reports, resident directory, and building-wide announcements.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">&lt;200ms</span>
+                    <span class="stat-label">Resident Lookup</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">SOC 2</span>
+                    <span class="stat-label">Compliance Ready</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">Offline</span>
+                    <span class="stat-label">First Mobile</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">60%</span>
+                    <span class="stat-label">Storage Savings</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations Section -->
+    <section class="integrations" id="integrations">
+        <div class="container">
+            <span class="section-badge">Integrations</span>
+            <h2 class="section-title">Connect with your existing tools</h2>
+            <div class="integrations-grid">
+                <div class="integration-item">
+                    <i class="fas fa-lock"></i>
+                    <h4>Smart Locks</h4>
+                    <p>August, Yale, Salto, Brivo</p>
+                </div>
+                <div class="integration-item">
+                    <i class="fas fa-calculator"></i>
+                    <h4>Accounting</h4>
+                    <p>Yardi, Entrata, AppFolio</p>
+                </div>
+                <div class="integration-item">
+                    <i class="fas fa-tv"></i>
+                    <h4>Digital Signage</h4>
+                    <p>Lobby displays & alerts</p>
+                </div>
+                <div class="integration-item">
+                    <i class="fas fa-bell"></i>
+                    <h4>Notifications</h4>
+                    <p>SMS, Email, Push</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <div class="cta-content">
+                <div class="cta-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h2 class="cta-title">
+                    Ready for <span class="highlight">privacy-first</span>
+                    <br><span class="highlight">building management?</span>
+                </h2>
+                <p class="cta-description">
+                    Schedule a demo and see how our air-gapped, encrypted platform protects your residents' data.
+                </p>
+                <div class="cta-buttons">
+                    <a href="mailto:hello@buildingai.cloud" class="btn btn-primary">
+                        <i class="fas fa-envelope"></i>
+                        Request Demo
+                    </a>
+                    <a href="tel:+1234567890" class="btn btn-secondary">
+                        <i class="fas fa-phone"></i>
+                        Call Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span>🔐</span> BuildingAI.Cloud
+                    </div>
+                    <p class="footer-tagline">Privacy-first building management. Secure, lightweight, compliant.</p>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#portals">User Portals</a>
+                        <a href="#integrations">Integrations</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Security</h4>
+                        <a href="#security">Air-Gapped DB</a>
+                        <a href="#security">Encryption</a>
+                        <a href="#security">SOC 2 Ready</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <a href="#">Documentation</a>
+                        <a href="#contact">Contact</a>
+                        <a href="#">API</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2026 BuildingAI.Cloud. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <span>/</span>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
