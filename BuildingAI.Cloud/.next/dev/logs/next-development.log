@@ -927,3 +927,597 @@ Module not found: Can't resolve '../../reference_folder/styles/globals.css'
   5 |   return (
 
 https://nextjs.org/docs/messages/module-not-found
+[00:06:45.489] Server  ERROR   ⨯ ./app/page.tsx:11:1
+Module not found: Can't resolve '../../reference_folder/components/cta-section'
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+> 11 | import CTASection from "../../reference_folder/components/cta-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+  13 |
+  14 | export default function LandingPage() {
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:7:1
+Module not found: Can't resolve '../../reference_folder/components/documentation-section'
+   5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+   6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+>  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:5:1
+Module not found: Can't resolve '../../reference_folder/components/effortless-integration-updated'
+  3 | import HeroSection from "../../reference_folder/components/hero-section";
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+> 5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+  8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:9:1
+Module not found: Can't resolve '../../reference_folder/components/faq-section'
+   7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+   8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+>  9 | import FAQSection from "../../reference_folder/components/faq-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:4:1
+Module not found: Can't resolve '../../reference_folder/components/feature-cards'
+  2 | import Header from "../../reference_folder/components/header";
+  3 | import HeroSection from "../../reference_folder/components/hero-section";
+> 4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+  6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:12:1
+Module not found: Can't resolve '../../reference_folder/components/footer-section'
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+> 12 | import FooterSection from "../../reference_folder/components/footer-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | export default function LandingPage() {
+  15 |   return (
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:2:1
+Module not found: Can't resolve '../../reference_folder/components/header'
+  1 | import React from "react";
+> 2 | import Header from "../../reference_folder/components/header";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | import HeroSection from "../../reference_folder/components/hero-section";
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:3:1
+Module not found: Can't resolve '../../reference_folder/components/hero-section'
+  1 | import React from "react";
+  2 | import Header from "../../reference_folder/components/header";
+> 3 | import HeroSection from "../../reference_folder/components/hero-section";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+  6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:6:1
+Module not found: Can't resolve '../../reference_folder/components/numbers-that-speak'
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+> 6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+  8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+  9 | import FAQSection from "../../reference_folder/components/faq-section";
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:10:1
+Module not found: Can't resolve '../../reference_folder/components/pricing-section'
+   8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+> 10 | import PricingSection from "../../reference_folder/components/pricing-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+  13 |
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/page.tsx:8:1
+Module not found: Can't resolve '../../reference_folder/components/testimonials-section'
+   6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+   7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+>  8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+
+./app/layout.tsx:2:1
+Module not found: Can't resolve '../../reference_folder/styles/globals.css'
+  1 | import type React from "react";
+> 2 | import "../../reference_folder/styles/globals.css";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 |
+  4 | export default function RootLayout({ children }: { children: React.ReactNode }) {
+  5 |   return (
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:06:45.639] Browser ERROR   uncaughtError: Error: ./app/page.tsx:11:1
+Module not found: Can't resolve '../../reference_folder/components/cta-section'
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+> 11 | import CTASection from "../../reference_folder/components/cta-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+  13 |
+  14 | export default function LandingPage() {
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:06:45.786] Browser ERROR   ./app/page.tsx:11:1
+Module not found: Can't resolve '../../reference_folder/components/cta-section'
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+> 11 | import CTASection from "../../reference_folder/components/cta-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+  13 |
+  14 | export default function LandingPage() {
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:7:1
+Module not found: Can't resolve '../../reference_folder/components/documentation-section'
+   5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+   6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+>  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:5:1
+Module not found: Can't resolve '../../reference_folder/components/effortless-integration-updated'
+  3 | import HeroSection from "../../reference_folder/components/hero-section";
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+> 5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+  8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:9:1
+Module not found: Can't resolve '../../reference_folder/components/faq-section'
+   7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+   8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+>  9 | import FAQSection from "../../reference_folder/components/faq-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:4:1
+Module not found: Can't resolve '../../reference_folder/components/feature-cards'
+  2 | import Header from "../../reference_folder/components/header";
+  3 | import HeroSection from "../../reference_folder/components/hero-section";
+> 4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+  6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:12:1
+Module not found: Can't resolve '../../reference_folder/components/footer-section'
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+> 12 | import FooterSection from "../../reference_folder/components/footer-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | export default function LandingPage() {
+  15 |   return (
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:2:1
+Module not found: Can't resolve '../../reference_folder/components/header'
+  1 | import React from "react";
+> 2 | import Header from "../../reference_folder/components/header";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | import HeroSection from "../../reference_folder/components/hero-section";
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:3:1
+Module not found: Can't resolve '../../reference_folder/components/hero-section'
+  1 | import React from "react";
+  2 | import Header from "../../reference_folder/components/header";
+> 3 | import HeroSection from "../../reference_folder/components/hero-section";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+  6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:6:1
+Module not found: Can't resolve '../../reference_folder/components/numbers-that-speak'
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+> 6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+  8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+  9 | import FAQSection from "../../reference_folder/components/faq-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:10:1
+Module not found: Can't resolve '../../reference_folder/components/pricing-section'
+   8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+> 10 | import PricingSection from "../../reference_folder/components/pricing-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+  13 |
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:8:1
+Module not found: Can't resolve '../../reference_folder/components/testimonials-section'
+   6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+   7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+>  8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/layout.tsx:2:1
+Module not found: Can't resolve '../../reference_folder/styles/globals.css'
+  1 | import type React from "react";
+> 2 | import "../../reference_folder/styles/globals.css";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 |
+  4 | export default function RootLayout({ children }: { children: React.ReactNode }) {
+  5 |   return (
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:11:1
+Module not found: Can't resolve '../../reference_folder/components/cta-section'
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+> 11 | import CTASection from "../../reference_folder/components/cta-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+  13 |
+  14 | export default function LandingPage() {
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:7:1
+Module not found: Can't resolve '../../reference_folder/components/documentation-section'
+   5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+   6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+>  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:5:1
+Module not found: Can't resolve '../../reference_folder/components/effortless-integration-updated'
+  3 | import HeroSection from "../../reference_folder/components/hero-section";
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+> 5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+  8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:9:1
+Module not found: Can't resolve '../../reference_folder/components/faq-section'
+   7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+   8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+>  9 | import FAQSection from "../../reference_folder/components/faq-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:4:1
+Module not found: Can't resolve '../../reference_folder/components/feature-cards'
+  2 | import Header from "../../reference_folder/components/header";
+  3 | import HeroSection from "../../reference_folder/components/hero-section";
+> 4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+  6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:12:1
+Module not found: Can't resolve '../../reference_folder/components/footer-section'
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+> 12 | import FooterSection from "../../reference_folder/components/footer-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | export default function LandingPage() {
+  15 |   return (
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:2:1
+Module not found: Can't resolve '../../reference_folder/components/header'
+  1 | import React from "react";
+> 2 | import Header from "../../reference_folder/components/header";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | import HeroSection from "../../reference_folder/components/hero-section";
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:3:1
+Module not found: Can't resolve '../../reference_folder/components/hero-section'
+  1 | import React from "react";
+  2 | import Header from "../../reference_folder/components/header";
+> 3 | import HeroSection from "../../reference_folder/components/hero-section";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+  6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:6:1
+Module not found: Can't resolve '../../reference_folder/components/numbers-that-speak'
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+> 6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+  8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+  9 | import FAQSection from "../../reference_folder/components/faq-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:10:1
+Module not found: Can't resolve '../../reference_folder/components/pricing-section'
+   8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+> 10 | import PricingSection from "../../reference_folder/components/pricing-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+  13 |
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/page.tsx:8:1
+Module not found: Can't resolve '../../reference_folder/components/testimonials-section'
+   6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+   7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+>  8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:06:45.786] Browser ERROR   ./app/layout.tsx:2:1
+Module not found: Can't resolve '../../reference_folder/styles/globals.css'
+  1 | import type React from "react";
+> 2 | import "../../reference_folder/styles/globals.css";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 |
+  4 | export default function RootLayout({ children }: { children: React.ReactNode }) {
+  5 |   return (
+
+https://nextjs.org/docs/messages/module-not-found
+[00:07:52.017] Browser ERROR   ./app/page.tsx:11:1
+Module not found: Can't resolve '../../reference_folder/components/cta-section'
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+> 11 | import CTASection from "../../reference_folder/components/cta-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+  13 |
+  14 | export default function LandingPage() {
+
+https://nextjs.org/docs/messages/module-not-found
+[00:07:52.017] Browser ERROR   ./app/page.tsx:7:1
+Module not found: Can't resolve '../../reference_folder/components/documentation-section'
+   5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+   6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+>  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:07:52.017] Browser ERROR   ./app/page.tsx:5:1
+Module not found: Can't resolve '../../reference_folder/components/effortless-integration-updated'
+  3 | import HeroSection from "../../reference_folder/components/hero-section";
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+> 5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+  8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:07:52.017] Browser ERROR   ./app/page.tsx:9:1
+Module not found: Can't resolve '../../reference_folder/components/faq-section'
+   7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+   8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+>  9 | import FAQSection from "../../reference_folder/components/faq-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:07:52.017] Browser ERROR   ./app/page.tsx:4:1
+Module not found: Can't resolve '../../reference_folder/components/feature-cards'
+  2 | import Header from "../../reference_folder/components/header";
+  3 | import HeroSection from "../../reference_folder/components/hero-section";
+> 4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+  6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:07:52.017] Browser ERROR   ./app/page.tsx:12:1
+Module not found: Can't resolve '../../reference_folder/components/footer-section'
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+> 12 | import FooterSection from "../../reference_folder/components/footer-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  13 |
+  14 | export default function LandingPage() {
+  15 |   return (
+
+https://nextjs.org/docs/messages/module-not-found
+[00:07:52.017] Browser ERROR   ./app/page.tsx:2:1
+Module not found: Can't resolve '../../reference_folder/components/header'
+  1 | import React from "react";
+> 2 | import Header from "../../reference_folder/components/header";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | import HeroSection from "../../reference_folder/components/hero-section";
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:07:52.017] Browser ERROR   ./app/page.tsx:3:1
+Module not found: Can't resolve '../../reference_folder/components/hero-section'
+  1 | import React from "react";
+  2 | import Header from "../../reference_folder/components/header";
+> 3 | import HeroSection from "../../reference_folder/components/hero-section";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+  6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:07:52.017] Browser ERROR   ./app/page.tsx:6:1
+Module not found: Can't resolve '../../reference_folder/components/numbers-that-speak'
+  4 | import FeatureCards from "../../reference_folder/components/feature-cards";
+  5 | import EffortlessIntegration from "../../reference_folder/components/effortless-integration-updated";
+> 6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+  8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+  9 | import FAQSection from "../../reference_folder/components/faq-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:07:52.017] Browser ERROR   ./app/page.tsx:10:1
+Module not found: Can't resolve '../../reference_folder/components/pricing-section'
+   8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+> 10 | import PricingSection from "../../reference_folder/components/pricing-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+  12 | import FooterSection from "../../reference_folder/components/footer-section";
+  13 |
+
+https://nextjs.org/docs/messages/module-not-found
+[00:07:52.017] Browser ERROR   ./app/page.tsx:8:1
+Module not found: Can't resolve '../../reference_folder/components/testimonials-section'
+   6 | import NumbersThatSpeak from "../../reference_folder/components/numbers-that-speak";
+   7 | import DocumentationSection from "../../reference_folder/components/documentation-section";
+>  8 | import TestimonialsSection from "../../reference_folder/components/testimonials-section";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import FAQSection from "../../reference_folder/components/faq-section";
+  10 | import PricingSection from "../../reference_folder/components/pricing-section";
+  11 | import CTASection from "../../reference_folder/components/cta-section";
+
+https://nextjs.org/docs/messages/module-not-found
+[00:07:52.017] Browser ERROR   ./app/layout.tsx:2:1
+Module not found: Can't resolve '../../reference_folder/styles/globals.css'
+  1 | import type React from "react";
+> 2 | import "../../reference_folder/styles/globals.css";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 |
+  4 | export default function RootLayout({ children }: { children: React.ReactNode }) {
+  5 |   return (
+
+https://nextjs.org/docs/messages/module-not-found
