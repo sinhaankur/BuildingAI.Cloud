@@ -1,4 +1,4 @@
-// Permissions mapped to user types for BuildingAI.Cloud
+// Permissions mapped to user types for BuildingAi.cloud
 import { UserType } from './userTypes';
 
 export type Permission =

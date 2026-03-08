@@ -1,4 +1,4 @@
-// User Types and Authority Levels for BuildingAI.Cloud
+// User Types and Authority Levels for BuildingAi.cloud
 
 export type UserType =
   | 'Resident'

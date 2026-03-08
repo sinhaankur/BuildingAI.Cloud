@@ -86,7 +86,7 @@ function Footer() {
         <a href="https://twitter.com/" target="_blank" rel="noopener">X (Twitter)</a>
         <a href="/contact">Contact</a>
       </div>
-      <div className={styles.footerCopyright}>© {new Date().getFullYear()} BuildingAI.Cloud</div>
+      <div className={styles.footerCopyright}>© {new Date().getFullYear()} BuildingAi.cloud</div>
     </footer>
   );
 }
@@ -95,7 +95,7 @@ function Footer() {
 function Navigation() {
   return (
     <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.5rem 3vw', background: 'rgba(255,255,255,0.85)', position: 'sticky', top: 0, zIndex: 10, boxShadow: '0 1px 8px rgba(0,0,0,0.03)' }}>
-      <img src="/assets/img/BLogo.png" alt="BuildingAI.Cloud Logo" style={{ height: 38 }} />
+      <img src="/assets/img/BLogo.png" alt="BuildingAi.cloud Logo" style={{ height: 38 }} />
       <div style={{ display: 'flex', gap: '2.5rem', fontWeight: 500, fontSize: '1.05rem', color: '#222' }}>
         <a href="#features" style={{ textDecoration: 'none', color: 'inherit' }}>Features</a>
         <a href="#proof" style={{ textDecoration: 'none', color: 'inherit' }}>How it Works</a>

@@ -1,4 +1,4 @@
-// Core Feature Modules for BuildingAI.Cloud
+// Core Feature Modules for BuildingAi.cloud
 
 export interface FeatureModule {
   name: string;
